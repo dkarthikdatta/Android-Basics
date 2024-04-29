@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.mvvm.view.vm.MyViewModel
 import com.example.myapplication.databinding.ActivityMainBinding
-import com.example.myapplication.mvvmlivedata.view.vm.MyViewModelLiveData
-import com.example.myapplication.repo.Quote
+import com.example.myapplication.mvvm.view.vm.MyViewModel
 import com.example.myapplication.mvvm.view.vm.MyViewModelFactory
 import com.example.myapplication.mvvmlivedata.view.SecondActivity
+import com.example.myapplication.mvvmlivedata.view.vm.MyViewModelLiveData
+import com.example.myapplication.repo.Quote
 
 class MainActivity : AppCompatActivity() {
 

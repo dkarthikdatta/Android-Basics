@@ -30,5 +30,26 @@
         android:text="@string/next"
         />
 
+    <Button
+        android:id="@+id/toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Toast"
+        />
+
+    <Button
+        android:id="@+id/explicit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Explicit"
+        />
+
+    <Button
+        android:id="@+id/implicit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Implicit"
+        />
+
 
 </LinearLayout>

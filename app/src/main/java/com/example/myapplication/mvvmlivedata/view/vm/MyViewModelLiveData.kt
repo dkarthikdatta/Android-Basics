@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModel
 
 class MyViewModelLiveData: ViewModel() {
     /**
-     * this is using mutableLiveData. But this is not prefrable as factsData can be modified from anywhere
+     * this is using mutableLiveData. But this is not preferable as factsData can be modified from anywhere
     val factsLiveData = MutableLiveData<String>("This is a fact")
 
     fun updateFactsData(){
@@ -30,8 +30,21 @@ class MyViewModelLiveData: ViewModel() {
     val factsLiveData: LiveData<String>
         get() = factsLiveDataObject
 
+
+    /**
+     * using SingleLiveEvent, we get update only on explicitly calling setValue
+     * not on rotation change
+     */
+    private val toastMsg = SingleLiveEvent<String>()
+    val getToastMsg: SingleLiveEvent<String>
+        get() = toastMsg
+
     fun updateFactsData(){
          factsLiveDataObject.value = "Data Changed / Update"
+    }
+
+    fun onToastClicked() {
+        toastMsg.setValue("You are seeing a toast")
     }
 
 }

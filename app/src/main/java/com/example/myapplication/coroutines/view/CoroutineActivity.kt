@@ -1,17 +1,13 @@
 package com.example.myapplication.coroutines.view
 
+import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityThirdBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.yield
 
 
 /**
@@ -25,13 +21,20 @@ import kotlinx.coroutines.yield
  * Dispatchers -> Dispatch on which thread pool
  */
 
-class ThirdActivity : AppCompatActivity() {
+
+/**
+ * 1. job vs supervisor job in coroutines
+ * 2. if all my IO threads are used in coroutines, and there are still IO dispatcher tasks, will Default threads get be used as IO?
+ * 3. how many threads are allocated to Dispatcher Default coroutine and Dispatcher IO
+ */
+
+class CoroutineActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityThirdBinding
     private val TAG = "COROUTINES_LEARN "
+//    private lateinit var viewModel: MyCRViewModel
     /**
      * todo: read about scope of coroutine
-     *
      */
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +43,18 @@ class ThirdActivity : AppCompatActivity() {
 
         binding = ActivityThirdBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        /**
+         * viewModeScope and lifecycleScope coroutines.
+         * Coroutines in viewModelScope are destroyed when viewModel is destroyed
+         */
+//        viewModel = ViewModelProvider(this).get(MyCRViewModel::class.java)
+//        lifecycleScope.launch {
+//            delay(5000)
+//            startActivity(Intent(this@ThirdActivity, MainActivity::class.java))
+//            finish()
+//        }
+
         binding.btn.setOnClickListener {
 
             //imp
@@ -230,21 +245,56 @@ class ThirdActivity : AppCompatActivity() {
          * // check job cancel for long running task. have to keep check isActive inside coroutine even though job.cancel is called.
          */
 
-        val parentJob2 = CoroutineScope(Dispatchers.IO).launch {
-            println(TAG + "12. Parent Job started")
-            val childJob2 = launch {
-                println(TAG + "12. Child Job started")
-                delay(5000)
-                println(TAG + "12. Child Job ended")
-            }
-            delay(3000)
-            println(TAG + "12. Parent Job ended")
-        }
+//        val parentJob2 = CoroutineScope(Dispatchers.IO).launch {
+//            println(TAG + "12. Parent Job started")
+//            val childJob2 = launch {
+//                println(TAG + "12. Child Job started")
+//                delay(5000)
+//                println(TAG + "12. Child Job ended")
+//            }
+//            delay(3000)
+//            println(TAG + "12. Parent Job ended")
+//        }
+//
+////        delay(1000)
+////        parentJob2.cancel() // cancels parentJob execution.
+//        parentJob2.join() // waits until parentJob2 is completed. i.e., next line is runned only after parent job
+//        println(TAG + "12. Parent Job completed")
 
-//        delay(1000)
-//        parentJob2.cancel() // cancels parentJob execution.
-        parentJob2.join() // waits until parentJob2 is completed. i.e., next line is runned only after parent job
-        println(TAG + "12. Parent Job completed")
+        /**
+         * 13.
+         * withContext -> same as async -> waits for coroutines to complete work and wait for result
+         * (blocking nature -> not blocking threads exactly. but waits for completion) -> next lines are runned only after completion of withContext block
+         * withContext -> builds a coroutines, suspend function
+         * used to easily represent the context switch context to IO dispatcher.
+         */
+//        var fb3: Int
+//        withContext(Dispatchers.IO){
+//            delay(5000)
+//            fb3 = getFBFollowers()
+//        }
+//        println(TAG + "13. FB followers: " + fb3)
+
+        /**
+         * 14. runBlocking
+         * blocks thread until coroutines inside runBlocking.
+         * ideally not used in android. just used in test cases.
+         * cant be explained in Android studio. Intellij can be used/ test case env
+         */
+
+//        runBlocking {
+//            launch {
+//                delay(1000)
+//                println(TAG + "14. Print Followers + "+getFBFollowers())
+//            }
+//            println(TAG + "14. After coroutine")
+//        }
+
+        /**
+         * 15.
+         * viewModelScope
+         * lifeCycleScope -> (Activity/Fragment lifecycle)
+         */
 
     }
 
@@ -262,4 +312,6 @@ class ThirdActivity : AppCompatActivity() {
         delay(5000)
         return 183
     }
+
+
 }

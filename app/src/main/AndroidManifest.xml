@@ -13,36 +13,178 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".arch.noArch.NoArchActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <!--                <action android:name="android.intent.action.DEFAULT" />-->
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".recycleViewActivity.RecyclerViewActivity"
+            android:exported="true">
+            <intent-filter>
+<!--                                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                                <category android:name="android.intent.category.LAUNCHER" />-->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".recyclerview.RecyclerActivity"
+            android:exported="true">
+            <intent-filter>
+
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+                                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".debouncethrottler.DebounceThrottlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <!--                <action android:name="android.intent.action.MAIN" />-->
+
+                <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".flow.FlowActivity"
+            android:exported="true">
+            <intent-filter>
+                <!--                <action android:name="android.intent.action.MAIN" />-->
+
+                <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".roomdb.RoomActivity"
+            android:exported="true">
+            <intent-filter>
+                <!--                <action android:name="android.intent.action.MAIN" />-->
+
+                <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".handlerlooper.HandlerActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".hilt.HiltActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".dependencyinjection.DaggerActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".machinecoding.parkinglot.models.view.MainActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".mvvm.view.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyApplication">
             <intent-filter>
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".mvvmlivedata.view.SecondActivity"
+        <activity
+            android:name=".mvvmlivedata.view.SecondActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.DEFAULT" /> -->
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".coroutines.view.CoroutineActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
-<!--                <action android:name="android.intent.action.MAIN" />-->
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
-        <activity android:name=".coroutines.view.ThirdActivity"
+        <activity
+            android:name=".fragments.ActivityMainFrag"
             android:exported="true">
             <intent-filter>
-<!--                <action android:name="android.intent.action.DEFAULT" />-->
-                                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.DEFAULT" />
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-                                <category android:name="android.intent.category.LAUNCHER" />
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
+        <activity
+            android:name=".animation.AnimationActivity"
+            android:exported="true">
+            <intent-filter>
 
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

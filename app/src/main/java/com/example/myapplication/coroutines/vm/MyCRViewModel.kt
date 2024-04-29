@@ -1,8 +1,11 @@
 package com.example.myapplication.coroutines.vm
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -16,12 +19,20 @@ import kotlinx.coroutines.launch
  * Dispatchers -> Dispatch on which thread pool
  */
 
-class MyCRViewModel {
+class MyCRViewModel : ViewModel(){
+    private val TAG = "COROUTINES_LEARN "
 
     init {
-        CoroutineScope(Dispatchers.IO).launch {
-            System.out.println("")
+        viewModelScope.launch(Dispatchers.IO) {
+            while (true){
+                delay(500)
+                println(TAG + "Hello from ViewModel, inside coroutine")
+            }
         }
+    }
 
+    override fun onCleared() {
+        super.onCleared()
+        println(TAG + "View model destroyed")
     }
 }

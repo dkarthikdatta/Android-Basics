@@ -2,17 +2,17 @@ package com.example.myapplication.mvvmlivedata.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.coroutines.view.ThirdActivity
+import com.example.myapplication.coroutines.view.CoroutineActivity
 import com.example.myapplication.databinding.ActivitySecondBinding
+import com.example.myapplication.mvvm.view.MainActivity
 import com.example.myapplication.mvvmlivedata.view.vm.MyViewModelLiveData
 
 class SecondActivity: AppCompatActivity() {
 
-    // todo: Learn about adding activity in manifest file. how they add in stack. back click properties
     private lateinit var binding: ActivitySecondBinding
     lateinit var myViewModelLiveData: MyViewModelLiveData
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,14 +24,58 @@ class SecondActivity: AppCompatActivity() {
             binding.factsTectView.text = it
         })
 
+
         binding.btn.setOnClickListener {
             myViewModelLiveData.updateFactsData()
         }
         binding.next.setOnClickListener {
-            val intent = Intent(applicationContext, ThirdActivity::class.java)
+            val intent = Intent(applicationContext, CoroutineActivity::class.java)
             startActivity(intent)
         }
 
+        binding.toast.setOnClickListener {
+            myViewModelLiveData.onToastClicked()
+        }
+
+        /**
+         * yes, without singleLiveEvent, by just using livedata and mutablelivedata,
+         * toast is appearing on screen rotation.
+         * rotation -> activity recreated -> onCreate is called again
+         */
+
+        myViewModelLiveData.getToastMsg.observe(this, Observer {
+            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+        })
+
+        /**
+         * Explicit intents are used when you want to explicitly specify the
+         * exact component (activity, service, or broadcast receiver) to be
+         * invoked. You precisely define the target component within your code.
+         */
+
+        binding.explicit.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        /**
+         *  Implicit intents are used when you want to describe a general action
+         *  to be performed, leaving it to the Android system to determine which
+         *  component should handle the action based on its capabilities
+         *  and the filter criteria specified in the intent.
+         *
+         *  Implicit intents are commonly employed for actions like sending an
+         *  email, opening a web page, making a phone call, or sharing content.
+         *  You don't need to specify a particular component; instead,
+         *  the Android system presents the user with a list of apps capable
+         *  of handling the requested action.
+         */
+        binding.implicit.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.setType("text/plain")
+            intent.putExtra(Intent.EXTRA_TEXT,"I am the the that is getting shared")
+            startActivity(Intent.createChooser(intent, "Share via"))
+        }
     }
 
 }
