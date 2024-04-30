@@ -41,6 +41,7 @@ public class Utility {
         }
         System.out.println();
     }
+
     static public void printLongArray(long[] arr) {
         System.out.println("Printing Array");
         for (long n : arr) {
@@ -102,5 +103,13 @@ public class Utility {
             System.out.print("(" + ele.a + ", " + ele.b + ")");
         }
         System.out.println();
+    }
+
+    public static void printDLLFromTreeNode(TreeNode treeNode) {
+        System.out.println("Printing Doubly Linked List from TreeNode: ");
+        while (treeNode != null) {
+            System.out.print(treeNode.val + " ");
+            treeNode = treeNode.right;
+        }
     }
 }

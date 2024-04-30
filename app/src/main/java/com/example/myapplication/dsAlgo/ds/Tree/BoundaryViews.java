@@ -42,27 +42,30 @@ public class BoundaryViews {
 //        TreeNode root2 = deSerialize(treeNodeList);
 //        System.out.println(twoTreesAreIdentical(root, root2));
 
-        System.out.println("In Order");
-        inOrder(root);
-        System.out.println();
-        System.out.println("Pre Order");
-        preOrder(root);
-        System.out.println();
-        System.out.println("Post Order");
-        postOrder(root);
+//        System.out.println("In Order");
+//        inOrder(root);
+//        System.out.println();
+//        System.out.println("Pre Order");
+//        preOrder(root);
+//        System.out.println();
+//        System.out.println("Post Order");
+//        postOrder(root);
+
+//        Utility.printDLLFromTreeNode(bToDLL(root));
+        countLeafNodes(root);
     }
 
-    private static void inOrder(TreeNode root){
-        if(root == null){
+    private static void inOrder(TreeNode root) {
+        if (root == null) {
             return;
         }
         inOrder(root.left);
-        System.out.print(root.val+ " ");
+        System.out.print(root.val + " ");
         inOrder(root.right);
     }
 
-    private static void preOrder(TreeNode root){
-        if(root == null){
+    private static void preOrder(TreeNode root) {
+        if (root == null) {
             return;
         }
         System.out.print(root.val + " ");
@@ -70,13 +73,13 @@ public class BoundaryViews {
         preOrder(root.right);
     }
 
-    private static void postOrder(TreeNode root){
-        if(root == null){
+    private static void postOrder(TreeNode root) {
+        if (root == null) {
             return;
         }
         postOrder(root.left);
         postOrder(root.right);
-        System.out.print(root.val+" ");
+        System.out.print(root.val + " ");
     }
 
     private static void levelOrderTraversal(TreeNode root) {
@@ -347,5 +350,49 @@ public class BoundaryViews {
         return root;
     }
 
+    static TreeNode head;
+
+    //Binary tree to Doubly Linked List
+
+    private static TreeNode bToDLL(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+
+        //reverse inorder
+        bToDLL(root.right);
+
+        //add root to left side of head and shift head to left
+
+        root.right = head;
+
+        if (head != null) {
+            head.left = root;
+        }
+
+        //shift head to left
+        head = root;
+
+        //reverse inorder
+        bToDLL(root.left);
+
+        return head;
+    }
+
+    // Count no of leaf nodes
+
+    private static void countLeafNodes(TreeNode root) {
+        System.out.println("Number of leaf Nodes: " + countLeafNodesUtil(root));
+    }
+
+    private static int countLeafNodesUtil(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        if (root.left == null && root.right == null) {
+            return 1;
+        }
+        return countLeafNodesUtil(root.left) + countLeafNodesUtil(root.right);
+    }
 
 }

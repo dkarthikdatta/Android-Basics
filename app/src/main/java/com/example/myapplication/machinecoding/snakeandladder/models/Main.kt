@@ -1,4 +1,4 @@
-package com.example.myapplication.machinecoding
+package com.example.myapplication.machinecoding.snakeandladder.models
 
 import com.example.myapplication.machinecoding.snakeandladder.models.Dice
 import com.example.myapplication.machinecoding.snakeandladder.models.Ladder

@@ -5,5 +5,5 @@ data class Song(
     val name: String,
     val singer: String,
     val popularity: Int,
-    val similarSongs: List<Int>
+    val similarSongs: List<Int>?
 )

@@ -4,6 +4,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -39,17 +40,18 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    dataBinding{
+    dataBinding {
         enable = true
     }
 }
 
 dependencies {
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
     val lifecycle_version = "2.7.0"
     val fragment_version = "1.6.2"
     // ViewModel
 
-    implementation ("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 

@@ -2,11 +2,15 @@ package com.example.myapplication.dsAlgo.algo.dynamicProgramming;
 
 import com.example.myapplication.dsAlgo.Utility;
 
+import java.util.Arrays;
+
 public class DPSums {
 
     public static void main(String[] args) {
 //        noOfPaths(10, 10);
-        optimalKeys(11);
+//        optimalKeys(11);
+
+        System.out.println("Max cuts: " + maximizeCuts(7, 5, 5, 2));
     }
 
     /**
@@ -71,10 +75,46 @@ public class DPSums {
     }
 
 
-    private static void longestIncreasingSubsequence(int[] arr){
+    private static void longestIncreasingSubsequence(int[] arr) {
         int[] dp = new int[arr.length];
-        for(int i=0; i<arr.length; i++){
+        for (int i = 0; i < arr.length; i++) {
 
         }
     }
+
+
+    //Function to find the maximum number of cuts.
+    public static int maximizeCuts(int n, int x, int y, int z) {
+        int min = Math.min(x, y);
+        min = Math.min(min, z);
+
+        if (n < min) {
+            return 0;
+        }
+
+        int[] dp = new int[n + 1];
+
+        for (int i = 0; i < min; i++) {
+            dp[i] = 0;
+        }
+        System.out.println(Arrays.toString(dp));
+
+        for (int i = min; i <= n; i++) {
+            int xcut = 0, ycut = 0, zcut = 0;
+            if (i - x == 0 || (i - x > 0 && dp[i - x] != 0)) {
+                xcut = dp[i - x] + 1;
+            }
+            if (i - y == 0 || (i - y > 0 && dp[i - y] != 0)) {
+                ycut = dp[i - y] + 1;
+            }
+            if (i - z == 0 || (i - z > 0 && dp[i - z] != 0)) {
+                zcut = dp[i - z] + 1;
+            }
+            dp[i] = Math.max(xcut, ycut);
+            dp[i] = Math.max(dp[i], zcut);
+            System.out.println(Arrays.toString(dp));
+        }
+        return dp[n];
+    }
+
 }

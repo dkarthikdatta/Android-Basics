@@ -1,9 +1,9 @@
 package com.example.myapplication.coroutines.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityThirdBinding
+import com.example.myapplication.machinecoding.musicsimilarsuggestion.models.Song
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -100,31 +100,61 @@ class CoroutineActivity : AppCompatActivity() {
              *
              *  tasks inside one coroutine runs in sequence, regardless of whether they are suspend or not and  suspension points are available or not
              */
-
+//
 //            CoroutineScope(Dispatchers.IO).launch {
 //                task1()
 //                task2()
 //            }
 
             /**
+             * spl
+             *
+             */
+
+            CoroutineScope(Dispatchers.IO).launch{
+                println("I want to print")
+                val data = prepareData()
+                println("data: " + data )
+                println("I want to print2")
+            }
+
+            /**
              * 3.
              * Coroutines Builder ->> launch, async -> returns job
              */
-            CoroutineScope(Dispatchers.IO).launch {
-                printFollowers()
-            }
+//            CoroutineScope(Dispatchers.IO).launch {
+//                printFollowers()
+//            }
         }
     }
+    suspend fun prepareData(): List<Song> {
+        println("in prepareData of DataRepository")
+        return getData()
+    }
+
+    suspend fun getData(): List<Song> {
+        println("Helloooo")
+        delay(10)
+//        val json =
+//            File("/Users/karthikdatta/Desktop/Repos/Learn/app/src/main/java/com/example/myapplication/machinecoding/musicsimilarsuggestion/models/data.json").readText()
+//        val gson = Gson()
+//        val songListType = object : TypeToken<List<Song>>() {}.type
+//        val data = gson.fromJson<List<Song>>(json, songListType)
+        val data = listOf<Song>(Song(1, "telugu", "one", 12, null ))
+        println(data)
+        return data
+    }
+
 
     private suspend fun task1(){
         println(TAG+"Starting Task 1")
-        delay(10000) // any long running task like api call that is called withContext-actual suspension point
+        delay(1000) // any long running task like api call that is called withContext-actual suspension point
         println(TAG+"Ending Task 1")
     }
 
     private suspend fun task2(){
         println(TAG+"Starting Task 2")
-        delay(10000) // any long running task like api call that is called withContext-actual suspension point
+        delay(1000) // any long running task like api call that is called withContext-actual suspension point
         println(TAG+"Ending Task 2")
     }
 

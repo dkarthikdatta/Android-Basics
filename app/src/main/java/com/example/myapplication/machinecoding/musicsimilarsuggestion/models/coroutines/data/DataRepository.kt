@@ -7,9 +7,9 @@ import kotlinx.coroutines.withContext
 class DataRepository {
     lateinit var data: List<Song>
     val dataSource: DataSource = DataSource();
-    suspend fun prepareData() {
+    suspend fun prepareData(): List<Song> {
         println("in prepareData of DataRepository")
-        data = dataSource.getData()
+        return dataSource.getData()
 //        println(data)
 //        when (val d = data) {
 //            is List -> {

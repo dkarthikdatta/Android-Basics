@@ -76,6 +76,12 @@ fun main() {
      *
      * 35. Design whatsapp
      *
+     * 36. kts vs groovy in gradle
+     *
+     * H. Security
+     * 37. Send data securely in api call - ssl pinning
+     * 38. Store data securely in app.
+     *
      * Java
      * 1. Shallow copy vs Deep Copy
      * 2. Implement Hashmap
@@ -536,6 +542,172 @@ fun main() {
      * com/example/myapplication/repo/MyMain.kt
      */
 
+    /**
+     * 33. Local vs Push Notifications
+     *
+     * Local notifications-
+     *
+     * Use WorkManager to schedule a notification
+     * >= Android 13, ask permission for local notification
+     * <13, android automatically asks permission
+     *
+     * Build a notification object from NotificationCompat.Builder() by setting
+     * icon, content, text, priority, style etc;
+     * setContentIntent - use pendingIntent to respond to a tap, to open an activity
+     * in your app that corresponds to the notification.
+     *
+     * >= Android 8, notification channels are necessary
+     * create notification channel using NotificationChannel() and Register the
+     * channel with the system.
+     * using NotificationManager
+     *
+     *
+     * After building notification and notification channel, display notification in doWork in NotificationWorker class which extend Worker class
+     *
+     * schedule work in any activity by WorkManager.getInstance(this).enqueue(workRequest). create work request by setting time and any data that ca be used in displaying notification
+     *
+     *
+     * Push Notifications-
+     *
+     * Android keeps one active connection to Google’s servers, but it does’nt use much power or data,
+     * because no traffic is sent along it until something sends a Google Cloud Messaging (GCM) message
+     * to an app on your phone. There’s only one connection on the phone, used by all apps: installing
+     * a new app that uses GCM does’nt add any extra load.
+     *
+     * 1. The first step in GCM is that a third-party server (such as an email server) sends a request to Google’s GCM server.
+     * 2. This GCM server then sends the message to your device, through that open connection.
+     * 3. The Android system looks at the message to determine which app it’s for, and starts that app.
+     * 4. The app must have registered with Android to use GCM, and it must have the relevant permission
+     *
+     * Firebase Cloud Messaging: (update to GCM - new version if GCM)
+     * An operating system push notification service (OSPNS) is required to forward the push notification
+     * from the server application to the client application. Firebase Cloud Messaging (FCM) is the OSPNS
+     * for Android push notifications.
+     *
+     * When users opt-in for push notifications from your Android application, a device token is generated.
+     * This is used to identify users in the application. When you want to push a new notification, you have
+     * to pass the content and device token to FCM. FCM connects the right client application and push out the
+     * notification
+     *
+     *
+     * //todo: implement push notification service
+     */
 
+    /**
+     * 36. dsl - Domain specific language
+     *
+     * earlier - groovy
+     * now - kotlin dsl
+     *
+     * groovy dsl -
+     * Groovy is dynamically typed, meaning that types are determined at runtime.
+     * This can provide more flexibility
+     *
+     * Due to groovy is a dynamic language, that may lead to runtime errors that are
+     * not caught until the build process.
+     *
+     * kotlin sdl
+     *
+     * Kotlin Domain Specific Language(DSL) is a special-purpose programming language embedded in Kotlin used to solve a particular problem domain.
+     *
+     * Kotlin is a statically-typed language, offering type safety at compile-time. This can help catch errors early in the development process and provides better tooling support in IDEs.
+     *
+     * Groovy
+     * java {
+     *     sourceCompatibility JavaVersion.VERSION_17
+     *     targetCompatibility JavaVersion.VERSION_17
+     * }
+     *
+     * Kotlin
+     * java {
+     *     sourceCompatibility = JavaVersion.VERSION_17
+     *     targetCompatibility = JavaVersion.VERSION_17
+     * }
+     *
+     */
+
+    /**
+     * 37. Send data securely in api call
+     * http - hypertext transfer protocol
+     * https - secure hypertext transfer protocol
+     * ssl - Secure socket layer
+     * tls - Transport Layer Security
+     * tcp - Transmission Control Protocol
+     *
+     * SSL is an older technology that contains some security flaws.
+     * Transport Layer Security (TLS) is the upgraded version of SSL that fixes existing SSL vulnerabilities.
+     *
+     * http - sends data in just plain text (actually converts to binary code and transfers in the form of signal)
+     *
+     * _____|----|_____
+     *
+     * this transferring data in the form of radio waves is easily detected by some instruments - readable by anyone
+     *
+     *
+     * https - secure - by encrypting data
+     *
+     * symmetric encrypting:
+     * a key is used in some encryption algorithm - that key is used to encrypt - same key is used to decrypt - symmetric encrypting
+     *
+     * just encrypting by some key at browser end sending that key to server is security breach as this key is also needs to be send to server else that data is useless to server as it cant decrypt
+     *
+     * Asymmetric encryption
+     * 2 keys - public key and private key
+     *
+     * encryption can be done using public key
+     * decryption can be done only using private key (may be private key contains information about public key, hence it is decrypting)
+     *
+     * one key for encryption and other for decryption (either public and private - vice versa)
+     *
+     * simple analysis - simple security -
+     * 1. Send a public key from browser to client - readable by anyone
+     * 2. Encrypt the data at client end using this public key
+     * 3. While transferring data even though its read by attacker - they cant decrypt as private key is mandatory to decrypt which is not available to anyone except server
+     * 4. On receiving this data at server, server can easily decrypt as it has private key
+     *
+     * Whats the issue in this simple Asymmetric encryption?
+     *
+     * 1. While sending public key from server to client, attacker overrides this public key with his own public key.
+     * 2. since now the client has atttackers public key, encyption is done using thus ataacker public jey, on trasferring encrypted data, its read by attacker and easily decode  using his private key
+     * -------security breach--------
+     *
+     *
+     * What is the ACTUAL SOLUTION - SSL Pinning
+     * - We need to be sure that public key is coming from server only. - using certificate authority
+     *
+     * Trusted certificate authorities - limited - ony 12 companies in world
+     *
+     * CA - Trusted certificate authority company
+     *
+     * Now,
+     *
+     * CA - Private and Public key
+     * Server - Private and Public key
+     *
+     * 1. client make connection to server (say hello)
+     * 2. server calls CA to create a CA certificate
+     *
+     *      CA certificate - 3 parts
+     *      1. Issued to server.com, where is server located, Issued from CA company - details
+     *      2. server public key
+     *      3. Encrypted server public key (formed by  server public key + CA private key) - called Signature
+     *
+     * 3. This certificate created is sent back to client from server
+     * 4. Client validates this certificate at client end
+     *
+     *       Certification validation at client end
+     *       1. call the CA company
+     *       2. Remember, the Encrypted server public key(signature, 3rd part) can be decrypted only by CA public key (as its encrypted by CA private key)
+     *       3. client call CA company with Encrypted server public key, uses CA public key to get decrypted server public key
+     *       4. this decrypted server public key has to match server public key (2nd part of CA cert), then the CA certificate/ server public key is safe and valid one.
+     * 5. After validation, if validates, data is encrypted using server public key and decrypted at server end using server private key,
+     *
+     * Question - What if attacker overrides CA certificate itself with his own server public and private keys?
+     * I guess client know what domain to truest - stored in client code
+     * since the domain name in attacker CA certidicate doesnt matches with tuested domain names - it invalidates
+     * CA will provide domain name only to legitimate owner - attacker cant get a certificate with any domain name - only his own domain name
+     *
+     *
+     */
 }
 
