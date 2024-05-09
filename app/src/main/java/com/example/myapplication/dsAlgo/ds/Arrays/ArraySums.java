@@ -2,7 +2,9 @@ package com.example.myapplication.dsAlgo.ds.Arrays;
 
 import com.example.myapplication.dsAlgo.Utility;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ArraySums {
     public static void main(String[] args) {
@@ -18,9 +20,14 @@ public class ArraySums {
 //        int[] maxSubArray = {1, 2, 3, -2, 5};
 //        maxSubArraySum(maxSubArray);
 
-        long[] mergeSortedArr1 = {13, 17, 18, 19, 20, 22, 22, 27, 36, 39, 46, 48, 50};
-        long[] mergeSortedArr2 = {4, 12 ,45};
-        mergeWithoutExtraSpace(mergeSortedArr1, mergeSortedArr2);
+//        long[] mergeSortedArr1 = {13, 17, 18, 19, 20, 22, 22, 27, 36, 39, 46, 48, 50};
+//        long[] mergeSortedArr2 = {4, 12, 45};
+//        mergeWithoutExtraSpace(mergeSortedArr1, mergeSortedArr2);
+
+//        int[] subArraySum = {1,2,3,7,5};
+        int[] subArraySum = {0};
+        System.out.println(subarraySum(subArraySum, 1, 0));
+
     }
 
 
@@ -45,6 +52,41 @@ public class ArraySums {
             }
         }
         System.out.println("not found");
+    }
+
+
+    /**
+     * <a href="https://www.geeksforgeeks.org/problems/subarray-with-given-sum-1587115621/1">link</a>
+     * Find Indexes of a subarray with given sum
+     */
+
+    static ArrayList<Integer> subarraySum(int[] arr, int n, int s) {
+
+        if (n == 1) {
+            if (arr[0] == s) {
+                return new ArrayList<Integer>(Arrays.asList(arr[0], arr[0]));
+            } else {
+                return new ArrayList<>();
+            }
+        }
+        int left = 0;
+        int right = 1;
+        int currSum = arr[0] + arr[1];
+        ArrayList<Integer> ans = new ArrayList<>();
+        while (left<right){
+            if(currSum == s){
+                ans.add(left+1);
+                ans.add(right+1);
+                break;
+            } else if (currSum < s) {
+                right++;
+                currSum = currSum + arr[right];
+            } else {
+                currSum = currSum - arr[left];
+                left++;
+            }
+        }
+        return ans;
     }
 
     private static void sort012(int a[], int n) {

@@ -56,6 +56,7 @@ fun main() {
      * G. Services
      * 21. Services in Android
      * 22. Foreground vs Background Services
+     * 22.B Bound Services
      * 23. Service vs task run in background thread
      * 24. Does service remain active if app is killed manually by user
      * 25. WorkManager / alarm manager vs Services
@@ -81,6 +82,15 @@ fun main() {
      * H. Security
      * 37. Send data securely in api call - ssl pinning
      * 38. Store data securely in app.
+     *
+     * 39. Broadcast receivers
+     * 40. Implicit vs Explicit intents
+     *
+     * 41. How to avoid malicious broadcast receivers
+     * 42. Can we start activity of other app? (knows package name and activity name of other app)
+     * 43. Intent filters
+     *
+     * 44. Intent Service
      *
      * Java
      * 1. Shallow copy vs Deep Copy
@@ -376,6 +386,8 @@ fun main() {
     /**
      * 21. Services in Android
      *
+     * https://medium.com/@Codeible/understanding-and-using-services-in-android-background-foreground-services-8130f6bbf2a5
+     *
      * What is service?
      * An application component that can perform long-running operations in the background.
      *
@@ -411,6 +423,23 @@ fun main() {
      * A background service performs an operation that isn't directly noticed by the user.
      * For example, if an app used a service to compact its storage, that would usually be a
      * background service.
+     *
+     */
+
+    /**
+     * 22. B Bound Services
+     *
+     * https://proandroiddev.com/bound-and-foreground-services-in-android-a-step-by-step-guide-5f8362f4ae20
+     *
+     * Use Case: A music player where a music is playing inside a service and an activity is requesting progress and handling controls by binding to the service.
+     *
+     * When we need some result from a service to a activity we bind the service.
+     * This service serves as client-server architecture as this service can pass/emit the results to any number of clients
+     *
+     *
+     * 1. When all the clients unbind from the service. The service will be stopped automatically. - background service case
+     * 2. If a foreground service is started using ‘startService’ method. then it will run indefinitely in
+     * the background until we call ‘stopService’ method even if all clients unbind from the service.
      *
      */
 
@@ -470,10 +499,9 @@ fun main() {
      * background services, are stopped. The system terminates the app process to reclaim resources and
      * ensure efficient operation.
      *
-     * Foreground services: Similarly, when the user manually kills the app, foreground services associated
-     * with that app are also stopped. Foreground services are bound to the lifecycle of their parent app,
-     * so when the app process is terminated, foreground services are terminated as well.
-     *
+     * Foreground services: When the user manually kills the app, foreground services are NOT killed as they
+     * are displayed using notification, they stay alive indefinitely. Hence, we need to take care of
+     * repeated launching of foreground service on opening the app again]
      *
      */
 
@@ -708,6 +736,30 @@ fun main() {
      * CA will provide domain name only to legitimate owner - attacker cant get a certificate with any domain name - only his own domain name
      *
      *
+     */
+
+
+    /**
+     * 42. Can we start activity of other app? (knows package name and activity name of other app)
+     *
+     * yes, we can start this by explicit intent as we know the target
+     *
+     */
+
+    /**
+     * 43. Intent filters
+     *
+     * An intent filter is an expression in an app's manifest file that specifies the type of intents that the
+     * component would like to receive. ->  action, category, mimetype -> Main/Default/Send, Launcher, text/plain
+     */
+
+    /**
+     * 44. Intent Service
+     *
+     * https://developer.android.com/reference/android/app/IntentService
+     *
+     * IntentService is subject to all the background execution limits imposed with Android 8.0 (API level 26).
+     * Consider using WorkManager instead.
      */
 }
 

@@ -4,7 +4,9 @@ import com.example.myapplication.dsAlgo.TreeNode;
 import com.example.myapplication.dsAlgo.Utility;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -22,6 +24,7 @@ public class BoundaryViews {
 //        leftView(root);
 //        rightView(root);
 
+        bottomView(new TreeNode().deSerialize(new ArrayList<>(Arrays.asList(20, 8, 22, 5, 3, null, 25, null, null, 10, 14, null, null, null, null, null, null))));
 //        System.out.println(checkForBST(root));
 //        System.out.println(checkForBST(new TreeNode().getBSTRoot()));
 //        System.out.println(checkForBST(new TreeNode().getBSTRoot2()));
@@ -52,7 +55,7 @@ public class BoundaryViews {
 //        postOrder(root);
 
 //        Utility.printDLLFromTreeNode(bToDLL(root));
-        countLeafNodes(root);
+//        countLeafNodes(root);
     }
 
     private static void inOrder(TreeNode root) {
@@ -192,6 +195,36 @@ public class BoundaryViews {
 
         }
         Utility.printArrayList(ans, "RightView");
+    }
+
+    private static void bottomView(TreeNode root) {
+        HashMap<Integer, TreeNode> hm = new HashMap<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        int minHd = Integer.MAX_VALUE;
+        int maxHd = Integer.MIN_VALUE;
+        while (q.size() != 0) {
+            int size = q.size();
+
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = q.poll();
+                if (curr.left != null) {
+                    curr.left.hd = curr.hd - 1;
+                    q.add(curr.left);
+                    hm.put(curr.left.hd, curr.left);
+                    minHd = Math.min(minHd, curr.left.hd);
+                }
+                if (curr.right != null) {
+                    curr.right.hd = curr.hd + 1;
+                    q.add(curr.right);
+                    hm.put(curr.right.hd, curr.right);
+                    maxHd = Math.max(maxHd, curr.right.hd);
+                }
+            }
+        }
+        for (int i = minHd; i <= maxHd; i++) {
+            System.out.print(hm.get(i).val + " ");
+        }
     }
 
     private static boolean checkForBST(TreeNode node) {

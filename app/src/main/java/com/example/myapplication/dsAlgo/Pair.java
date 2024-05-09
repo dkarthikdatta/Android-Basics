@@ -8,6 +8,4 @@ public class Pair {
         this.a = a;
         this.b = b;
     }
-
-
 }

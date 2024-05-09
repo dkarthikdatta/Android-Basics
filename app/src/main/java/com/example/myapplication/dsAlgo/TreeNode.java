@@ -1,5 +1,9 @@
 package com.example.myapplication.dsAlgo;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * TreeNode root = new TreeNode(1,
  * new TreeNode(2, null, null),
@@ -9,6 +13,7 @@ public class TreeNode {
     public int val;
     public TreeNode left;
     public TreeNode right;
+    public int hd = 0;
 
     public TreeNode() {
     }
@@ -90,5 +95,31 @@ public class TreeNode {
         return root;
     }
 
+    public TreeNode deSerialize(ArrayList<Integer> A) {
+        if (A.size() == 0) {
+            return new TreeNode(0);
+        }
+
+        int helper = 0;
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        TreeNode root = new TreeNode(A.get(0));
+        q.add(root);
+        while (q.size() != 0) {
+            helper++;
+            TreeNode parent = q.poll();
+            if (A.get(helper) != null) {
+                TreeNode temp = new TreeNode(A.get(helper));
+                parent.left = temp;
+                q.add(temp);    //add only non null nodes.only those nodes requires children
+            }
+            helper++;
+            if (A.get(helper) != null) {
+                TreeNode temp2 = new TreeNode(A.get(helper));
+                parent.right = temp2;
+                q.add(temp2);
+            }
+        }
+        return root;
+    }
 }
 
