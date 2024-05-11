@@ -11,15 +11,16 @@ public class MyClass{
         synchronized (this)
         {
             while (count < N) {
-                while (count % 2 == 0) {
+                if (count % 2 == 0) {
                     try {
+                        System.out.println("in odd number waiting state, count = " + count);
                         wait();
                     }
                     catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                System.out.print(count + " ");
+                System.out.println("Result "+ count);
                 count++;
                 notify();
             }
@@ -31,15 +32,16 @@ public class MyClass{
         synchronized (this)
         {
             while (count < N) {
-                while (count % 2 == 1) {
+                if (count % 2 == 1) {
                     try {
+                        System.out.println("in even number waiting state, count = " + count);
                         wait();
                     }
                     catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                System.out.print(count + " ");
+                System.out.println("Result " + count);
                 count++;
                 notify();
             }

@@ -78,13 +78,13 @@ class ActivityMainFrag: AppCompatActivity() {
      *
      *
      * replace -> remove and add
-     * removes all the previous fragments. removes means lifecycle related. Not to backbutton/transaction (i.e., removing doesnot mean that previous fragments wont come on back press. this is related to back stack)
+     * removes all the previous fragments. removes means lifecycle related. Not to backbutton/transaction (i.e., removing does not mean that previous fragments wont come on back press. this is related to back stack)
      * removing all the previous fragments means, onPause, onStop, onDestroyView of ALL previous fragments are called
      * adds current fragments -> onCreate, onCreateView, onViewCreated, onViewStateRestored, onStart, onResume of current fragment are called
      *
      *
      * addToBackStack
-     * false -> doesnot add the current transaction to the stack
+     * false -> does not add the current transaction to the stack
      * regardless of ad or replace, if current transaction is not added ToBackStack, it wont appear while going back
      *
      *

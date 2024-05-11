@@ -168,7 +168,7 @@ class FlowActivity : AppCompatActivity() {
         //state flow
         GlobalScope.launch {
             val result = stateProducer()
-            delay(6000) // even there is delay of 6000ms, since stateFlow is hpt nature, all data is lost that are emitted before 6000ms. but last value in the producer is emitted - state maintained
+            delay(6000) // even there is delay of 6000ms, since stateFlow is hot nature, all data is lost that are emitted before 6000ms. but last value in the producer is emitted - state maintained
             result.collect{
                 Log.d(TAG, it.toString())
             }

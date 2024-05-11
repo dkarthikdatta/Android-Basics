@@ -5,7 +5,12 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
 import com.example.myapplication.contentProviders.MyContentProvider
+import com.example.myapplication.designpatterns.creational.factory.factory.VehicleFactory
+import com.example.myapplication.fragments.ActivityMainFrag
+import com.example.myapplication.fragments.FirstFragment
 import com.example.myapplication.intent.ImplicitIntentActivity
+import com.example.myapplication.java.FinalClass
+import com.example.myapplication.java.PassByValue
 import com.example.myapplication.mvvm.view.MainActivity
 import javax.annotation.Nullable
 
@@ -91,10 +96,34 @@ fun main() {
      * 43. Intent filters
      *
      * 44. Intent Service
+     * 45. Save state of activity
+     * 46. onCreate() vs onRestoreInstanceState()
+     * 47. Multiple process of single app
+     * 48. Can you start activity from service
+     * 49. for loop 1000 events coming in sdk, how do you handle - scheduling events
+     * 50. how are you reading the event count
+     * 51. how to send events if app is closed and limit not reached
+     * 52. web view in android
      *
      * Java
      * 1. Shallow copy vs Deep Copy
      * 2. Implement Hashmap
+     * 3. Pass by value vs Pass by reference
+     * 4. Memory management in java
+     * 5. final keyword in java
+     * 6. can we modify final array content
+     * 7. volatile in java
+     * 8. extension functions in java/kotlin
+     * 9. String pool
+     * 10. Synchronization
+     * 11.volatile vs atomic vs Synchronization
+     *
+     * Kotlin
+     * 1. val vs const
+     * 2. mutable vs immutable
+     *
+     * Design Patterns
+     * 1. What I know
      */
 
 
@@ -131,7 +160,7 @@ fun main() {
      * ApplicationContext and ActivityContext -> lifecycle of app and activity respectively
      *
      * If we pass activity context to viewModel directly, if activity is destroyed, viewModel still lives (viewModelStore)
-     * hence the memory leak is created.activity is not gc as context is still referenced in viewmodel
+     * hence the memory leak is created.activity is not gc as context is still referenced in viewModel
      *
      * applicationContext cant cause memory leaks as it lives on whole app
      *
@@ -149,14 +178,14 @@ fun main() {
      *                         OnCreate()
      *                              |
      *                         OnStart()<--------------------------------------------------------------------
-     *                              |                                                                       |
+     *      onRestoreInstanceState  |                                                                       |
      *                         OnResume()<-------------------------------------------                       |
      *                              |                                               ^                       |
      *                              |   Activity Running                            |   User returns        | User navigates
      *                              |                                               |   to Activity         | back to activity
      *                              |   Another Activity comes to Foreground        |                       |
      *                         OnPause()-------------------------------------------->                       |
-     *                              |   The activity is no longer visible / navigate to other activity      |
+     *    onSaveInstanceState()     |   The activity is no longer visible / navigate to other activity      |
      *                         OnStop()--------------------------------------------------------------------->
      *                              |   The Activity is finishing or
      *                              |   being destroyed by the system
@@ -174,6 +203,7 @@ fun main() {
      *
      * onCreate();
      * onStart();
+     * onRestoreInstanceState();
      * onResume();
      */
 
@@ -196,6 +226,8 @@ fun main() {
      *  4. What are fragment life cycles when second fragment is add/replace/
      *  Go to ActivityMainFrag
      */
+    //goto
+    val activityMainFrag: ActivityMainFrag
 
     /**
      *  4.A. How do you start fragment from activity
@@ -206,6 +238,8 @@ fun main() {
      *
      *   Go to FirstFragment
      */
+    //goto
+    val firstFragment: FirstFragment
 
     /**
      * 4.B. How do you pass data to fragment? Why only as argument bundle and retreiving in onCreate, why not as Constructor params?
@@ -230,8 +264,8 @@ fun main() {
      */
 
     /**
-     * 6. Viewmodel -> Viewmodel Factory
-     * ViewModelFactory is used when we want to initalize viewModel with some parameters
+     * 6. ViewModel -> ViewModel Factory
+     * ViewModelFactory is used when we want to initialize viewModel with some parameters
      *
      * myViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(MyViewModel::class.java)
      */
@@ -259,13 +293,13 @@ fun main() {
      *
      * Activity and Fragment - parent classes in Android SDK implement the ViewModelStoreOwner interface. (ComponentActivity.java and Fragment.java )
      *
-     * .get(MyViewModel::class.java) -> check if viewmodel instance in the viewmodel store first.If the viewmodel instance is there in the viewmodelstore then it simply returns that instance .If viewmodel instance is not there then it uses the factory to create the new instance and saves that instance in viewmodel store and then it return the viewmodel instance.
+     * .get(MyViewModel::class.java) -> check if viewModel instance in the viewModel store first.If the viewModel instance is there in the viewModelStore then it simply returns that instance .If viewmodel instance is not there then it uses the factory to create the new instance and saves that instance in viewmodel store and then it return the viewmodel instance.
      *
-     * It is ViewModelStore which stores the viewmodel and is retained when the rotation occurs and which returns the same viewmodel instance in the new activity instance.
+     * It is ViewModelStore which stores the viewmodel and is retained when the rotation occurs and which returns the same viewModel instance in the new activity instance.
      *
      * How does viewModelStore is retained in activity when it's destroyed in rotation process?
      *
-     * ComponentActivity implements ViewModelStoreOwner. here  we can see that in the new activity object when viewmodel store is null then it first checks with the NonConfigurationInstance which returns the previous activity’s viewmodel store.
+     * ComponentActivity implements ViewModelStoreOwner. here  we can see that in the new activity object when viewModel store is null then it first checks with the NonConfigurationInstance which returns the previous activity’s viewmodel store.
      *
      * So It is NonConfigurationInstance object which is passed from old destroyed activity to newly created activity when rotations happens.It contains all the non-configuration related information including viewmodel store which contains the viewmodel of old activity object.
      *
@@ -696,7 +730,7 @@ fun main() {
      * Whats the issue in this simple Asymmetric encryption?
      *
      * 1. While sending public key from server to client, attacker overrides this public key with his own public key.
-     * 2. since now the client has atttackers public key, encyption is done using thus ataacker public jey, on trasferring encrypted data, its read by attacker and easily decode  using his private key
+     * 2. since now the client has attackers public key, encryption is done using thus attacker public jey, on trasferring encrypted data, its read by attacker and easily decode  using his private key
      * -------security breach--------
      *
      *
@@ -732,9 +766,8 @@ fun main() {
      *
      * Question - What if attacker overrides CA certificate itself with his own server public and private keys?
      * I guess client know what domain to truest - stored in client code
-     * since the domain name in attacker CA certidicate doesnt matches with tuested domain names - it invalidates
+     * since the domain name in attacker CA certificate doesn't matches with trusted domain names - it invalidates
      * CA will provide domain name only to legitimate owner - attacker cant get a certificate with any domain name - only his own domain name
-     *
      *
      */
 
@@ -761,5 +794,182 @@ fun main() {
      * IntentService is subject to all the background execution limits imposed with Android 8.0 (API level 26).
      * Consider using WorkManager instead.
      */
-}
 
+    /**
+     * 45. Save state of activity
+     *
+     *  save state, using  onSaveInstanceState method
+     */
+
+    /**
+     * 46. onCreate() vs onRestoreInstanceState()
+     *
+     * Activity Lifecycle ->
+     * onCreate, onStart, onRestoreInstanceState(), onResume(), onPause, onSaveInstanceState(), onStop(), onDestroy()
+     *
+     * Activity rotation lifecycle ->
+     * onPause, onSaveInstanceState, onStop, onDestroy, onCreate, onStart, onRestoreInstanceState, onResume
+     *
+     * the save state bundle can be retrieved either on onCreate() or onRestoreInstanceState()
+     *
+     * onRestoreInstanceState() -> bw onStart and onResume
+     * onSaveInstanceState() -> bw onPause and onStop
+     *
+     * onRestoreInstanceState guarantees you receive a non-null Bundle object also in the lifecycle of activity
+     * it's called after onStart But onCreate: you should always check if the Bundle object is null or not to determine
+     * the configuration change and as you know it's called before onStart So It's all up to you and depends on your needs.
+     *
+     */
+
+    /**
+     * 47.
+     * https://stackoverflow.com/questions/31913968/how-to-start-two-processes-in-one-application
+     * https://stackoverflow.com/questions/6567768/how-can-an-android-application-have-more-than-one-process/6567878#6567878
+     * android:process=":remote"
+     */
+
+
+    /**
+     * Java
+     */
+
+    /**
+     * 1. Shallow copy vs Deep Copy
+     *
+     * https://www.geeksforgeeks.org/difference-between-shallow-and-deep-copy-of-a-class/
+     */
+
+    /**
+     * 2. Implement Hashmap
+     * https://www.youtube.com/watch?v=CojCE-ojdGY
+     */
+    /**
+     * 3. Pass by value vs Pass by reference
+     *
+     * https://stackoverflow.com/a/7034719/14484903
+     *
+     * Java is always pass by value.
+     * objects - In methods, the value of address of the object is passed, hence the original object changes
+     * primitives - In methods
+     */
+    // Goto
+    val passByValue: PassByValue = PassByValue()
+
+    /**
+     * 4. Memory management in java
+     *
+     * https://www.youtube.com/watch?v=4yKxJjYXZ0A
+     *
+     * all objects (class level variables) - heap
+     * methods, local variables - stack
+     * static variables and static methods - class loader memory
+     *
+     */
+
+
+    /**
+     * 5. final keyword in java
+     *
+     * Final variables:
+     * When a variable is declared as final, its value cannot be changed once it has been initialized.
+     * This is useful for declaring constants or other values that should not be modified.
+     *
+     * Final methods:
+     * When a method is declared as final, it cannot be overridden by a subclass.
+     * This is useful for methods that are part of a class’s public API and should not be modified by subclasses.
+     *
+     * Final classes: When a class is declared as final, it cannot be extended by a subclass.
+     * This is useful for classes that are intended to be used as is and should not be modified or extended.
+     *
+     */
+    //goto
+    val finalClass: FinalClass
+
+    /**
+     * 11.volatile vs atomic vs Synchronization
+     *
+     * It's important to understand that there are two aspects to thread safety.
+     * 1. execution control, and
+     * 2. memory visibility
+     *
+     * synchronized can solve 1, 2
+     * volatile can solve  only 2
+     *
+     * https://www.youtube.com/watch?v=WH5UvQJizH0
+     * https://www.youtube.com/watch?v=71dgtPrbToE
+     *
+     * volatile -> only for fields (variable)
+     * Synchronization -> only for methods, blocks
+     *
+     *
+     * threads creates local copies of variables from the main memory and update them. hence diff threads diff value,
+     * volatile restricts the copy -> hence access/read only from main. (useful when only one thread is updating the value)
+     *
+     * but write operation ( execution control) cant be safe for volatile variables as even though same
+     * value is read by diff threads, after performing operations simultaneously, value is different in different threads
+     *
+     * Synchronization - locking the method. only one thread exection at one point
+     *
+     */
+
+    /**
+     * Kotlin
+     */
+
+    /**
+     * 1. val vs const
+     *
+     * https://stackoverflow.com/questions/37595936/what-is-the-difference-between-const-and-val
+     *
+     * const are compile time constants. Meaning that their value has to be assigned during compile time,
+     * unlike val, where it can be done at runtime.
+     *
+     *
+     * const val foo = complexFunctionCall()   //Not okay
+     * val fooVal = complexFunctionCall()      //Okay
+     *
+     * const val bar = "Hello world"           //Also okay
+     */
+
+    /**
+     * 2. mutable vs immutable
+     * val - immutable
+     * var - mutable
+     *
+     * https://stackoverflow.com/a/55058218/14484903
+     *
+     * val list:List<Int> = listOf(1,2,3,4) //[1,2,3,4] - immutable list. can't insert/delete/alter any element
+     * val mutableList:MutableList = mutableListOf(1,2,3,4) - mutable list. can insert/delete/alter any element
+     *
+     * val list or var list is only validated for complete reassignment. like listOf(5,6,7,8)
+     */
+
+
+    /**
+     * Design Patterns
+     */
+    //goto
+    val vehicleFactory: VehicleFactory
+    /**
+     * 1. What I know
+     *
+     * 1. Creational
+     *
+     * 1. Singleton
+     * 2. Factory
+     * 3. Abstract Factory
+     * 4. Builder
+     *
+     * 2. Structural
+     *
+     * 1. Adapter
+     * 2. Flyweight
+     * 3. Facade
+     *
+     * 3. Behavioural
+     *
+     * 1. Observer
+     * 2. Strategy
+     *
+     */
+}

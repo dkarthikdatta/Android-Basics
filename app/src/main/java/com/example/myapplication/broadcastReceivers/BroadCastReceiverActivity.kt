@@ -14,4 +14,8 @@ class BroadCastReceiverActivity : AppCompatActivity() {
         setContentView(R.layout.activity_broad_cast_receiver)
         registerReceiver(myBroadCastReceiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
 }

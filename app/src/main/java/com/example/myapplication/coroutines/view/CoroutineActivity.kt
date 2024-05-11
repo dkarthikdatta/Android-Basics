@@ -8,6 +8,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.concurrent.Executor
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.ThreadPoolExecutor
 
 
 /**
@@ -16,7 +19,7 @@ import kotlinx.coroutines.launch
  * coroutines run on the top of threads -> framework over threads which automatically shifts threads
  *
  * Coroutines Scope -> defines lifetime
- * Coroutines Context -> defines to run on which thread -> Dispatchersc
+ * Coroutines Context -> defines to run on which thread -> Dispatchers
  * Dispatchers -> IO, Main, Default
  * Dispatchers -> Dispatch on which thread pool
  */
@@ -111,12 +114,12 @@ class CoroutineActivity : AppCompatActivity() {
              *
              */
 
-            CoroutineScope(Dispatchers.IO).launch{
-                println("I want to print")
-                val data = prepareData()
-                println("data: " + data )
-                println("I want to print2")
-            }
+//            CoroutineScope(Dispatchers.IO).launch{
+//                println("I want to print")
+//                val data = prepareData()
+//                println("data: " + data )
+//                println("I want to print2")
+//            }
 
             /**
              * 3.
