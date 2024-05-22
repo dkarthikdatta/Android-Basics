@@ -87,7 +87,39 @@ class ActivityMainFrag: AppCompatActivity() {
      * false -> does not add the current transaction to the stack
      * regardless of add or replace, if current transaction is not added ToBackStack, it wont appear while going back
      *
-     *
      * add to back stack the first fragment attaching to activity
+     */
+
+
+    /**
+     * commit vs commitAllowingStateloss
+     *
+     * if transaction commits after onSavedInstance of activity, IllegalStateException is thrown
+     * reason -> at onSavedInstance, activity tries to save the snapshot of activity by bundle
+     * if commit is called after onSavedInstance, the transaction won’t be remembered because it was never recorded as part of the Activity’s state in the first place.
+     * In order to protect the user experience, Android avoids state loss at all costs, and simply throws an IllegalStateException whenever it occurs.
+     *
+     * commitAllowingStateloss
+     * You might lose the FragmentManager’s state and by extension the state of any Fragments added or removed since onSaveInstanceState().
+     *
+     * Here’s a practical example:
+     * Your Activity is displayed and is currently showing FragmentA
+     * Your Activity is sent to the background (onStop() and onSaveInstanceState() are called)
+     * In response to some sort of event, you replace FragmentA with FragmentB and call commitAllowingStateLoss().
+     *
+     */
+
+    /**
+     * commit vs commitNow
+     *
+     * Schedules a commit of this transaction. The commit does not happen immediately; it will be scheduled as work on the main thread to be done the next time that thread is ready.
+     * same with  popBackStack().
+     *
+     * But if you want to commit this transaction immediately, use commitNow - same with popBackStackImmediate()
+     * Earlier, executePendingTransactions was used which  will take all those transactions that you currently have queued up and will process them immediately.
+     * Now, commitNow only executes the current transaction synchronously.
+     *
+     *  can't add to backStack if you are using commitNow as  framework can’t provide any guarantees regarding the ordering here, it simply isn’t supported.
+     *
      */
 }

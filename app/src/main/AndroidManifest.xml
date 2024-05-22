@@ -23,10 +23,10 @@
             android:name=".services.MyActivityForService"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-                <!-- <action android:name="android.intent.action.DEFAULT" /> -->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -37,11 +37,11 @@
             android:exported="true">
             <intent-filter>
 
-                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                 <action android:name="android.intent.action.MAIN" />
 
 
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-                <action android:name="android.intent.action.DEFAULT" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+<!--                <action android:name="android.intent.action.DEFAULT" />-->
             </intent-filter>
         </activity>
         <activity

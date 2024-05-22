@@ -143,8 +143,8 @@ fun main() {
     /**
      * 0. Context
      *
-     *                                    Object
-     *                                        |
+     *                                      Object
+     *                                          |
      *           ----------------------------------------------------------------
      *           |                              |                               |
      *           |                              |                               |
@@ -271,6 +271,8 @@ fun main() {
      * correctly during the recreation process, leading to runtime errors or crashes.
      */
 
+    //goto
+    val activityMainFrag1: ActivityMainFrag
     /**
      * 5. Fragment pop, commit, commitNow, commitStateLoss
      *
@@ -306,9 +308,10 @@ fun main() {
      *
      * Activity and Fragment - parent classes in Android SDK implement the ViewModelStoreOwner interface. (ComponentActivity.java and Fragment.java )
      *
-     * .get(MyViewModel::class.java) -> check if viewModel instance in the viewModel store first.If the viewModel instance is there in the viewModelStore then it simply returns that instance .If viewmodel instance is not there then it uses the factory to create the new instance and saves that instance in viewmodel store and then it return the viewmodel instance.
+     * .get(MyViewModel::class.java) -> check if viewModel instance in the viewModel store first.If the viewModel
+     * instance is there in the viewModelStore then it simply returns that instance .If viewModel instance is not there then it uses the factory to create the new instance and saves that instance in viewmodel store and then it return the viewmodel instance.
      *
-     * It is ViewModelStore which stores the viewmodel and is retained when the rotation occurs and which returns the same viewModel instance in the new activity instance.
+     * It is ViewModelStore which stores the viewModel and is retained when the rotation occurs and which returns the same viewModel instance in the new activity instance.
      *
      * How does viewModelStore is retained in activity when it's destroyed in rotation process?
      *
@@ -322,6 +325,14 @@ fun main() {
      * 11. Job vs Supervisor job
      * https://medium.com/@android-world/kotlin-coroutine-job-and-supervisorjob-1b284a44d202
      * https://medium.com/@android-world/kotlin-coroutine-job-and-supervisorjob-d235eaaefd4e
+     *
+     * normal job
+     * if any one child coroutine cancels -> all siblings get cancelled
+     * if parent job cancels -> all children get cancelled
+     *
+     * Supervisor job
+     * if any one child coroutine cancels -> all other siblings does not get cancelle
+     * if parent Supervisor job cancels -> all children get cancelled
      */
 
     /**
@@ -746,7 +757,7 @@ fun main() {
      * Whats the issue in this simple Asymmetric encryption?
      *
      * 1. While sending public key from server to client, attacker overrides this public key with his own public key.
-     * 2. since now the client has attackers public key, encryption is done using thus attacker public jey, on trasferring encrypted data, its read by attacker and easily decode  using his private key
+     * 2. since now the client has attackers public key, encryption is done using thus attacker public jey, on transferring encrypted data, its read by attacker and easily decode  using his private key
      * -------security breach--------
      *
      *
@@ -973,6 +984,11 @@ fun main() {
      * val list or var list is only validated for complete reassignment. like listOf(5,6,7,8)
      */
 
+    /**
+     * 3. scope functions
+     *
+     * https://umang91.medium.com/scope-functions-in-kotlin-f3c9f7c65749
+     */
     /**
      * 7. higher order functions
      *

@@ -1,6 +1,8 @@
 package com.example.myapplication.kotlin
 
+import com.example.myapplication.sdk.Student
 import java.util.Arrays
+import java.util.Stack
 
 
 const val s1 = "String 1"
@@ -122,18 +124,59 @@ fun someMethod(myString: String?) {
 fun main() {
 //    longestCommonSubsequenceDpTabulation("adebc", "dcadb")
 //    longestCommonSubsequenceDp("adebc", "dcadb")
+//
+//    val arrivalArray = arrayOf(
+//        900,
+//        940, 950,
+//        1100,
+//        1500,
+//        1800
+//    )
+//    val depArray = arrayOf(
+//        910, 1200, 1120, 1130, 1900, 2000
+//    )
+//    findPlatform(arrivalArray, depArray)
 
-    val arrivalArray = arrayOf(
-        900,
-        940, 950,
-        1100,
-        1500,
-        1800
-    )
-    val depArray = arrayOf(
-        910, 1200, 1120, 1130, 1900, 2000
-    )
-    findPlatform(arrivalArray, depArray)
+    createArray()
+}
+
+fun createArray() {
+    //int[] array = new int[5]; -> java
+    val array = IntArray(5)
+    val stringArray = arrayOfNulls<String>(3)
+
+
+    //int[] A = {7, 7, 7, 7, 13, 11, 12, 7}; -> java
+    val arrayInit = intArrayOf(7, 7, 7, 7, 13, 11, 12, 7)
+
+    // Student[] students = new Student[5]; -> Java
+    val students = arrayOfNulls<Student>(5)
+
+    //int[][] dp = new int[s1.length() + 1][s2.length() + 1];
+    val dp = Array(s1.length + 1) {
+        IntArray(
+            s2.length + 1
+        )
+    }
+    // Student[][] student2d = new Student[4][5];
+    val student2d = Array(4) {
+        arrayOfNulls<Student>(5)
+    }
+
+    val hashMap = hashMapOf<Int, Int>()
+    hashMap[1] = 2
+
+    //Stack<Integer> stack = new Stack<>();
+    val stack = Stack<Int>()
+
+    for (i in array.indices) {
+        array[i] = i + 1
+        println(array[i])
+    }
+
+    arrayInit.forEach {
+        println(it)
+    }
 }
 
 
