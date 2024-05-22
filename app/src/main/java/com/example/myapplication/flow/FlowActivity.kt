@@ -47,16 +47,16 @@ class FlowActivity : AppCompatActivity() {
 //        }
 
         // only these 2 are discussed in channels
-//        channelProducer()
-//        channelConsumer()
+        channelProducer()
+        channelConsumer()
 
 //        // flow
-//        val job = GlobalScope.launch {
-//            val data = flowProducer()
-//            data.collect {
-//                Log.d(TAG, it.toString())
-//            }
-//        }
+        val job = GlobalScope.launch {
+            val data = flowProducer()
+            data.collect {
+                Log.d(TAG, it.toString())
+            }
+        }
 //
 //        //to cancel a flow, just stop consuming the flow.
 //        // flow automatically stops producing

@@ -1,5 +1,6 @@
 package com.example.myapplication.dsAlgo.ds.Strings;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class StringSums {
@@ -7,9 +8,87 @@ public class StringSums {
     public static void main(String[] args) {
 //        lengthOfLongestSubstring("geeksforgeeks");
 //        removeAdjacentDup("geekseeforgeek");
-        isRotated("rh", "hr");
+//        isRotated("rh", "hr");
+//        System.out.println(isValid("9sUZyS"));
+//        numberOfSpecialChars("aaAbcBC");
+        numberOfSpecialChars2("dDbbDcdDe");
     }
 
+    public static int numberOfSpecialChars(String word) {
+        int[] arr = new int[58];
+        for(int i=0; i<word.length(); i++){
+            arr[word.charAt(i)-'A'] = arr[word.charAt(i)-'A'] + 1;
+        }
+        int count=0;
+        for(int i=0; i<26; i++){
+            if(arr[i]>0 && arr[i+32]>0){
+                count++;
+            }
+        }
+        System.out.println(Arrays.toString(arr));
+        return count;
+    }
+
+    public static int numberOfSpecialChars2(String word) {
+        int[] arr = new int[58];
+        int count=0;
+        for(int i=0; i<word.length(); i++){
+            int asci = word.charAt(i) -'A';
+            if(asci>=32){
+                if(arr[asci] == 0){
+                    arr[asci] = -10;
+                } else if (arr[asci] == 10){
+                    arr[asci] = 5;
+                    count--;
+                }
+            } else {
+                if(arr[asci+32] == -10){
+                    count++;
+                    arr[asci+32] = 10;
+                } else {
+                    arr[asci+32] = 5;
+                }
+            }
+            System.out.println(Arrays.toString(arr));
+        }
+        System.out.println(count);
+        return count;
+    }
+    public static boolean isValid(String word) {
+        if(word.length()<3){
+            return false;
+        }
+
+        boolean digitAndWord = false;
+        boolean vowel = false;
+        boolean consonant = false;
+        HashSet<Integer> vowels = new HashSet<>(Arrays.asList(65, 69, 73, 79, 85, 97, 101, 105, 111, 117));
+
+        for(int i=0; i<word.length(); i++){
+            char c = word.charAt(i);
+            int asc = (int) c;
+            System.out.println("Ascii = " + asc);
+            if((asc>=48 && asc<=56) || (asc>=65 && asc<=90) || (asc>=97 && asc<=122)){
+                digitAndWord = true;
+            } else {
+                digitAndWord = false;
+                System.out.println("returing here 33");
+                return false;
+            }
+
+            if(vowels.contains(asc)){
+                vowel = true;
+            } else if (!(asc>=48 && asc<=56)) {
+                consonant = true;
+            }
+        }
+
+        if(vowel&&consonant){
+            return true;
+        }
+        System.out.println("returing here 47");
+        return false;
+    }
     private static void removeAdjacentDup(String s) {
         // create a adjacency duplicity array
         boolean[] adjDup = new boolean[s.length()];

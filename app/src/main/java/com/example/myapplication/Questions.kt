@@ -9,13 +9,14 @@ import com.example.myapplication.designpatterns.creational.factory.factory.Vehic
 import com.example.myapplication.fragments.ActivityMainFrag
 import com.example.myapplication.fragments.FirstFragment
 import com.example.myapplication.intent.ImplicitIntentActivity
+import com.example.myapplication.intent.IntentActivity
 import com.example.myapplication.java.FinalClass
 import com.example.myapplication.java.PassByValue
+import com.example.myapplication.kotlin.KotlinLearn
 import com.example.myapplication.mvvm.view.MainActivity
 import javax.annotation.Nullable
 
 fun main() {
-
 
     /**
      *
@@ -58,6 +59,7 @@ fun main() {
      *
      * 20. View Lifecycle
      *
+     * //https://medium.com/@huseyinozkoc/android-services-tutorial-with-example-fa329e6a5b4b
      * G. Services
      * 21. Services in Android
      * 22. Foreground vs Background Services
@@ -104,6 +106,10 @@ fun main() {
      * 50. how are you reading the event count
      * 51. how to send events if app is closed and limit not reached
      * 52. web view in android
+     * 53. Intent flags
+     *
+     * https://medium.com/@peternjuguna76/understanding-android-aidl-a-comprehensive-guide-b4d97253b169
+     * 54. AIDL
      *
      * Java
      * 1. Shallow copy vs Deep Copy
@@ -121,6 +127,13 @@ fun main() {
      * Kotlin
      * 1. val vs const
      * 2. mutable vs immutable
+     * 3. scope functions
+     * 4. static in kotlin
+     * 5. sealed class and enums
+     * 6. extension functions
+     * 7. higher order functions
+     * 8. list vs arraylist
+     * 9. array in kotlin
      *
      * Design Patterns
      * 1. What I know
@@ -434,6 +447,8 @@ fun main() {
      * 1. Foreground Service
      * 2. Background Service
      * 3. Bound Service
+     *
+     * can start and stop service from any activity
      */
 
     /**
@@ -533,6 +548,7 @@ fun main() {
      * background services, are stopped. The system terminates the app process to reclaim resources and
      * ensure efficient operation.
      *
+     * //check
      * Foreground services: When the user manually kills the app, foreground services are NOT killed as they
      * are displayed using notification, they stay alive indefinitely. Hence, we need to take care of
      * repeated launching of foreground service on opening the app again]
@@ -771,6 +787,16 @@ fun main() {
      *
      */
 
+    /**
+     * 39. Broadcast receivers
+     *
+     * receiving
+     * 1. Statically - declared in the manifest file and works even if the app is closed. Restricted. Only few like boot works
+     * 2. Dynamically - receivers work only if the app is active or minimized.
+     *
+     *
+     */
+
 
     /**
      * 42. Can we start activity of other app? (knows package name and activity name of other app)
@@ -778,6 +804,8 @@ fun main() {
      * yes, we can start this by explicit intent as we know the target
      *
      */
+    //goto
+    val intentActivity: IntentActivity
 
     /**
      * 43. Intent filters
@@ -905,13 +933,14 @@ fun main() {
      * threads creates local copies of variables from the main memory and update them. hence diff threads diff value,
      * volatile restricts the copy -> hence access/read only from main. (useful when only one thread is updating the value)
      *
-     * but write operation ( execution control) cant be safe for volatile variables as even though same
+     * but write operation (execution control) cant be safe for volatile variables as even though same
      * value is read by diff threads, after performing operations simultaneously, value is different in different threads
      *
-     * Synchronization - locking the method. only one thread exection at one point
+     * Synchronization - locking the method. only one thread execution at one point
      *
      */
 
+    KotlinLearn()
     /**
      * Kotlin
      */
@@ -944,6 +973,11 @@ fun main() {
      * val list or var list is only validated for complete reassignment. like listOf(5,6,7,8)
      */
 
+    /**
+     * 7. higher order functions
+     *
+     * A higher-order function is a function that takes functions as parameters, or returns a function.
+     */
 
     /**
      * Design Patterns

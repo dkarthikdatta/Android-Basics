@@ -1,7 +1,11 @@
 package com.example.myapplication.coroutines.vm
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.coroutines.ApiCall
+import com.example.myapplication.mvvmlivedata.view.vm.SingleLiveEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -19,15 +23,26 @@ import kotlinx.coroutines.launch
  * Dispatchers -> Dispatch on which thread pool
  */
 
-class MyCRViewModel : ViewModel(){
+class MyCRViewModel : ViewModel() {
     private val TAG = "COROUTINES_LEARN "
+    private val apiCall: ApiCall = ApiCall()
+    private val apiResponse: SingleLiveEvent<String> = SingleLiveEvent()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            while (true){
+            while (true) {
                 delay(500)
                 println(TAG + "Hello from ViewModel, inside coroutine")
             }
+        }
+    }
+
+    val getApiResponse: LiveData<String>
+        get() = apiResponse
+
+    fun makeApiCall() {
+        viewModelScope.launch {
+            apiResponse.setValue(apiCall.getApiResponse())
         }
     }
 

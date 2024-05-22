@@ -1,5 +1,7 @@
 package com.example.myapplication.kotlin;
 
+import com.example.myapplication.sdk.Student;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -22,7 +24,8 @@ class SolutionJava {
 
         int[] A = {7, 7, 7, 7, 13, 11, 12, 7};
 
-
+        int[] array = new int[5];
+        Student[] students = new Student[5];
         int m = 2, k = 3;
         int left = 0;
         int right = Integer.MAX_VALUE;

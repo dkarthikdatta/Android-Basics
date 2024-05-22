@@ -1,7 +1,12 @@
 package com.example.myapplication.coroutines.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.coroutines.vm.MyCRViewModel
 import com.example.myapplication.databinding.ActivityThirdBinding
 import com.example.myapplication.machinecoding.musicsimilarsuggestion.models.Song
 import kotlinx.coroutines.CoroutineScope
@@ -34,6 +39,7 @@ import java.util.concurrent.ThreadPoolExecutor
 class CoroutineActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityThirdBinding
+    private lateinit var viewModel :MyCRViewModel
     private val TAG = "COROUTINES_LEARN "
 //    private lateinit var viewModel: MyCRViewModel
     /**
@@ -47,6 +53,7 @@ class CoroutineActivity : AppCompatActivity() {
         binding = ActivityThirdBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this).get(MyCRViewModel::class.java)
         /**
          * viewModeScope and lifecycleScope coroutines.
          * Coroutines in viewModelScope are destroyed when viewModel is destroyed
@@ -58,7 +65,13 @@ class CoroutineActivity : AppCompatActivity() {
 //            finish()
 //        }
 
+        viewModel.getApiResponse.observe(this, Observer {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        })
+
+
         binding.btn.setOnClickListener {
+            viewModel.makeApiCall()
 
             //imp
 //            CoroutineScope(Dispatchers.IO).launch {

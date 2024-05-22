@@ -1,5 +1,8 @@
 package com.example.myapplication.dsAlgo;
 
+import com.example.myapplication.machinecoding.chess.Pieces.Piece;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -23,6 +26,15 @@ public class Utility {
             System.out.println();
         }
     }
+    static public void print2DArray(boolean[][] image) {
+        System.out.println("Printing 2DArray");
+        for (boolean[] ints : image) {
+            for (boolean anInt : ints) {
+                System.out.print(anInt + " ");
+            }
+            System.out.println();
+        }
+    }
 
     static public void print2DArray(char[][] image) {
         System.out.println("Printing 2DArray");
@@ -34,12 +46,48 @@ public class Utility {
         }
     }
 
+    static public void print2DArray(Piece[][] pieces) {
+        System.out.println("Printing 2DArray");
+        for (Piece[] ints : pieces) {
+            for (Piece anInt : ints) {
+                if (anInt == null) {
+                    System.out.print("XX" + " ");
+                } else {
+                    System.out.print("" + anInt.getColor() + anInt.getType() + " ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    static public String[][] covertPiecesToArray(Piece[][] pieces) {
+        String[][] array = new String[pieces.length][pieces.length];
+        for (int i = 0; i < pieces.length; i++) {
+            for (int j = 0; j < pieces.length; j++) {
+                if (pieces[i][j] == null) {
+                    array[i][j] = "    ";
+                } else {
+                    array[i][j] = "" + pieces[i][j].getColor() + pieces[i][j].getType();
+                }
+
+            }
+        }
+        return array;
+    }
+
     static public void printArray(int[] arr) {
         System.out.println("Printing Array");
         for (int n : arr) {
             System.out.print(n + " ");
         }
         System.out.println();
+    }
+
+    static public void printArray(ArrayList<?> objectArrayList, Type type) {
+
+        for (int i = 0; i < objectArrayList.size(); i++) {
+            System.out.println((objectArrayList.get(i)));
+        }
     }
 
     static public void printLongArray(long[] arr) {
@@ -82,7 +130,31 @@ public class Utility {
         }
         System.out.println();
     }
+    static public void printArrayListInt(ArrayList<Integer> arrayList) {
+//        System.out.println("Printing Long ArrayList");
+        for (Integer s : arrayList) {
+            System.out.print(s + " ");
+        }
+        System.out.println();
+    }
+    static public void printArrayListLong(ArrayList<Long> arrayList) {
+//        System.out.println("Printing Long ArrayList");
+        for (Long s : arrayList) {
+            System.out.print(s + " ");
+        }
+        System.out.println();
+    }
 
+    static public void printArrayLists(ArrayList<ArrayList<Integer>> arrayLists) {
+        System.out.println("Printing String ArrayLists");
+        for (ArrayList<Integer> arrayList : arrayLists) {
+            for (Integer i : arrayList) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
 
     static public void printHashSetIntegers(HashSet<Integer> hs) {
         System.out.println("Printing Hashset values");

@@ -4,7 +4,6 @@ import com.example.myapplication.dsAlgo.TreeNode;
 import com.example.myapplication.dsAlgo.Utility;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -16,15 +15,17 @@ import java.util.Queue;
  * 4  5    6  7
  */
 public class BoundaryViews {
+    static int max = 0;
 
     public static void main(String[] args) {
+        TreeNode treeNode = new TreeNode();
         TreeNode root = new TreeNode().getRoot();
 //        levelOrderTraversal(root);
 //        levelOrderTraversalSpiral(root);
 //        leftView(root);
 //        rightView(root);
 
-        bottomView(new TreeNode().deSerialize(new ArrayList<>(Arrays.asList(20, 8, 22, 5, 3, null, 25, null, null, 10, 14, null, null, null, null, null, null))));
+//        bottomView(new TreeNode().deSerialize(new ArrayList<>(Arrays.asList(20, 8, 22, 5, 3, null, 25, null, null, 10, 14, null, null, null, null, null, null))));
 //        System.out.println(checkForBST(root));
 //        System.out.println(checkForBST(new TreeNode().getBSTRoot()));
 //        System.out.println(checkForBST(new TreeNode().getBSTRoot2()));
@@ -56,6 +57,90 @@ public class BoundaryViews {
 
 //        Utility.printDLLFromTreeNode(bToDLL(root));
 //        countLeafNodes(root);
+
+
+//        find2ndWinner(new TreeNode().getRatingTree());
+
+//        System.out.println(findMaxHeightOfTree(treeNode.getRootBig()));
+        int ans = findMaxDiameterOfTree(treeNode.getRootBig());
+        System.out.println(ans);
+        int ans1 = findMaxPathSum(treeNode.getRootBig());
+        System.out.println(ans1);
+    }
+
+    private static int findMaxPathSum(TreeNode rootBig) {
+        if (rootBig == null) {
+            return 0;
+        }
+        int left = findMaxPathSum(rootBig.left);
+        int right = findMaxPathSum(rootBig.right);
+        max = Math.max(max, left + right);
+        return rootBig.val + Math.max(left, right);
+    }
+
+    private static int findMaxDiameterOfTree(TreeNode rootBig) {
+        if (rootBig == null) {
+            return 0;
+        }
+        int left = findMaxDiameterOfTree(rootBig.left);
+        int right = findMaxDiameterOfTree(rootBig.right);
+        max = Math.max(max, left + right);
+        return 1 + Math.max(left, right);
+    }
+
+    private static int findMaxHeightOfTree(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = findMaxHeightOfTree(root.left);
+        int right = findMaxHeightOfTree(root.right);
+
+        return 1 + Math.max(left, right);
+    }
+
+    private static void find2ndWinner(TreeNode ratingTree) {
+        TreeNode currPlayer = null;
+        Queue<TreeNode> queue = new LinkedList<>();
+        ArrayList<TreeNode> ans = new ArrayList<>();
+        queue.add(ratingTree);
+        while (!queue.isEmpty()) {
+            currPlayer = queue.poll();
+            if (currPlayer != null
+                    && currPlayer.left != null
+                    && currPlayer.right != null) {
+
+                ans.add(currPlayer.left); // adding winner and runner in ans for each level in ans
+                ans.add(currPlayer.right); // adding winner and runner in ans for each level in ans
+
+                if (currPlayer.left.rating <= currPlayer.right.rating) {
+                    queue.add(currPlayer.right);  // adding only the winner tree node in queue
+                } else {
+                    queue.add(currPlayer.left);  // adding only the winner tree node in queue
+                }
+
+            } else {
+                break;
+            }
+        }
+        ans.sort((o1, o2) -> o2.rating - o1.rating);
+        int highestRatingId = ans.get(0).val;
+        int iterator = 1;
+        TreeNode secondHighestRatingNode = null;
+
+        while (iterator < ans.size()) {
+            if (highestRatingId == ans.get(iterator).val) {
+                iterator++;
+            } else {
+                secondHighestRatingNode = ans.get(iterator);
+                break;
+            }
+        }
+        System.out.println("2nd highest player rating = " + secondHighestRatingNode.rating + " and id = " + secondHighestRatingNode.val);
+
+        for (TreeNode node : ans) {
+            System.out.print("id = " + node.val + " rating =  " + node.rating + " ");
+        }
+        System.out.println();
     }
 
     private static void inOrder(TreeNode root) {

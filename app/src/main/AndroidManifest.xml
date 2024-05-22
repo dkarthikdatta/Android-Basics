@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -16,24 +17,76 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".services.NextActivity"
+            android:exported="false" />
+        <activity
+            android:name=".services.MyActivityForService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <!-- <action android:name="android.intent.action.DEFAULT" /> -->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".intent.ResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".intent.IntentActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".machinecoding.chess.UI.ChessActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".sdk.SDKMainActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".threading.ThreadingActivity"
             android:exported="false" />
         <activity
             android:name=".broadcastReceivers.BroadCastReceiverActivity"
             android:exported="false" />
         <activity
-            android:name=".intent.ExplicitIntent"
+            android:name=".intent.NextActivity"
             android:exported="false" />
         <activity
             android:name=".retroMvvmRecycler.view.MyMainActivity"
             android:exported="true">
             <intent-filter>
 
-                 <action android:name="android.intent.action.MAIN" />
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-                 <category android:name="android.intent.category.LAUNCHER" />
-<!--                <action android:name="android.intent.action.DEFAULT" />-->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -185,11 +238,11 @@
             android:name=".coroutines.view.CoroutineActivity"
             android:exported="true">
             <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-                <!-- <action android:name="android.intent.action.DEFAULT" /> -->
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity
@@ -215,6 +268,8 @@
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <service android:name=".services.MyBackgroundService" />
     </application>
 
 </manifest>

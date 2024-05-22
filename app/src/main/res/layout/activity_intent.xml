@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="16dp"
+    android:orientation="vertical"
+    tools:context=".intent.IntentActivity">
+
+    <Button
+        android:id="@+id/explicitIntent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Explicit Intent to in App activity"
+        android:textSize="16dp"
+        />
+
+    <Button
+        android:id="@+id/explicitIntentForResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Explicit Intent to in App activity for result"
+        android:textSize="16dp"
+        />
+
+    <Button
+        android:id="@+id/explicitIntentToOtherApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Explicit Intent to Other App"
+        android:textSize="16dp"
+        />
+
+    <EditText
+        android:id="@+id/textForSharing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Enter text for sharing in Implicit"
+        app:layout_constraintStart_toStartOf="@+id/explicitIntent"
+        app:layout_constraintTop_toBottomOf="@+id/explicitIntent" />
+
+    <Button
+        android:id="@+id/implicitIntent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Implicit Intent"
+        app:layout_constraintStart_toStartOf="@id/explicitIntent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+
+</LinearLayout>

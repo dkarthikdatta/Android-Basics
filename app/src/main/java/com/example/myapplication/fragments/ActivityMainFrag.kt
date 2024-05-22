@@ -85,7 +85,7 @@ class ActivityMainFrag: AppCompatActivity() {
      *
      * addToBackStack
      * false -> does not add the current transaction to the stack
-     * regardless of ad or replace, if current transaction is not added ToBackStack, it wont appear while going back
+     * regardless of add or replace, if current transaction is not added ToBackStack, it wont appear while going back
      *
      *
      * add to back stack the first fragment attaching to activity

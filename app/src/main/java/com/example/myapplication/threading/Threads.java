@@ -33,13 +33,13 @@ class ImplementingRunnable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Run method executed by child Thread");
+        System.out.println("Run method executed by child Thread " + Thread.currentThread().getName());
     }
 
     public static void main(String[] args) {
         ImplementingRunnable t = new ImplementingRunnable();    // it shares the same object to multiple threads
         Thread t1 = new Thread(t); // create thread
         t1.start(); // start thread automatically runs run
-        System.out.println("Main method executed by main thread");
+        System.out.println("Main method executed by main thread " + Thread.currentThread().getName());
     }
 }

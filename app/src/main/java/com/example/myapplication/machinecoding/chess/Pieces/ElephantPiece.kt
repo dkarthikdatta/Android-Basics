@@ -1,0 +1,8 @@
+package com.example.myapplication.machinecoding.chess.Pieces
+
+import com.example.myapplication.machinecoding.chess.Moves.Move
+
+class ElephantPiece(color: Char, type: Char, moves: Array<Move>) : Piece(color, type, moves) {
+
+
+}

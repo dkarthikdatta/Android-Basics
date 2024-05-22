@@ -21,7 +21,6 @@ public class PrintOddEven {
                 notify();
             }
         }
-
     }
 
     private void printOdd() {

@@ -5,6 +5,8 @@ import com.example.myapplication.dsAlgo.Utility;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ArraySums {
     public static void main(String[] args) {
@@ -25,11 +27,73 @@ public class ArraySums {
 //        mergeWithoutExtraSpace(mergeSortedArr1, mergeSortedArr2);
 
 //        int[] subArraySum = {1,2,3,7,5};
-        int[] subArraySum = {0};
-        System.out.println(subarraySum(subArraySum, 1, 0));
+//        int[] subArraySum = {0};
+//        System.out.println(subarraySum(subArraySum, 1, 0));
 
+//        System.out.println(maximumEnergy(new int[]{5, 2, -10, -5, 1}, 3));
+//        System.out.println(maximumEnergy(new int[]{-9,-2,-6,-5,-8,3,0}, 1));
+        System.out.println(findKthSmallest(new int[]{6, 5}, 1435065516));
     }
 
+    public static long findKthSmallest(int[] coins, int k) {
+        ArrayList<Long> nums = new ArrayList<Long>();
+        Arrays.sort(coins);
+        long maxVal = coins[0] * (k+1);
+
+        for(int i=0; i<coins.length; i++){
+            long multiplier = 1;
+            while((multiplier * coins[i]) <= maxVal){
+                nums.add(multiplier * coins[i]);
+                multiplier++;
+            }
+        }
+        nums = (ArrayList<Long>) nums.stream().distinct().collect(Collectors.toList());
+        Collections.sort(nums);
+        Utility.printArrayListLong(nums);
+        return nums.get(k-1);
+    }
+
+    public static int maximumEnergy(int[] energy, int k) {
+        int length = energy.length;
+        int[] dp = new int[length];
+        int ans = Integer.MIN_VALUE;
+        for (int i = 0; i < k; i++) {
+            dp[i] = energy[i];
+            int iterator = i + k;
+            while (iterator < length) {
+                dp[i] = dp[i] + energy[iterator];
+                iterator = iterator + k;
+            }
+            ans = Math.max(dp[i], ans);
+        }
+
+        for (int i = 0; i < length; i++) {
+            System.out.print(dp[i] + " ");
+        }
+        System.out.println();
+
+
+        for (int i = k; i < length-k; i++) {
+            if(dp[i]<0){
+                dp[i] = dp[i - k] + energy[i];
+            } else {
+                dp[i] = dp[i - k] - energy[i];
+            }
+            ans = Math.max(dp[i], ans);
+        }
+        System.out.println();
+
+        for(int i=length-k; i<length; i++){
+            dp[i] = energy[i];
+            ans = Math.max(dp[i], ans);
+        }
+
+        for (int i = 0; i < length; i++) {
+            System.out.print(dp[i] + " ");
+        }
+        System.out.println();
+        return ans;
+    }
 
     /**
      * for binary search, array should be sorted
@@ -73,10 +137,10 @@ public class ArraySums {
         int right = 1;
         int currSum = arr[0] + arr[1];
         ArrayList<Integer> ans = new ArrayList<>();
-        while (left<right){
-            if(currSum == s){
-                ans.add(left+1);
-                ans.add(right+1);
+        while (left < right) {
+            if (currSum == s) {
+                ans.add(left + 1);
+                ans.add(right + 1);
                 break;
             } else if (currSum < s) {
                 right++;

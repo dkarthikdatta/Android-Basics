@@ -14,8 +14,7 @@ class CustomLiveData<T> {
     //can have any number of observers, hence list
 //    private val mObservers = HashMap<(T?) -> Unit, LifecycleOwner>()
     private val mObservers = HashMap<(T?) -> Unit, LiveDataLifeCycleObserver>()
-
-
+    
     fun setValue(value: T) {
         mValue = value
 

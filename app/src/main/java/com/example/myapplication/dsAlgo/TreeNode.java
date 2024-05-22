@@ -14,6 +14,7 @@ public class TreeNode {
     public TreeNode left;
     public TreeNode right;
     public int hd = 0;
+    public int rating;
 
     public TreeNode() {
     }
@@ -26,6 +27,13 @@ public class TreeNode {
         this.val = val;
         this.left = left;
         this.right = right;
+    }
+
+    public TreeNode(int val, int rating, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+        this.rating = rating;
     }
 
     /**'
@@ -63,6 +71,26 @@ public class TreeNode {
                         new TreeNode(7,
                                 new TreeNode(14, null, null),
                                 new TreeNode(15, null, null))));
+        return root;
+    }
+
+    //ratingTree
+    public TreeNode getRatingTree() {
+        TreeNode root = new TreeNode(1, 95,
+                new TreeNode(1, 95,
+                        new TreeNode(3, 90
+                                , new TreeNode(5,60,  null, null),
+                                new TreeNode(3,90, null, null)),
+                        new TreeNode(1, 95,
+                                new TreeNode(6, 89, null, null),
+                                new TreeNode(1,95, null, null))),
+                new TreeNode(2, 88,
+                        new TreeNode(2, 88,
+                                new TreeNode(7,86, null, null),
+                                new TreeNode(2,88, null, null)),
+                        new TreeNode(4, 85,
+                                new TreeNode(4,85, null, null),
+                                new TreeNode(8,84, null, null))));
         return root;
     }
 

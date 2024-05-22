@@ -24,7 +24,6 @@ class Solution {
                 new TreeNode(2, null, null),
                 new TreeNode(3, null, null));
 //        invertTree(root);
-
         System.out.println(findSpiral(root));
     }
 
