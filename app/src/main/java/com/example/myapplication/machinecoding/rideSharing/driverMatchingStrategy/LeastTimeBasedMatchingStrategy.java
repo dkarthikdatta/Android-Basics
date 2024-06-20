@@ -7,7 +7,6 @@ import com.example.myapplication.machinecoding.rideSharing.managers.DriverMgr;
 
 import java.util.Map;
 import java.util.Iterator;
-
 public class LeastTimeBasedMatchingStrategy implements DriverMatchingStrategy {
     @Override
     public Driver matchDriver(TripMetaData pMetaData) {
@@ -27,5 +26,3 @@ public class LeastTimeBasedMatchingStrategy implements DriverMatchingStrategy {
         return driver;
     }
 }
-
-
