@@ -28,14 +28,14 @@ class MyCRViewModel : ViewModel() {
     private val apiCall: ApiCall = ApiCall()
     private val apiResponse: SingleLiveEvent<String> = SingleLiveEvent()
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            while (true) {
-                delay(500)
-                println(TAG + "Hello from ViewModel, inside coroutine")
-            }
-        }
-    }
+//    init {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            while (true) {
+//                delay(500)
+//                println(TAG + "Hello from ViewModel, inside coroutine")
+//            }
+//        }
+//    }
 
     val getApiResponse: LiveData<String>
         get() = apiResponse

@@ -17,9 +17,9 @@ public class StackSums {
 //        parenthesisChecker(parenthisis);
 
 
-//        long[] nextGreaterArray = {6, 8, 0, 1, 3};
+        long[] nextGreaterArray = {6, 8, 0, 1, 3};
 //        long[] nextGreaterArray = {1, 3, 2, 4};
-//        nextGreaterElement(nextGreaterArray);
+        nextGreaterElement(nextGreaterArray);
     }
 
     /**

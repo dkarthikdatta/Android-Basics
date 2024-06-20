@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,16 +19,65 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".yral.YralHomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <!--             <action android:name="android.intent.action.MAIN" />-->
+
+
+                <!--             <category android:name="android.intent.category.LAUNCHER" />-->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".exo.RecordVideoActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".exo.ExoPlayerActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".compose.ComposeActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".services.NextActivity"
             android:exported="false" />
         <activity
             android:name=".services.MyActivityForService"
             android:exported="true">
             <intent-filter>
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-                 <action android:name="android.intent.action.DEFAULT" />
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -36,12 +87,10 @@
             android:name=".intent.IntentActivity"
             android:exported="true">
             <intent-filter>
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                 <action android:name="android.intent.action.MAIN" />
-
-
-                 <category android:name="android.intent.category.LAUNCHER" />
-<!--                <action android:name="android.intent.action.DEFAULT" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -130,11 +179,11 @@
             android:exported="true">
             <intent-filter>
 
-                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                 <action android:name="android.intent.action.MAIN" />
 
 
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-                <action android:name="android.intent.action.DEFAULT" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+<!--                <action android:name="android.intent.action.DEFAULT" />-->
             </intent-filter>
         </activity>
         <activity
@@ -228,21 +277,21 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
-                <!-- <action android:name="android.intent.action.MAIN" /> -->
+<!--                 <action android:name="android.intent.action.MAIN" />-->
 
 
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+<!--                 <category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
         </activity>
         <activity
             android:name=".coroutines.view.CoroutineActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.DEFAULT" />
-                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                                <action android:name="android.intent.action.DEFAULT" />
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
 
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
         </activity>
         <activity

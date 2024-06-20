@@ -1,6 +1,6 @@
 package com.example.myapplication.repo
 
 data class MyDataClass (
-    val id: Int,
+    var id: Int,
     val name: String
 )

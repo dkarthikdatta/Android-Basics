@@ -1,21 +1,24 @@
 package com.example.myapplication.coroutines.view
 
+import android.net.http.HttpException
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.coroutines.vm.MyCRViewModel
 import com.example.myapplication.databinding.ActivityThirdBinding
 import com.example.myapplication.machinecoding.musicsimilarsuggestion.models.Song
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.concurrent.Executor
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.ThreadPoolExecutor
+import kotlinx.coroutines.supervisorScope
+import java.net.HttpRetryException
 
 
 /**
@@ -39,7 +42,7 @@ import java.util.concurrent.ThreadPoolExecutor
 class CoroutineActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityThirdBinding
-    private lateinit var viewModel :MyCRViewModel
+    private lateinit var viewModel: MyCRViewModel
     private val TAG = "COROUTINES_LEARN "
 //    private lateinit var viewModel: MyCRViewModel
     /**
@@ -71,7 +74,7 @@ class CoroutineActivity : AppCompatActivity() {
 
 
         binding.btn.setOnClickListener {
-            viewModel.makeApiCall()
+//            viewModel.makeApiCall()
 
             //imp
 //            CoroutineScope(Dispatchers.IO).launch {
@@ -138,11 +141,12 @@ class CoroutineActivity : AppCompatActivity() {
              * 3.
              * Coroutines Builder ->> launch, async -> returns job
              */
-//            CoroutineScope(Dispatchers.IO).launch {
-//                printFollowers()
-//            }
+            CoroutineScope(Dispatchers.IO).launch {
+                printFollowers()
+            }
         }
     }
+
     suspend fun prepareData(): List<Song> {
         println("in prepareData of DataRepository")
         return getData()
@@ -156,25 +160,25 @@ class CoroutineActivity : AppCompatActivity() {
 //        val gson = Gson()
 //        val songListType = object : TypeToken<List<Song>>() {}.type
 //        val data = gson.fromJson<List<Song>>(json, songListType)
-        val data = listOf<Song>(Song(1, "telugu", "one", 12, null ))
+        val data = listOf<Song>(Song(1, "telugu", "one", 12, null))
         println(data)
         return data
     }
 
 
-    private suspend fun task1(){
-        println(TAG+"Starting Task 1")
+    private suspend fun task1() {
+        println(TAG + "Starting Task 1")
         delay(1000) // any long running task like api call that is called withContext-actual suspension point
-        println(TAG+"Ending Task 1")
+        println(TAG + "Ending Task 1")
     }
 
-    private suspend fun task2(){
-        println(TAG+"Starting Task 2")
+    private suspend fun task2() {
+        println(TAG + "Starting Task 2")
         delay(1000) // any long running task like api call that is called withContext-actual suspension point
-        println(TAG+"Ending Task 2")
+        println(TAG + "Ending Task 2")
     }
 
-    private suspend fun printFollowers(){
+    private suspend fun printFollowers() {
         var followers = 0;
         /**
          * 4.
@@ -318,6 +322,7 @@ class CoroutineActivity : AppCompatActivity() {
 //        withContext(Dispatchers.IO){
 //            delay(5000)
 //            fb3 = getFBFollowers()
+//            println(TAG + "I am printing last line")
 //        }
 //        println(TAG + "13. FB followers: " + fb3)
 
@@ -342,6 +347,328 @@ class CoroutineActivity : AppCompatActivity() {
          * lifeCycleScope -> (Activity/Fragment lifecycle)
          */
 
+
+//        /**
+//         * if job is cancelled, crash does not happens.
+//         * if you want to catch, you can catch by try catch (for single coroutine) or exception handler
+//         */
+//        val job = CoroutineScope(Dispatchers.IO).launch {
+//            println("Started job")
+//            delay(5000)
+//            println("Ended job")
+//        }
+//        delay(1000)
+//        job.cancel()
+
+        /**
+         * 16. Exceptional handling
+         *
+         * launch -> exception is caught immediately as soon as it is reached
+         * async -> exception is not caught until await is called even though is is accumulated
+         */
+
+        /**
+         * Exceptional handling
+         * by Using try catch.
+         * try catch works only for single coroutine
+         * if there is exception in child coroutine and there is no try catch in child, then error propagates to parent but parent catch wont work
+         */
+
+        /**
+         * try catch to single coroutine
+         * this works perfectly as try catch is there for single coroutine
+         */
+
+//        val tryCatchJob = CoroutineScope(Dispatchers.IO).launch {
+//            try {
+//                println(TAG + "in try, start try job")
+//                delay(2000)
+//                throw Exception("custom exception")
+//                println(TAG + "in try, printing after 2s")
+//            } catch (e: Exception) {
+//                println(TAG + "in catch exception " + e.localizedMessage)
+//            } finally {
+//                println(TAG + "in finally block")
+//            }
+//        }
+
+
+        /**
+         * try catch to child coroutine / multiple coroutines
+         * this doesn't works and crashes as try catch is there for parent but not for child
+         * the exception in the child propagates to parent (but not caught)
+         *
+         * solutions -
+         * 1. keep try catch in that particular coroutine (child) where exception may occur
+         * 2. use exception handler -> Correct solution
+         */
+//        CoroutineScope(Dispatchers.IO).launch {
+//            try {
+//                launch {
+//                    println("in child")
+//                    throw Exception("custom exception in child")
+//                }
+//            } catch (e: Exception) {
+//                println(TAG + "in catch exception " + e.localizedMessage)
+//            } finally {
+//                println(TAG + "in finally block")
+//            }
+//        }
+
+        // solution 1
+//        CoroutineScope(Dispatchers.IO).launch {
+//            try {
+//                launch {
+//                    try {
+//                        println("in child")
+//                        throw Exception("custom exception in child")
+//                    } catch (e: Exception) {
+//                        println(TAG + e.localizedMessage)
+//                    }
+//                }
+//            } catch (e: Exception) {
+//                println(TAG + "in catch exception " + e.localizedMessage)
+//            } finally {
+//                println(TAG + "in finally block")
+//            }
+//        }
+
+        //solution 2 - correct soln **** cancellation exceptions are not caught by this these are handled by default
+        val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+            println(throwable)
+        }
+//        CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+//            launch {
+//                println("in child")
+//                throw Exception("custom exception in child")
+//            }
+//        }
+
+        /**
+         * supervisorScope vs normal coroutine scope
+         * same as
+         * supervisorJob vs normal job
+         *
+         * error  propagates to child siblings if there is error in one child and cancels all jobs -> normal job
+         * else supervisor job
+         */
+//        CoroutineScope(Dispatchers.IO).launch {
+//            launch {
+//                delay(3000)
+//                throw Exception(TAG + "Coroutine 1 failed") // crashes at 3s as no error handling
+//            }
+//            launch {
+//                delay(5000)
+//                println(TAG + "Coroutine 2 is done") // doesn't run as error at 3s in child 1-> error propagate
+//            }
+//        }
+//
+//        CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+//            launch {
+//                delay(3000)
+//                throw Exception(TAG + "Coroutine 1 failed") // no crashes at 3s as error handling is done
+//            }
+//            launch {
+//                delay(5000)
+//                println(TAG + "Coroutine 2 is done") // doesn't run as error at 3s in child 1-> error propagate
+//            }
+//        }
+
+        /**
+         * by using supervisorScope / supervisorJob
+         */
+
+//        CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+//            supervisorScope {
+//                launch {
+//                    delay(3000)
+//                    throw Exception(TAG + "Coroutine 1 failed") // no crashes at 3s as error handling is done
+//                }
+//                launch {
+//                    delay(5000)
+//                    println(TAG + "Coroutine 2 is done") // run as error at 3s in child 1 doesn't propagates -> supervisor
+//                }
+//            }
+//        }
+
+        /**
+         * using supervisorJob -> use at all places -> parent and child launchers
+         */
+//
+//        val supervisorJob = SupervisorJob()
+//
+//        val parentJob = CoroutineScope(Dispatchers.IO + exceptionHandler + supervisorJob).launch {
+//            launch(supervisorJob) {
+//                delay(3000)
+//                throw Exception(TAG + "Coroutine 1 failed") // no crashes at 3s as error handling is done
+//            }
+//            launch(supervisorJob) {
+//                delay(5000)
+//                println(TAG + "Coroutine 2 is done") // run as error at 3s in child 1 doesn't propagates -> supervisor
+//            }
+//        }
+
+        /**
+         * if using supervisorJob only for parent, child 2 does not print as
+         *
+         * Despite using SupervisorJob, the parent coroutine may still be in the process of handling the exception and subsequently might complete before the second coroutine's delay finishes. This results in the second coroutine getting cancelled before it can print its message.
+         */
+//
+//        val supervisorJob2 = SupervisorJob()
+//
+//        val parentJob2 = CoroutineScope(Dispatchers.IO + exceptionHandler + supervisorJob2).launch {
+//            launch() {
+//                delay(3000)
+//                throw Exception(TAG + "Coroutine 1 failed") // no crashes at 3s as error handling is done
+//            }
+//            launch() {
+//                delay(5000)
+//                println(TAG + "Coroutine 2 is done") // run as error at 3s in child 1 doesn't propagates -> supervisor
+//            }
+//        }
+
+        //***********
+
+        /**
+         * if you cancel coroutine, it may run the code after try catch block because cancellation exception is caught by catch
+         */
+
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val child = launch {
+//                try {
+//                    delay(2000)
+//                } catch (e: Exception){
+//                    println(TAG + e.localizedMessage)
+//                }
+//                println("Coroutine 1 is finished") // prints even child is cancelled as error is not propgated properly
+//            }
+//            delay(1000)
+//            child.cancel() // cancels after 1s
+//        }
+
+        /**
+         * to cancel properly, throw exception explicitly if coroutine is cancelled
+         * or catch specific exception instead of generic exception
+         */
+
+        // by catching specific exception
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val child = launch {
+//                try {
+//                    delay(2000)
+//                } catch (e: HttpRetryException) {
+//                    println(TAG + e.localizedMessage)
+//                }
+//                println("Coroutine 1 is finished") // prints even child is cancelled as error is not propgated properly
+//            }
+//            delay(1000)
+//            child.cancel() // cancels after 1s
+//        }
+
+        //throw exception explicitly if coroutine is cancelled
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val child = launch {
+//                try {
+//                    delay(2000)
+//                } catch (e: Exception) {
+//                    if (e is CancellationException) {
+//                        throw e
+//                    }
+//                    println(TAG + e.localizedMessage)
+//                }
+//                println("Coroutine 1 is finished") // prints even child is cancelled as error is not propgated properly
+//            }
+//            delay(1000)
+//            child.cancel() // cancels after 1s
+//        }
+
+
+        /**
+         * interview question
+         */
+//        val job = CoroutineScope(Dispatchers.IO).launch {
+//            try {
+//                repeat(1000) { i ->
+//                    println("Job: I'm sleeping $i ...")
+//                    delay(500L)
+//                }
+//            } catch (e: CancellationException) {
+//                println("Job was cancelled")
+//            } finally {
+//                println("Job is finishing")
+//            }
+//        }
+//        // Cancels the job after 1300ms
+//        delay(1300L)
+//        job.cancelAndJoin()
+//        println("Main: Now I can quit.")
+
+
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            try {
+                repeat(1000) { i ->
+                    println("Job: I'm running $i ...")
+                    delay(100)
+                }
+            } catch (e: CancellationException) {
+                println("Job was cancelled")
+            } finally {
+                println("Job is finishing")
+            }
+        }
+        // Cancels the job after 1300ms
+        delay(1000)
+        job.cancel()
+        println("Main: Now I can quit.")
+
+        /**
+         * heavy calculations in coroutine which is getting cancelled
+         */
+
+//        val job = CoroutineScope(Dispatchers.IO).launch {
+//            try {
+//                repeat(40) { i ->
+//                    println("Job: I'm running fib $i ... ${fib(i)}")
+//                }
+//            } catch (e: CancellationException) {
+//                println("Job was cancelled")
+//            } finally {
+//                println("Job is finishing")
+//            }
+//        }
+//        // Cancels the job after 1300ms
+//        delay(1000)
+//        job.cancel()
+//        println("Main: Now I can quit.")
+
+
+//        val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+//            println("Exception caught in cancellationException: ${throwable.message}")
+//        }
+//        val job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+//            try {
+//                println(TAG + "start job")
+//                delay(2000)
+//                println(TAG + "in try, printing after 2s")
+//            } catch (e: Exception) {
+//                println(TAG + "in try catch exception " + e.localizedMessage)
+//            } finally {
+//                println(TAG + "in finally block")
+//            }
+//
+//        }
+//        delay(1000)
+//        job.cancel()
+    }
+
+    private suspend fun fib(x: Int): Int {
+        if (x <= 0) {
+            return 0
+        }
+        if (x == 1) {
+            return 1
+        }
+        return fib(x - 1) + fib(x - 2)
     }
 
     private suspend fun getFollowers(): Int {

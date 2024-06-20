@@ -1,11 +1,24 @@
 package com.example.myapplication.dsAlgo.ds.LinkedList;
 
+import static com.example.myapplication.test.AddLinkedLists.addTwoLists;
+
 import com.example.myapplication.dsAlgo.LinkedListNode;
+import com.example.myapplication.dsAlgo.Pair;
 import com.example.myapplication.dsAlgo.Utility;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.PriorityQueue;
+class LinkedPair {
+    int val;
+    LinkedListNode linkedListNode;
+    public LinkedPair(int val, LinkedListNode linkedListNode){
+        this.val = val;
+        this.linkedListNode = linkedListNode;
+    }
+}
 
 public class LinkedListSums {
 
@@ -16,8 +29,9 @@ public class LinkedListSums {
 
 //        findMiddle(root);
 //        reverseLinkedList(root);
-
+//
 //        rotateLinkedList(nodeClas.getLinkedList(new int[]{12, 26}), 1);
+//        rotateRight(nodeClas.getLinkedList(new int[]{1,2,3,4,5}), 2);
 
 //        int[] arr1 = {50, 114, 37, 66, 102, 11, 59, 92, 70, 84, 95, 106, 44, 57, 3, 38, 36, 23, 76, 112, 67, 17, 33, 22, 69, 74, 61, 53, 30, 9, 78, 86, 81, 12, 21, 100, 40, 98, 110};
 //        int[] arr2 = {11, 20, 10, 37, 2, 24, 39, 40, 1, 4, 21, 22, 44, 17, 33};
@@ -27,11 +41,67 @@ public class LinkedListSums {
 
 
 //        sortedMerge(nodeClas.getLinkedList(new int[]{5, 10, 15, 40}), nodeClas.getLinkedList(new int[]{2, 3, 20}));
-//        int[] addArray1 = {0, 1, 2, 2, 9, 2, 3};
-//        int[] addArray2 = {6, 4, 5, 5, 2, 5, 7, 4, 7, 9};
-//        addTwoLists(nodeClas.getLinkedList(addArray1), nodeClas.getLinkedList(addArray2));
+        int[] addArray1 = {0, 1, 2, 2, 9, 2, 3};
+        int[] addArray2 = {6, 4, 5, 5, 2, 5, 7, 4, 7, 9};
+        addTwoLists(nodeClas.getLinkedList(addArray1), nodeClas.getLinkedList(addArray2));
 
         addTwoLinkedLists(nodeClas.getLinkedList(new int[]{4, 5}), nodeClas.getLinkedList(new int[]{3, 4, 5}));
+    }
+
+    LinkedListNode mergeKList(LinkedListNode[]arr,int K)
+    {
+        Comparator<LinkedPair> comparator = new Comparator<LinkedPair>() {
+            @Override
+            public int compare(LinkedPair o1, LinkedPair o2) {
+                return o1.val-o2.val;
+            }
+        };
+        PriorityQueue<LinkedPair> pq = new PriorityQueue<>(comparator);
+
+        for(int i=0; i<arr.length; i++){
+            pq.add(new LinkedPair(arr[i].data, arr[i]));
+        }
+
+        LinkedListNode dummy = new LinkedListNode(-1);
+        LinkedListNode temp = dummy;
+
+        while(pq.size()!=0){
+            LinkedListNode curr = pq.poll().linkedListNode;
+            temp.next = curr;
+            if(curr.next!=null){
+                pq.add(new LinkedPair(curr.next.data, curr.next));
+            }
+            temp = temp.next;
+        }
+        temp.next=null;
+        return dummy.next;
+    }
+
+    static LinkedListNode sortedMerge1(LinkedListNode head1, LinkedListNode head2) {
+        // This is a "method-only" submission.
+        // You only need to complete this method
+
+        LinkedListNode dummy = new LinkedListNode(-1);
+        LinkedListNode ans = dummy;
+
+        while(head1!=null && head2!=null){
+            if(head1.data<head2.data){
+                dummy.next=head1;
+                head1=head1.next;
+            } else {
+                dummy.next=head2;
+                head2=head2.next;
+            }
+            dummy = dummy.next;
+        }
+
+        if(head1!=null){
+            dummy.next = head1;
+        } else {
+            dummy.next = head2;
+        }
+        return ans.next;
+
     }
 
     /**
@@ -90,6 +160,35 @@ public class LinkedListSums {
         dup.next = null;
         System.out.println("dup ll: ");
         Utility.printLinkedListNode(curr);
+    }
+
+    public static LinkedListNode rotateRight(LinkedListNode head, int k) {
+        LinkedListNode dup = head;
+        int size = 0;
+        while(dup.next!=null){
+            size++;
+            dup = dup.next;
+        }
+
+        dup.next = head;
+
+        k = k%size;
+
+        int rotate = size-k;
+
+        System.out.println("Size = " + size);
+        System.out.println("k = " + k);
+        System.out.println("rotate = " + rotate);
+
+        while(rotate>0){
+            dup = dup.next;
+            rotate--;
+        }
+        LinkedListNode ans = dup.next;
+        dup.next = null;
+        System.out.println("dup ll: ");
+        Utility.printLinkedListNode(ans);
+        return ans;
     }
 
     private static void findIntersection(LinkedListNode head1, LinkedListNode head2) {

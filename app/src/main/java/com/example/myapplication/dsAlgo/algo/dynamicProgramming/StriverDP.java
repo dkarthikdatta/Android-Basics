@@ -5,6 +5,8 @@ import com.example.myapplication.sdk.Student;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Tabulation - bottom-up - iteration
@@ -20,42 +22,43 @@ import java.util.Arrays;
  * https://chatgpt.com/c/bdebfd5d-ad60-46c4-8cfd-08c559921f7e
  */
 
-    // projects
-    // android dev
-    // kotlin - dsa
+// projects
+// android dev
+// kotlin - dsa
 public class StriverDP {
 
     public static void main(String[] args) {
-//        nonDPfibonacci(40);
-//        memorizationFibonacci(40);
-//        tabulationFibonacci(40);
+        nonDPfibonacci(40);
+        memorizationFibonacci(40);
+        tabulationFibonacci(40);
 
-        // noExtraSpaceDP(40) // using prev and prev2
+//         noExtraSpaceDP(40) // using prev and prev2
 
 //        https://www.naukri.com/code360/problems/count-ways-to-reach-nth-stairs_798650?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
-//        climbStairs(); // count distinct ways // same as fibonacci
+        climbStairs(); // count distinct ways // same as fibonacci
 
 //      https://www.naukri.com/code360/problems/frog-jump_3621012?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
         // frog can jump one step or two step. find min energy required to reach end step such that it consumes min energy by jumping either one or two steps.
-//        frogJumpRecursion();
-//        memorizationFrogJump(new int[]{20, 30, 40, 20});
-//        tabulationFrogJump(new int[]{20, 30, 40, 20});
+        frogJumpRecursion();
+        memorizationFrogJump(new int[]{20, 30, 40, 20});
+        tabulationFrogJump(new int[]{20, 30, 40, 20});
 
 //      https://atcoder.jp/contests/dp/tasks/dp_b
         // same sum, solve when frog can jump k steps
-//        tabulationFrogJumpKSteps(new int[]{20, 30, 40, 20, 40, 40, 50, 60}, 4);
+        tabulationFrogJumpKSteps(new int[]{20, 30, 40, 20, 40, 40, 50, 60}, 4);
 
 //      https://www.naukri.com/code360/problems/maximum-sum-of-non-adjacent-elements_843261?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
         // max sum of subsequence where you should pick non adjacent numbers
-//        tabulationNonAdjSubsequnceMaxSum(new int[]{2, 1, 4, 9});
-//        memorizationNonAdjSubsequnceMaxSum(new int[]{2, 1, 4, 9});
+        tabulationNonAdjSubsequnceMaxSum(new int[]{-3, -5, 9});
+        memorizationNonAdjSubsequnceMaxSum(new int[]{-3, -5, 9});
 
 //      https://www.youtube.com/watch?v=AE39gJYuRog&list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY&index=8
-//        ninjaTraining(3, new int[][]{
-//                {1, 2, 5},
-//                {3, 1, 1},
-//                {3, 3, 3}
-//        });
+//      https://www.naukri.com/code360/problems/ninja-s-training_3621003?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
+        ninjaTraining(3, new int[][]{
+                {1, 2, 5},
+                {3, 1, 1},
+                {3, 3, 3}
+        });
 //        tabulationNinjaTraining(3, new int[][]{
 //                {1, 2, 5},
 //                {3, 1, 1},
@@ -70,17 +73,17 @@ public class StriverDP {
 //                {0, 0, 0}
 //        });
 
-//        ArrayList<Integer> one = new ArrayList<>(Arrays.asList(0, 0, 0));
-//        ArrayList<Integer> two = new ArrayList<>(Arrays.asList(0, -1, 0));
-//        ArrayList<Integer> three = new ArrayList<>(Arrays.asList(0, 0, 0));
+        ArrayList<Integer> one = new ArrayList<>(Arrays.asList(0, 0, 0));
+        ArrayList<Integer> two = new ArrayList<>(Arrays.asList(0, -1, 0));
+        ArrayList<Integer> three = new ArrayList<>(Arrays.asList(0, 0, 0));
 //
-//        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
-//        ans.add(one);
-//        ans.add(two);
-//        ans.add(three);
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        ans.add(one);
+        ans.add(two);
+        ans.add(three);
 //
 //          https://www.naukri.com/code360/problems/maze-obstacles_977241?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
-//        mazeObstacles(ans);
+        mazeObstacles(ans);
 
 //      https://www.naukri.com/code360/problems/minimum-path-sum_985349?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
 //        minimumSumPath(new int[][]{
@@ -141,14 +144,59 @@ public class StriverDP {
 //        countWaysToMakeChangeRecursion(denominations, 4);
 //        countWaysToMakeChangeDp(denominations, 4);
 //
-        String s1 = "adebc";
-        String s2 = "dcadb";
-
-        longestCommonSubsequenceDp(s1, s2);
-        longestCommonSubsequenceDpTabulation(s1, s2);
-
+//        String s1 = "adebc";
+//        String s2 = "dcadb";
+//
+//        longestCommonSubsequenceDp(s1, s2);
+//        longestCommonSubsequenceDpTabulation(s1, s2);
+//        letterCombinations("23");
     }
 
+    public static List<String> letterCombinations(String digits) {
+        HashMap<Character, ArrayList<Character>> hm = new HashMap<>();
+        hm.put('2', new ArrayList<>(Arrays.asList('a', 'b', 'c')));
+        hm.put('3', new ArrayList<>(Arrays.asList('d', 'e', 'f')));
+        hm.put('4', new ArrayList<>(Arrays.asList('g', 'h', 'i')));
+        hm.put('5', new ArrayList<>(Arrays.asList('j', 'k', 'l')));
+        hm.put('6', new ArrayList<>(Arrays.asList('m', 'n', 'o')));
+        hm.put('7', new ArrayList<>(Arrays.asList('p', 'q', 'r', 's')));
+        hm.put('8', new ArrayList<>(Arrays.asList('t', 'u', 'v')));
+        hm.put('9', new ArrayList<>(Arrays.asList('w', 'x', 'y', 'z')));
+
+        ArrayList<ArrayList<Character>> list = new ArrayList<>();
+        for (int i = 0; i < digits.length(); i++) {
+            list.add(hm.get(digits.charAt(i)));
+        }
+
+        ArrayList<String> ans = new ArrayList<String>();
+        StringBuilder sb = new StringBuilder();
+        letterCombinationsUtil(ans, hm, sb, digits, 0);
+//        Utility.printArrayListString(ans);
+        return ans;
+    }
+
+    private static void letterCombinationsUtil(ArrayList<String> ans, HashMap<Character, ArrayList<Character>> hm, StringBuilder sb, String digits, int i) {
+        if (sb.length() == digits.length()) {
+            ans.add(sb.toString());
+//            System.out.println("limit reached, sb = " + sb);
+            return;
+        }
+//        System.out.println("Current i = " + i );
+        ArrayList<Character> chars = hm.get(digits.charAt(i));
+        for (int j = 0; j < chars.size(); j++) {
+            // Choose a character and add it to the combination
+//            System.out.println("inside for Current i = " + i );
+//            System.out.println("inside for Current j = " + j );
+//            System.out.println("inside for appending c = " + chars.get(j));
+            sb.append(chars.get(j));
+            // Recurse to the next digit
+            letterCombinationsUtil(ans, hm, sb, digits, i + 1);
+            // Backtrack: remove the last added character
+//            System.out.println("inside for deleting c = " + chars.get(sb.length() - 1));
+            sb.deleteCharAt(sb.length() - 1);
+        }
+
+    }
 
 
     private static void longestCommonSubsequenceDpTabulation(String s1, String s2) {
@@ -732,7 +780,7 @@ public class StriverDP {
 
     private static int memorizationNonAdjSubsequnceMaxSumUtil(int[] arr, int[] dp, int index) {
         if (index == 0) {
-            return arr[index];
+            return Math.max(arr[index], 0);
         }
         if (index < 0) {
             return 0;
@@ -740,7 +788,10 @@ public class StriverDP {
         if (dp[index] != -1) {
             return dp[index];
         }
-        int take = arr[index] + memorizationNonAdjSubsequnceMaxSumUtil(arr, dp, index - 2);
+//        int take = Integer.MIN_VALUE;
+//        if(arr[index]>0){
+            int take = arr[index] + memorizationNonAdjSubsequnceMaxSumUtil(arr, dp, index - 2);
+//        }
         int notTake = 0 + memorizationNonAdjSubsequnceMaxSumUtil(arr, dp, index - 1);
         return dp[index] = Math.max(take, notTake);
     }

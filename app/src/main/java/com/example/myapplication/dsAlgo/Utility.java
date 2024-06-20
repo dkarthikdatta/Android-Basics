@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Queue;
 
 public class Utility {
@@ -26,6 +27,7 @@ public class Utility {
             System.out.println();
         }
     }
+
     static public void print2DArray(boolean[][] image) {
         System.out.println("Printing 2DArray");
         for (boolean[] ints : image) {
@@ -83,6 +85,23 @@ public class Utility {
         System.out.println();
     }
 
+    static public void printArray(boolean[] arr) {
+        System.out.println("Printing Array");
+        for (boolean n : arr) {
+            System.out.print(n + " ");
+        }
+        System.out.println();
+    }
+
+    public static void printArray(double[] arr) {
+        System.out.println("Printing Array");
+        for (double n : arr) {
+            System.out.print(n + " ");
+        }
+        System.out.println();
+
+    }
+
     static public void printArray(ArrayList<?> objectArrayList, Type type) {
 
         for (int i = 0; i < objectArrayList.size(); i++) {
@@ -130,6 +149,7 @@ public class Utility {
         }
         System.out.println();
     }
+
     static public void printArrayListInt(ArrayList<Integer> arrayList) {
 //        System.out.println("Printing Long ArrayList");
         for (Integer s : arrayList) {
@@ -137,6 +157,18 @@ public class Utility {
         }
         System.out.println();
     }
+
+    static public void print2DArrayListInt(List<List<Integer>> arrayList) {
+//        System.out.println("Printing Long ArrayList");
+        for (List<Integer> list : arrayList) {
+            for (Integer s : list) {
+                System.out.print(s + " ");
+            }
+            System.out.println();
+
+        }
+    }
+
     static public void printArrayListLong(ArrayList<Long> arrayList) {
 //        System.out.println("Printing Long ArrayList");
         for (Long s : arrayList) {

@@ -35,7 +35,7 @@ public class RecursionSums {
         ans.remove(ans.size() - 1);
 
 //        System.out.println("At line 37, ans = " + ans);
-//        subsequenceOfArrayUtil(arr, ans, index + 1);
+        subsequenceOfArrayUtil(arr, ans, index + 1);
     }
 
     private static void permute(String string) {

@@ -1,11 +1,14 @@
 package com.example.myapplication.mvvmlivedata.view
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.R
 import com.example.myapplication.coroutines.view.CoroutineActivity
 import com.example.myapplication.databinding.ActivitySecondBinding
 import com.example.myapplication.mvvm.view.MainActivity
@@ -76,6 +79,10 @@ class SecondActivity: AppCompatActivity() {
             intent.putExtra(Intent.EXTRA_TEXT,"I am the the that is getting shared")
             startActivity(Intent.createChooser(intent, "Share via"))
         }
+
+        val bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888)
+        val bitmap1 = BitmapFactory.decodeResource(resources, R.drawable.car)
+        binding.imageView.setImageBitmap(bitmap1)
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import com.example.myapplication.dsAlgo.Pair;
 import com.example.myapplication.dsAlgo.Utility;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -10,7 +11,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class Test {
@@ -27,6 +32,13 @@ public class Test {
             }
         };
         r.run();
+
+        int [][] arr = new int[][] {
+                {1,2},
+                {3,4}
+        };
+        Arrays.sort(arr, Comparator.comparingInt(a -> a[0]));
+        ArrayList<Pair> arrayList = new ArrayList<>();
     }
 
 
@@ -68,7 +80,6 @@ public class Test {
         Utility.printArray(ans);
 
 
-
         // Assuming jsonObject is the JSON object received from the function
 
         String jsonString = "{\"key1\":\"value1\",\"key2\":123,\"key3\":45.67,\"key4\":true}";
@@ -99,6 +110,30 @@ public class Test {
             }
         }
 
+        topKFrequent(new int[]{1,1,1,2,2,3}, 2);
+    }
+
+    public static int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> hm = new HashMap<>();
+
+        for(int num: nums){
+            int freq = hm.getOrDefault(num, 0);
+            freq++;
+            hm.put(num, freq);
+        }
+
+        ArrayList<Integer> list = new ArrayList<>();
+
+        for(Map.Entry<Integer, Integer> entry: hm.entrySet()){
+            if(entry.getValue()>=k){
+                list.add(entry.getKey());
+            }
+        }
+        int[] ans = new int[list.size()];
+        for(int i =0; i<list.size(); i++){
+            ans[i] = list.get(i);
+        }
+        return ans;
     }
 
 

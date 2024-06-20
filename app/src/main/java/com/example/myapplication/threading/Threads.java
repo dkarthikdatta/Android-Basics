@@ -3,7 +3,7 @@ package com.example.myapplication.threading;
 /**
  * We can define a thread in the following two ways:
  * <p>
- * By extending Thread class - negative point is cant extend any other - java canyt support multiple inheritence
+ * By extending Thread class - negative point is cant extend any other - java can't support multiple inheritence
  * By implementing Runnable interface
  */
 public class Threads {

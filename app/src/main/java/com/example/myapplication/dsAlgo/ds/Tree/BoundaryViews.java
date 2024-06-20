@@ -1,12 +1,16 @@
 package com.example.myapplication.dsAlgo.ds.Tree;
 
+import com.example.myapplication.dsAlgo.Pair;
 import com.example.myapplication.dsAlgo.TreeNode;
 import com.example.myapplication.dsAlgo.Utility;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Queue;
 
 /**
@@ -20,81 +24,174 @@ public class BoundaryViews {
     public static void main(String[] args) {
         TreeNode treeNode = new TreeNode();
         TreeNode root = new TreeNode().getRoot();
-//        levelOrderTraversal(root);
-//        levelOrderTraversalSpiral(root);
-//        leftView(root);
-//        rightView(root);
+        levelOrderTraversal(root);
+        levelOrderTraversalSpiral(root);
+        leftView(root);
+        rightView(root);
+//
+        bottomView(new TreeNode().deSerialize(new ArrayList<>(Arrays.asList(20, 8, 22, 5, 3, null, 25, null, null, 10, 14, null, null, null, null, null, null))));
+        System.out.println(checkForBST(root));
+        System.out.println(checkForBST(new TreeNode().getBSTRoot()));
+        System.out.println(checkForBST(new TreeNode().getBSTRoot2()));
 
-//        bottomView(new TreeNode().deSerialize(new ArrayList<>(Arrays.asList(20, 8, 22, 5, 3, null, 25, null, null, 10, 14, null, null, null, null, null, null))));
-//        System.out.println(checkForBST(root));
-//        System.out.println(checkForBST(new TreeNode().getBSTRoot()));
-//        System.out.println(checkForBST(new TreeNode().getBSTRoot2()));
+        System.out.println(twoTreesAreIdentical(root, root)); // true
+        System.out.println(twoTreesAreIdentical(root, new TreeNode().getBSTRoot())); // false
 
-//        System.out.println(twoTreesAreIdentical(root, root)); // true
-//        System.out.println(twoTreesAreIdentical(root, new TreeNode().getBSTRoot())); // false
+        System.out.println(symmetricTree(new TreeNode().getSymmetricTree())); // true
+        System.out.println(symmetricTree(root)); // false
 
-//        System.out.println(symmetricTree(new TreeNode().getSymmetricTree())); // true
-//        System.out.println(symmetricTree(root)); // false
+        ArrayList<Integer> treeNodeList = new ArrayList<>();
+        serialize(root, treeNodeList);
+        TreeNode root2 = deSerialize(treeNodeList);
+        System.out.println(twoTreesAreIdentical(root, root2));
+
+        System.out.println("In Order");
+        inOrder(root);
+        System.out.println();
+        System.out.println("Pre Order");
+        preOrder(root);
+        System.out.println();
+        System.out.println("Post Order");
+        postOrder(root);
+
+        Utility.printDLLFromTreeNode(bToDLL(root));
+        countLeafNodes(root);
+
+
+        find2ndWinner(new TreeNode().getRatingTree());
+
+        System.out.println(findMaxHeightOfTree(treeNode.getRootBig()));
+
+        int diameter = findMaxDiameterOfTreeBrute(treeNode.getRootBig());
+        System.out.println(diameter);
+        int[] dia = new int[]{0};
+        findMaxDiameterOfTree(treeNode.getRootBig(), dia);
+        System.out.println(dia[0]);
+        int[] maxSum = new int[]{0};
+        findMaxPathSum(treeNode.getRootBig(), maxSum);
+        System.out.println(maxSum[0]);
 
 //        pathToNode(root, 5); // 125
 //        pathToNode(root, 6); // 136
-
 //        pathBetweenTwoNodes(new TreeNode().getRootBig(), 10, 13);
+//
+//        int bruteLCA = bruteLCA(treeNode.getRootBig(), 7, 12);
+//        System.out.println(bruteLCA);
+//
+//        int optimizedLCA = optimizedLCA(treeNode.getRootBig(), 7, 12);
+//        System.out.println(optimizedLCA);
 
+//        binaryTreePaths(treeNode.getRootBig());
+        widthOfBinaryTree(treeNode.getRootBig());
+
+        widthOfBinaryTree(deSerialize((new ArrayList<>(Arrays.asList(1, 3, 2, 5, null, null, 9, 6, null, null, null, null, null, 7, null)))));
 //        ArrayList<Integer> treeNodeList = new ArrayList<>();
-//        serialize(root, treeNodeList);
-//        TreeNode root2 = deSerialize(treeNodeList);
-//        System.out.println(twoTreesAreIdentical(root, root2));
+//        serialize(deSerialize((new ArrayList<>(Arrays.asList(1, 3, 2, 5, null, null, 9, 6, null, null, null, null, null, 7, null)))), treeNodeList);
 
-//        System.out.println("In Order");
-//        inOrder(root);
-//        System.out.println();
-//        System.out.println("Pre Order");
-//        preOrder(root);
-//        System.out.println();
-//        System.out.println("Post Order");
-//        postOrder(root);
-
-//        Utility.printDLLFromTreeNode(bToDLL(root));
-//        countLeafNodes(root);
-
-
-//        find2ndWinner(new TreeNode().getRatingTree());
-
-//        System.out.println(findMaxHeightOfTree(treeNode.getRootBig()));
-        int ans = findMaxDiameterOfTree(treeNode.getRootBig());
-        System.out.println(ans);
-        int ans1 = findMaxPathSum(treeNode.getRootBig());
-        System.out.println(ans1);
     }
 
-    private static int findMaxPathSum(TreeNode rootBig) {
+    // if any of the searching target is found, return that while doing preorder dfs
+    // at any node, if we find target in left and right tree, return that root
+    private static int optimizedLCA(TreeNode rootBig, int p, int q) {
+        if (rootBig == null) {
+            return -1;
+        }
+        if (rootBig.val == p || rootBig.val == q) {
+            return rootBig.val;
+        }
+
+        int leftSubTree = optimizedLCA(rootBig.left, p, q);
+        int rightSubTree = optimizedLCA(rootBig.right, p, q);
+
+        if (leftSubTree == -1) {
+            return rightSubTree;
+        } else if (rightSubTree == -1) {
+            return leftSubTree;
+        } else {
+            return rootBig.val;
+        }
+    }
+
+    // find path to two nodes. remove the common path. last common point is the LCA
+    private static int bruteLCA(TreeNode rootBig, int p, int q) {
+        ArrayList<Integer> path1 = new ArrayList<>();
+        pathToNodeUtil(rootBig, p, path1);
+        ArrayList<Integer> path2 = new ArrayList<>();
+        pathToNodeUtil(rootBig, q, path2);
+        int ans = 0;
+        int i = 0;
+        int j = 0;
+        while (i < path1.size() && j < path2.size()) {
+            if (i == j && Objects.equals(path1.get(i), path2.get(j))) {
+                i++;
+                j++;
+            } else {
+                break;
+            }
+        }
+        i--;
+        return path1.get(i);
+    }
+
+
+    // find max height of left sub tree,
+    // find max height of right sub tree
+    // diameter at each node = sum of above 2       //o(n) for above 2
+    // max diameter is max of above all diameters   //o(n^2) to find diameter for all nodes
+
+    static int maxBrute = 0;
+
+    private static int findMaxDiameterOfTreeBrute(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        int leftHeight = findMaxHeightOfTree(node.left);
+        int rightHeight = findMaxHeightOfTree(node.right);
+
+        maxBrute = Math.max(maxBrute, (leftHeight + rightHeight));
+        maxBrute = Math.max(maxBrute, (leftHeight + rightHeight));
+
+        findMaxDiameterOfTreeBrute(node.left);
+        findMaxDiameterOfTreeBrute(node.right);
+        return maxBrute;
+    }
+
+    // optimized in o(n)
+    // while finding max height, we can keep (leftHeight + rightHeight, there itself and check on max of this value)
+    private static int findMaxDiameterOfTree(TreeNode rootBig, int[] dia) {
         if (rootBig == null) {
             return 0;
         }
-        int left = findMaxPathSum(rootBig.left);
-        int right = findMaxPathSum(rootBig.right);
-        max = Math.max(max, left + right);
+        int leftHeight = findMaxDiameterOfTree(rootBig.left, dia);
+        int rightHeight = findMaxDiameterOfTree(rootBig.right, dia);
+        dia[0] = Math.max(dia[0], leftHeight + rightHeight);
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+
+    // similar to finding diameter of tree.
+    // find max sum at each and every node while iterating for the height
+    private static int findMaxPathSum(TreeNode rootBig, int[] maxSum) {
+        if (rootBig == null) {
+            return 0;
+        }
+        int left = findMaxPathSum(rootBig.left, maxSum);
+        int right = findMaxPathSum(rootBig.right, maxSum);
+        maxSum[0] = Math.max(maxSum[0], rootBig.val + left + right);
         return rootBig.val + Math.max(left, right);
     }
 
-    private static int findMaxDiameterOfTree(TreeNode rootBig) {
-        if (rootBig == null) {
-            return 0;
-        }
-        int left = findMaxDiameterOfTree(rootBig.left);
-        int right = findMaxDiameterOfTree(rootBig.right);
-        max = Math.max(max, left + right);
-        return 1 + Math.max(left, right);
-    }
 
     private static int findMaxHeightOfTree(TreeNode root) {
         if (root == null) {
             return 0;
         }
+//        System.out.println("curr node = " + root.val);
         int left = findMaxHeightOfTree(root.left);
         int right = findMaxHeightOfTree(root.right);
 
+//        System.out.println("left height = " + left);
+//        System.out.println("right height = " + right);
+//
         return 1 + Math.max(left, right);
     }
 
@@ -453,13 +550,13 @@ public class BoundaryViews {
         while (q.size() != 0) {
             helper++;
             TreeNode parent = q.poll();
-            if (A.get(helper) != null) {
+            if (helper < A.size() && A.get(helper) != null) {
                 TreeNode temp = new TreeNode(A.get(helper));
                 parent.left = temp;
                 q.add(temp);    //add only non null nodes.only those nodes requires children
             }
             helper++;
-            if (A.get(helper) != null) {
+            if (helper < A.size() && A.get(helper) != null) {
                 TreeNode temp2 = new TreeNode(A.get(helper));
                 parent.right = temp2;
                 q.add(temp2);
@@ -513,4 +610,68 @@ public class BoundaryViews {
         return countLeafNodesUtil(root.left) + countLeafNodesUtil(root.right);
     }
 
+
+    public static List<String> binaryTreePaths(TreeNode root) {
+        ArrayList<String> ans = new ArrayList<>();
+        ArrayList<Integer> temp = new ArrayList<>();
+        binaryTreePathsUtil(root, ans, temp);
+        Utility.printArray(ans, null);
+        return ans;
+    }
+
+    private static void binaryTreePathsUtil(TreeNode root, ArrayList<String> ans, ArrayList<Integer> temp) {
+        if (root == null) {
+            return;
+        }
+        temp.add(root.val);
+        if (root.left == null && root.right == null) {
+            ans.add(String.valueOf(temp));
+        } else {
+            binaryTreePathsUtil(root.left, ans, temp);
+            binaryTreePathsUtil(root.right, ans, temp);
+        }
+        temp.remove(temp.size() - 1);
+    }
+
+
+    public static int widthOfBinaryTree(TreeNode root) {
+        Queue<PairTree> q = new LinkedList<>();
+        q.add(new PairTree(1, root));
+        int ans = 0;
+        while (q.size() != 0) {
+            int size = q.size();
+            int first = 0;
+            int last = 0;
+            for (int i = 0; i < size; i++) {
+                PairTree temp = q.poll();
+                int currId = temp.hd - 1;
+                if (i == 0) first = temp.hd;
+                if (i == size - 1) last = temp.hd;
+                System.out.println("temp root val = " + temp.root.val + " temp hd = " + temp.hd);
+                if (temp.root.left != null) {
+                    q.add(new PairTree((2 * (currId) + 1), temp.root.left));
+                }
+                if (temp.root.right != null) {
+                    q.add(new PairTree((2 * (currId) + 2), temp.root.right));
+                }
+            }
+            System.out.println();
+            ans = Math.max(ans, last - first + 1);
+        }
+
+        System.out.println(ans);
+        return ans;
+    }
+
+}
+
+
+class PairTree {
+    int hd;
+    TreeNode root;
+
+    PairTree(int hd, TreeNode root) {
+        this.hd = hd;
+        this.root = root;
+    }
 }

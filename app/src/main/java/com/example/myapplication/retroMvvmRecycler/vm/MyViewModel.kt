@@ -18,15 +18,15 @@ class MyViewModel(val repository: MainRepository) : ViewModel() {
         get() = movieList
 
     fun getMovies(){
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             val response = repository.getAllMovies()
-//            println("after response" + response.body())
-            withContext(Dispatchers.Main){
-//                println("after response, in main" + response.body())
-                if(response.isSuccessful){
-                    movieList.value = response.body()
-                } else {
-                    response.message()
+            if(response.isSuccessful){
+                withContext(Dispatchers.Main){
+                    movieList.postValue(response.body())
+                }
+            } else {
+                withContext(Dispatchers.Main){
+
                 }
             }
         }

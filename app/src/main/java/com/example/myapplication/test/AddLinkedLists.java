@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import com.example.myapplication.dsAlgo.LinkedListNode;
 
-class AddLinkedLists {
+public class AddLinkedLists {
     //Function to add two numbers represented by linked list.
 
     public static void main(String[] args) {
@@ -20,7 +20,7 @@ class AddLinkedLists {
         printNode(addTwoLists(n1, dupN2));
     }
 
-    static LinkedListNode addTwoLists(LinkedListNode num1, LinkedListNode num2) {
+    public static LinkedListNode addTwoLists(LinkedListNode num1, LinkedListNode num2) {
         LinkedListNode dup1 = num1;
         LinkedListNode dup2 = num2;
 

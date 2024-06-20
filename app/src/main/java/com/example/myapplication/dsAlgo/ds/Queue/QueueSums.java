@@ -10,11 +10,11 @@ import java.util.Queue;
 public class QueueSums {
 
     public static void main(String[] args) {
-//        firstNonRepeating("wwpyedwrebkbvmvkvvesansqszwtrknvehhgdiqnhietykcgujlclwgyluryjfiaeelhefputiuxtbaedbtlzegpwhmiloosqefh");
+        firstNonRepeating("wwpyedwrebkbvmvkvvesansqszwtrknvehhgdiqnhietykcgujlclwgyluryjfiaeelhefputiuxtbaedbtlzegpwhmiloosqefh");
 
-//        int[][] rotten = {{0, 1, 2}, {0, 1, 2}, {2, 1, 1}};
+        int[][] rotten = {{0, 1, 2}, {0, 1, 2}, {2, 1, 1}};
 //        int[][] rotten = {{0, 2}};
-//        orangesRotting(rotten);
+        orangesRotting(rotten);
     }
 
     /**

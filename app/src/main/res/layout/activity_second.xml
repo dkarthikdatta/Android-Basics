@@ -4,52 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".mvvmlivedata.view.SecondActivity">
 
     <TextView
         android:id="@+id/factsTectView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
         android:text="Hello World"
-        />
+        android:textSize="28sp" />
 
     <Button
         android:id="@+id/btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change"
-        />
+        android:text="Change" />
 
     <Button
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next"
-        />
+        android:text="@string/next" />
 
     <Button
         android:id="@+id/toast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Toast"
-        />
+        android:text="Toast" />
 
     <Button
         android:id="@+id/explicit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Explicit"
-        />
+        android:text="Explicit" />
 
     <Button
         android:id="@+id/implicit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Implicit"
-        />
+        android:text="Implicit" />
 
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

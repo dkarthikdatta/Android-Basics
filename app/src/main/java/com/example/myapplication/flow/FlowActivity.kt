@@ -118,7 +118,7 @@ class FlowActivity : AppCompatActivity() {
 
         /**
          * producer is producing each element at 1000ms each
-         * but cunusmer is consuming each element in 1500 due to some operations while consuming
+         * but consumer is consuming each element in 1500 due to some operations while consuming
          * hence bottleneck at consumer
          * buffer at consumer with a capacity
          */
@@ -134,7 +134,7 @@ class FlowActivity : AppCompatActivity() {
 //        }
 
         // use flowOn to specify where producer should run
-        // all calls before flowOn (prducer, map, filter) are runned in that context only
+        // all calls before flowOn (producer, map, filter) are runned in that context only
 
 //        GlobalScope.launch {
 //            val data = flowProducer()

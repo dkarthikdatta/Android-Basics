@@ -13,6 +13,7 @@ import com.example.myapplication.intent.IntentActivity
 import com.example.myapplication.java.FinalClass
 import com.example.myapplication.java.PassByValue
 import com.example.myapplication.kotlin.KotlinLearn
+import com.example.myapplication.lazy.lazyClass
 import com.example.myapplication.mvvm.view.MainActivity
 import javax.annotation.Nullable
 
@@ -134,6 +135,8 @@ fun main() {
      * 7. higher order functions
      * 8. list vs arraylist
      * 9. array in kotlin
+     * 10. lazy vs lateinit
+     * 11. lazy threadSafe
      *
      * Design Patterns
      * 1. What I know
@@ -867,6 +870,17 @@ fun main() {
      * android:process=":remote"
      */
 
+    /**
+     * 48. Optimize recycler view
+     *
+     * 1. Recycler pool
+     * RecyclerView Pool is a mechanism that helps manage the memory and performance of the views within
+     * the RecyclerView. It’s essentially a cache that holds views that are currently not visible on the
+     * screen but might be needed again in the near future.
+     *
+     *
+     */
+
 
     /**
      * Java
@@ -995,6 +1009,21 @@ fun main() {
      * A higher-order function is a function that takes functions as parameters, or returns a function.
      */
 
+
+    /**
+     * 10. lazy vs lateinit
+     *
+     * https://medium.com/huawei-developers/kotlin-lateinit-vs-by-lazy-initialization-example-tutorial-c19d84216480
+     *
+     * lazy -> loads only when the object is getting used. to avoid creation of object if not using
+     */
+
+    /**
+     * 11. lazy threadSafe
+     */
+    //goto
+    val lazy = lazyClass()
+
     /**
      * Design Patterns
      */
@@ -1020,6 +1049,55 @@ fun main() {
      *
      * 1. Observer
      * 2. Strategy
+     *
+     */
+
+
+    /**
+     * PNG -> Portable Network Graphics
+     * Jpeg/Jpg -> Joint Photographic Experts Group
+     * PDF -> Portable Document Format
+     * GIF -> Graphics Interchange Format
+     * SVG - Scalable Vector Graphic
+     *
+     * Jpeg -> high compression and less size
+     * PNG -> less compression and more size
+     *
+     *
+     * dpi - dots per inch - pixels per inch
+     * dot = pixel - one physical dot
+     *
+     * base line density in android - 160 dpi (mdpi)
+     *
+     *          dpi         Scale factors
+     * mdpi     160 dpi     1x
+     * hdpi     240 dpi     1.5x
+     * xhdpi    320 dpi     2x
+     * xxhdpi   480 dpi     3x
+     * xxxhdpi  640 dpi     4x
+     *
+     * px = dp * (dpi/160)
+     *
+     * high density mobile - more no of dots/pixel
+     *
+     * BitMap -> map of pixels - any image of format jpg or png
+     *
+     *  ex: png to bitmap conversion and inflating bitmap in imageview
+     *   val bitmap1 = BitmapFactory.decodeResource(resources, R.drawable.car)
+     *   binding.imageView.setImageBitmap(bitmap1)
+     *
+     * Image asset vs Vector asset(svg)
+     *
+     *  Image assets are raster images that are designed using a bitmap format
+     * such as JPEG, PNG, and GIF. These are pixel-based graphics that are made
+     * up of a grid of pixels. Image assets are great for displaying realistic
+     * images or photographs in your app. However, when it comes to resizing, they
+     * can lose quality and become pixelated.
+     *
+     * Vector assets are graphics that are created using mathematical equations to define
+     * lines, curves, and shapes. Vector assets are resolution-independent and can be scaled
+     * to any size without losing quality. They are great for displaying icons, logos, and
+     * other graphics that need to be displayed in multiple sizes and resolutions.
      *
      */
 }

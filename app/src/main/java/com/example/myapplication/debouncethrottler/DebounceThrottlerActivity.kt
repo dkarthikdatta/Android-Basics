@@ -20,21 +20,21 @@ class DebounceThrottlerActivity : AppCompatActivity() {
 
 
         binding.editText.doOnTextChanged { text, start, before, count ->
-//            debounce.debounce<String>(
+            debounce.debounce<String>(
+                1000,
+                CoroutineScope(Dispatchers.Main),
+                ::addDebounceText
+            )(text.toString())
+//            debounce.throttleFirst<String>(
 //                4000,
 //                CoroutineScope(Dispatchers.Main),
-//                ::addDebounceText
-//            )(text.toString())
-            debounce.throttleFirst<String>(
-                4000,
-                CoroutineScope(Dispatchers.Main),
-                ::addTrottleFirstText
-            )
+//                ::addTrottleFirstText
+//            )
             debounce.throttleLatest<String>(
-                4000,
+                1000,
                 CoroutineScope(Dispatchers.Main),
                 ::addTrottleLastText
-            )
+            )(text.toString())
         }
 
     }
