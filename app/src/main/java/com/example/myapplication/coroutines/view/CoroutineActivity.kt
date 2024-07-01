@@ -511,7 +511,9 @@ class CoroutineActivity : AppCompatActivity() {
         /**
          * if using supervisorJob only for parent, child 2 does not print as
          *
-         * Despite using SupervisorJob, the parent coroutine may still be in the process of handling the exception and subsequently might complete before the second coroutine's delay finishes. This results in the second coroutine getting cancelled before it can print its message.
+         * Despite using SupervisorJob, the parent coroutine may still be in the process of handling
+         * the exception and subsequently might complete before the second coroutine's delay finishes.
+         * This results in the second coroutine getting cancelled before it can print its message.
          */
 //
 //        val supervisorJob2 = SupervisorJob()

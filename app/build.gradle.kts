@@ -51,6 +51,9 @@ android {
 
 dependencies {
     implementation("androidx.work:work-runtime-ktx:2.9.0")
+    implementation(project(":core"))
+    implementation(project(":myModule2"))
+    implementation(project(":myModule"))
     val lifecycle_version = "2.7.0"
     val fragment_version = "1.6.2"
     // ViewModel

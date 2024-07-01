@@ -57,24 +57,24 @@ public class GraphSums {
     //BFS - Breadth for search
 
     /**
-     *              1
-     *            /   \
-     *           2     6
-     *          /\    / \
-     *         3  4  7   8
-     *             \/
-     *             5
-     *
-     *   BFS from 1 -> 1,2,6,3,4,7,8,5
-     *   BFS from 6 -> 6,1,7,8,2,5,3,4
-     *
-     *  DFS from 1 -> 1,2,3,4,5,7,6,8
-     *  or
-     *              -> 1,2,4,5,7,6,8,3
-     *
-     *  DFS from 6 -> 6,1,2,3,4,5,7,8
-     *
-     *  Topological sort
+     * 1
+     * /   \
+     * 2     6
+     * /\    / \
+     * 3  4  7   8
+     * \/
+     * 5
+     * <p>
+     * BFS from 1 -> 1,2,6,3,4,7,8,5
+     * BFS from 6 -> 6,1,7,8,2,5,3,4
+     * <p>
+     * DFS from 1 -> 1,2,3,4,5,7,6,8
+     * or
+     * -> 1,2,4,5,7,6,8,3
+     * <p>
+     * DFS from 6 -> 6,1,2,3,4,5,7,8
+     * <p>
+     * Topological sort
      */
 
     public static void main(String[] args) {
@@ -100,19 +100,19 @@ public class GraphSums {
     }
 
     private static void dfs(ArrayList<ArrayList<Integer>> adjList, int n) {
-        int[] vis = new int[adjList.size()+1];
+        int[] vis = new int[adjList.size() + 1];
         ArrayList<Integer> ans = new ArrayList<>();
         vis[n] = 1;
         dfsUtil(adjList, vis, ans, n);
-        Utility.printArrayList(ans,"DFS of Graph");
+        Utility.printArrayList(ans, "DFS of Graph");
     }
 
     private static void dfsUtil(ArrayList<ArrayList<Integer>> adjList, int[] vis, ArrayList<Integer> ans, int n) {
         vis[n] = 1;
         ans.add(n);
-        ArrayList<Integer> currAdj = adjList.get(n-1);
-        for(int i=0; i<currAdj.size(); i++){
-            if(vis[currAdj.get(i)]==0){
+        ArrayList<Integer> currAdj = adjList.get(n - 1);
+        for (int i = 0; i < currAdj.size(); i++) {
+            if (vis[currAdj.get(i)] == 0) {
                 dfsUtil(adjList, vis, ans, currAdj.get(i));
             }
         }
@@ -120,20 +120,20 @@ public class GraphSums {
 
 
     private static void bfs(ArrayList<ArrayList<Integer>> adjList, int n) {
-        int[] vis = new int[adjList.size()+1]; // since 1 based list
+        int[] vis = new int[adjList.size() + 1]; // since 1 based list
         vis[n] = 1;
         Queue<Integer> q = new LinkedList<>();
         ArrayList<Integer> ans = new ArrayList<>();
         // store in q, pop q and add in ans. add popped int neighbours to q if not visited and mark them visited
         q.add(n);
-        while (q.size()!=0){
+        while (q.size() != 0) {
             int size = q.size();
             int temp = q.poll();
             ans.add(temp);
-            for(int i=0; i<size; i++){
-                ArrayList<Integer> currAdj = adjList.get(temp-1);
-                for (int j=0; j<currAdj.size(); j++){
-                    if(vis[currAdj.get(j)] == 0){
+            for (int i = 0; i < size; i++) {
+                ArrayList<Integer> currAdj = adjList.get(temp - 1);
+                for (int j = 0; j < currAdj.size(); j++) {
+                    if (vis[currAdj.get(j)] == 0) {
                         vis[currAdj.get(j)] = 1;
                         q.add(currAdj.get(j));
                     }
@@ -148,10 +148,10 @@ public class GraphSums {
     private static void topologicalSort(ArrayList<ArrayList<Integer>> adjList) {
         int start = 0;
         ArrayList<Integer> ans = new ArrayList<>();
-        boolean[] vis = new boolean[adjList.size()+1];
+        boolean[] vis = new boolean[adjList.size() + 1];
 
         for (int i = 1; i < adjList.size() + 1; i++) {
-            if(vis[i] == false){
+            if (vis[i] == false) {
                 topologicalSortUtil(adjList, vis, ans, i);
             }
         }
@@ -162,9 +162,9 @@ public class GraphSums {
     private static void topologicalSortUtil(ArrayList<ArrayList<Integer>> adjList, boolean[] vis, ArrayList<Integer> ans, int n) {
 //        ans.add(n);
         vis[n] = true;
-        ArrayList<Integer> curAdj = adjList.get(n-1);
-        for(int i=0; i<curAdj.size(); i++){
-            if(!vis[curAdj.get(i)]){
+        ArrayList<Integer> curAdj = adjList.get(n - 1);
+        for (int i = 0; i < curAdj.size(); i++) {
+            if (!vis[curAdj.get(i)]) {
                 topologicalSortUtil(adjList, vis, ans, curAdj.get(i));
             }
         }
@@ -207,7 +207,7 @@ public class GraphSums {
 
         Queue<Pair> q = new LinkedList<>();
         q.add(new Pair(1, -1));
-        boolean[] vis = new boolean[adjList.size()+1];
+        boolean[] vis = new boolean[adjList.size() + 1];
         vis[1] = true;
         while (q.size() != 0) {
 
@@ -218,10 +218,10 @@ public class GraphSums {
                 int parent = curr.b;
                 for (int j = 0; j < adjList.get(currInt).size(); j++) {
                     int adjNode = adjList.get(currInt).get(j);
-                    if(vis[adjNode] == false){
+                    if (vis[adjNode] == false) {
                         vis[adjNode] = true;
                         q.add(new Pair(adjNode, currInt));
-                    } else if(parent != adjList.get(currInt).get(j)){
+                    } else if (parent != adjList.get(currInt).get(j)) {
                         System.out.println("Circle Found");
                         return;
                     }

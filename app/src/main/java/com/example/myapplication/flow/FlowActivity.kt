@@ -26,7 +26,7 @@ import kotlinx.coroutines.withContext
  */
 class FlowActivity : AppCompatActivity() {
 
-    val channel = Channel<Int>()
+    private val channel = Channel<Int>()
 
     companion object {
         const val TAG = "FLOW"

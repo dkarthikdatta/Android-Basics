@@ -1,16 +1,61 @@
+import com.example.myapplication.retroMvvmRecycler.network.RetrofitService
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.coroutines.cancellation.CancellationException
 
-fun main() {
+suspend fun main() {
 //    startNormalJob()
-    startSupervisorJob()
+//    startSupervisorJob()
+//    val flow = getFlow()
+//    flow.collect {
+//        println(it)
+//    }
+
+    val myString = "Datta"
+    val ans = myString.modifiedExtensionString()
+    println(ans)
+    getUsers().collect {
+        println(it?.body()?.get(0))
+    }
 }
+
+
+fun String.modifiedExtensionString(): String {
+    return "Karthik $this"
+}
+
+
+suspend fun getFlow() = flow<Int> {
+    delay(10)
+    emit(1)
+}
+
+suspend fun getUsers() = flow {
+    val retrofit = RetrofitService.getInstance()
+    retrofit.getUsers().enqueue(object : Callback<List<String>> {
+        override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+            CoroutineScope(Dispatchers.Main).launch {
+                emit(response)
+            }
+        }
+
+        override fun onFailure(call: Call<List<String>>, t: Throwable) {
+            CoroutineScope(Dispatchers.Main).launch {
+                emit(null)
+            }
+        }
+    });
+}
+
 
 fun startNormalJob() {
     runBlocking {
@@ -69,4 +114,3 @@ fun startSupervisorJob() {
         parentJob.join()
     }
 }
-

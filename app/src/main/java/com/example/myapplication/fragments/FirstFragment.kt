@@ -17,7 +17,7 @@ class FirstFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        public fun newInstance(someInputString: String, someInputInt: Int): FirstFragment{
+        fun newInstance(someInputString: String, someInputInt: Int): FirstFragment {
             val args = Bundle()
             args.putInt("someInt", someInputInt)
             args.putString("someString", someInputString)

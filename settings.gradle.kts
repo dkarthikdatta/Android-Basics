@@ -16,4 +16,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "My Application"
 include(":app")
- 
+include(":myModule")
+include(":core")
+include(":myModule2")

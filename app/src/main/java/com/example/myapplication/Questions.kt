@@ -111,6 +111,14 @@ fun main() {
      *
      * https://medium.com/@peternjuguna76/understanding-android-aidl-a-comprehensive-guide-b4d97253b169
      * 54. AIDL
+     * 55. Internal working of viewModel
+     * 56. Activity launch modes
+     * 57. Android APK compilation process
+     * 58. Compose vs Viewbinding
+     * 59. Compose state
+     * 60. Why are we not shipping machine code in android like we do in iOS and what is the advantage of this?
+     * 61. Why cant we write entire code in cpp in android. why java is introduced
+     * 62. Compose lazy list vs Recycler view
      *
      * Java
      * 1. Shallow copy vs Deep Copy
@@ -137,6 +145,7 @@ fun main() {
      * 9. array in kotlin
      * 10. lazy vs lateinit
      * 11. lazy threadSafe
+     * 12. inline function
      *
      * Design Patterns
      * 1. What I know
@@ -193,7 +202,7 @@ fun main() {
      *                              |
      *                         OnCreate()
      *                              |
-     *                         OnStart()<--------------------------------------------------------------------
+     *                         OnStart()<-----------------------------------------------------------onRestart()
      *      onRestoreInstanceState  |                                                                       |
      *                         OnResume()<-------------------------------------------                       |
      *                              |                                               ^                       |
@@ -208,6 +217,10 @@ fun main() {
      *                         OnDestroy()
      *                              |
      *                         Activity Shut Down
+     *
+     *
+     *  OnStart() -> when the activity becomes "visible" to the user, but the user cant "interact"
+     *  onResume() -> user is able to interact
      */
 
     /**
@@ -258,7 +271,7 @@ fun main() {
     val firstFragment: FirstFragment
 
     /**
-     * 4.B. How do you pass data to fragment? Why only as argument bundle and retreiving in onCreate, why not as Constructor params?
+     * 4.B. How do you pass data to fragment? Why only as argument bundle and retrieving in onCreate, why not as Constructor params?
      *
      * Using constructor parameters to pass data to a Fragment is generally not recommended because
      * Android expects Fragments to have a default empty constructor. This is because the Android
@@ -283,6 +296,9 @@ fun main() {
 
     /**
      * 6. ViewModel -> ViewModel Factory
+     *
+     * ViewModel class is designed to store and manage UI-related data in a lifecycle conscious way.
+     *
      * ViewModelFactory is used when we want to initialize viewModel with some parameters
      *
      * myViewModel = ViewModelProvider(this, MyViewModelFactory(applicationContext)).get(MyViewModel::class.java)
@@ -334,7 +350,7 @@ fun main() {
      * if parent job cancels -> all children get cancelled
      *
      * Supervisor job
-     * if any one child coroutine cancels -> all other siblings does not get cancelle
+     * if any one child coroutine cancels -> all other siblings does not get cancelled
      * if parent Supervisor job cancels -> all children get cancelled
      */
 
@@ -381,7 +397,10 @@ fun main() {
      *
      * the threads managed by Dispatchers.Default cannot be directly utilized for IO dispatch.
      * Each dispatcher in Kotlin coroutines manages its own thread pool, and coroutines dispatched to a particular dispatcher will be executed by threads from that dispatcher's pool.
-     * Threads managed by Dispatchers.Default are intended for CPU-bound tasks and are not optimized for I/O operations. Attempting to use Default threads for IO dispatch would likely lead to inefficient I/O handling and could potentially cause blocking and performance issues.
+     *
+     * Threads managed by Dispatchers.Default are intended for CPU-bound tasks and are not optimized
+     * for I/O operations. Attempting to use Default threads for IO dispatch would likely lead to inefficient
+     * I/O handling and could potentially cause blocking and performance issues.
      *
      *
      */
@@ -441,6 +460,47 @@ fun main() {
      * 20. View Lifecycle
      * https://proandroiddev.com/the-life-cycle-of-a-view-in-android-6a2c4665b95e
      * https://medium.com/@sahoosunilkumar/understanding-view-lifecycle-in-android-e42890aab16
+     *
+     *
+     *
+     *
+     *                      onAttachToWindow()
+     *                              |<-------------------
+     *                           measure()              |
+     *                              |                   |
+     *                         onMeasure()              |
+     *                              |                   |
+     *                          layout()                |
+     *                              |                   |
+     *                          onLayout()          requestLayout()
+     *       ^--------------------->|                   ^
+     *       |                  dispatchToDraw()        |
+     *       |                      |                   |
+     *  invalidate()             draw()                 |
+     *       |                      |                   |
+     *       |                   onDraw()               |
+     *       <----------------------|------------------->
+     *                         visible to user
+     *
+     *
+     *
+     * onAttachToWindow()
+     * onRestoreInstanceState()
+     * measure()
+     * onMeasure() --------- how big a view should be - setMeasuredDimension() to set width and height explicitly.
+     * layout()
+     * onLayout() ---------- where to position them on the screen
+     * dispatchToDraw()
+     * draw()
+     * onDraw() ------------ Sizes and positions are calculated in previous steps, so the view can draw itself based on them. In onDraw(Canvas canvas) Canvas object generated (or updates) has a list of OpenGL-ES commands (displayList) to send to the GPU.
+     * onSaveInstanceState()
+     *
+     * broadly, we can categorize into
+     * Measure -> Layout-> Draw
+     *
+     *
+     * inValidate() -------- if there is change in view appearance (text, color etc), force reDrawing of a particular view that we wish to show changes. The view will be redrawn but the size will not change.
+     * requestLayout() ------ size change of the view - If something about your view changes that will affect the size, then you should call requestLayout(). This will trigger onMeasure and onLayout not only for this view but all the way up the line for the parent views.
      *
      */
 
@@ -671,7 +731,7 @@ fun main() {
      * 3. The Android system looks at the message to determine which app it’s for, and starts that app.
      * 4. The app must have registered with Android to use GCM, and it must have the relevant permission
      *
-     * Firebase Cloud Messaging: (update to GCM - new version if GCM)
+     * Firebase Cloud Messaging: (update to GCM - new version of GCM)
      * An operating system push notification service (OSPNS) is required to forward the push notification
      * from the server application to the client application. Firebase Cloud Messaging (FCM) is the OSPNS
      * for Android push notifications.
@@ -795,7 +855,7 @@ fun main() {
      * 5. After validation, if validates, data is encrypted using server public key and decrypted at server end using server private key,
      *
      * Question - What if attacker overrides CA certificate itself with his own server public and private keys?
-     * I guess client know what domain to truest - stored in client code
+     * I guess client know what domain to trust - stored in client code
      * since the domain name in attacker CA certificate doesn't matches with trusted domain names - it invalidates
      * CA will provide domain name only to legitimate owner - attacker cant get a certificate with any domain name - only his own domain name
      *
@@ -872,6 +932,7 @@ fun main() {
 
     /**
      * 48. Optimize recycler view
+     * https://medium.com/@balsikandar/mastering-recyclerview-optimizations-in-android-f937919d4dd7
      *
      * 1. Recycler pool
      * RecyclerView Pool is a mechanism that helps manage the memory and performance of the views within
@@ -881,6 +942,89 @@ fun main() {
      *
      */
 
+
+    /**
+     * 56. Activity launch modes
+     *
+     * 1. standard
+     * 2. single top
+     * 3. single task
+     * 4. single instance
+     *
+     * 1. standard
+     * ABCD
+     * launch D, -> ABCDD
+     *
+     * 2. Single Top
+     *
+     * C is single top
+     *
+     * ABCD
+     * launch C -> ABCDC (new instance of C as it is not on top. onCreate())
+     *
+     * ABC
+     * launch C -> ABC (new instance of C is NOT created as C is already on top. callback to onNewIntent() method)
+     *
+     *
+     * 3. Single Task
+     *
+     * At a time only one instance of activity will exist.
+     *
+     * C is Single task
+     *
+     * ABCD
+     * launch C -> ABC (new instance of C is NOT created as C is already on top. callback to onNewIntent() method)
+     *                  (D is popped)
+     *
+     *
+     * 4. Single Instance
+     * It is similar to singleTask except that no other activities will be created in the same task.
+     *
+     * D is single instance
+     *
+     * ABC
+     * launch D,
+     *
+     * Task 1 -> ABC
+     * Task 2-> D
+     *
+     * launch E, F
+     *
+     * Task 1 -> ABCEF (since D is single instance)
+     * Task 2-> D
+     *
+     * launch D (new instance of D is NOT created as D is already on top. callback to onNewIntent() method)
+     *
+     */
+
+    /**
+     * 57. Android APK compilation process
+     *
+     *      Java source code                Kotlin source code
+     *              |                               |
+     *       Java Compiler                    Kotlin compiler
+     *              |                               |
+     *              |_______________________________|
+     *                              |
+     *                              |
+     *                        Java ByteCode
+     *                              |
+     *                              |
+     *                         DEX Compiler
+     *                              |
+     *                              |
+     *                         Davlik Byte Code (APK)
+     *                              |
+     *                              |   runs on
+     *                           DVM/ART (our mobile)
+     *                              |
+     *                              |   compiles to (using JIT/AOT compiler)
+     *                         Machine code (our mobile)
+     *
+     * DVM - Davlik Virtual Machine - uses Just In Time compiler to compile into machine code - compile everytime app opens
+     * ART - Android Runtime - uses Ahead of Time compiler to compile into machine code - no need to compile everytime app opens
+     *
+     */
 
     /**
      * Java

@@ -10,22 +10,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MyViewModel(val repository: MainRepository) : ViewModel() {
+class MyViewModel(private val repository: MainRepository) : ViewModel() {
 
     private val movieList = MutableLiveData<List<MovieDataItem>>()
 
     val moviesLiveData: LiveData<List<MovieDataItem>>
         get() = movieList
 
-    fun getMovies(){
+    fun getMovies() {
         viewModelScope.launch {
             val response = repository.getAllMovies()
-            if(response.isSuccessful){
-                withContext(Dispatchers.Main){
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
                     movieList.postValue(response.body())
                 }
             } else {
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
 
                 }
             }

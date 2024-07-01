@@ -14,8 +14,9 @@ import com.example.myapplication.retroMvvmRecycler.vm.MyViewModelFactory
 
 class MyMainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMyMainBinding
-    lateinit var viewModel: MyViewModel
+    private lateinit var binding: ActivityMyMainBinding
+    private lateinit var viewModel: MyViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMyMainBinding.inflate(layoutInflater)

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -30,8 +31,102 @@ public class GooglePrep {
 //        nextSmallerElement(new int[]{6, 8, 0, 1, 3});
 //        nextSmallerElement(new ArrayList<>(Arrays.asList(2, 1, 4, 3)));
 //
-        int ans = minSubsetSumDifference(new int[]{1, 2, 3, 4}, 4);
-        System.out.println(ans);
+//        int ans = minSubsetSumDifference(new int[]{1, 2, 3, 4}, 4);
+//        System.out.println(ans);
+
+//        System.out.println(uniquePaths(1, 2));
+//        System.out.println(rremove("aaaaaaaaa"));
+//        System.out.println(removeDuplicates("maaani"));
+        ArrayList<Integer> ans = countSmaller(new int[]{5, 2, 6, 1});
+        Utility.printArrayList(ans, "");
+    }
+
+    public static ArrayList<Integer> countSmaller(int[] nums) {
+        ArrayList<Integer> ans = new ArrayList<Integer>();
+        for (int i = 0; i < nums.length - 1; i++) {
+            boolean added = false;
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] < nums[i]) {
+                    added = true;
+                    ans.add(nums[j]);
+                    break;
+                }
+            }
+            if(!added){
+                ans.add(0);
+            }
+        }
+        ans.add(0);
+        return ans;
+    }
+
+    public static String removeDuplicates(String S) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : S.toCharArray()) {
+            int size = sb.length();
+            if (size > 0 && sb.charAt(size - 1) == c) {
+                sb.deleteCharAt(size - 1);
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    static String rremove(String s) {
+        return rremoveUtil(s);
+    }
+
+    static String rremoveUtil(String s) {
+
+        boolean[] repeat = new boolean[s.length()];
+
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i - 1) == s.charAt(i)) {
+                repeat[i - 1] = true;
+                repeat[i] = true;
+            }
+        }
+
+        StringBuilder rem = new StringBuilder();
+
+        for (int i = 0; i < repeat.length; i++) {
+            if (!repeat[i]) {
+                rem.append(s.charAt(i));
+            }
+        }
+        Utility.printArray(repeat);
+        System.out.println("s = " + s);
+        System.out.println("rem = " + rem);
+        System.out.println("s size = " + s.length() + " rem size = " + rem.length());
+//        if(rem.length() == 0 ){
+//            return String.valueOf(s.charAt(0));
+//        }
+        if (s.length() == rem.length()) {
+            System.out.println("found length same, returning");
+            return rem.toString();
+        }
+        return rremoveUtil(rem.toString());
+    }
+
+    public static int uniquePaths(int m, int n) {
+        int[][] arr = new int[m][n];
+        int ans = dpUtil(arr, m - 1, n - 1);
+        Utility.print2DArray(arr);
+        return ans;
+    }
+
+    private static int dpUtil(int[][] arr, int i, int j) {
+        if (i < 0 || j < 0) {
+            return 0;
+        }
+        if (i == 0 || j == 0) {
+            return 1;
+        }
+        if (arr[i][j] != 0) {
+            return arr[i][j];
+        }
+        return arr[i][j] = dpUtil(arr, i - 1, j) + dpUtil(arr, i, j - 1);
     }
 
     public static int minSubsetSumDifference(int[] nums, int n) {
@@ -417,4 +512,5 @@ public class GooglePrep {
         }
         System.out.println(ans);
     }
+
 }

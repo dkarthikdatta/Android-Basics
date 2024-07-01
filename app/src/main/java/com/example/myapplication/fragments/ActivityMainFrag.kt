@@ -92,14 +92,14 @@ class ActivityMainFrag: AppCompatActivity() {
 
 
     /**
-     * commit vs commitAllowingStateloss
+     * commit vs commitAllowingStateLoss
      *
      * if transaction commits after onSavedInstance of activity, IllegalStateException is thrown
      * reason -> at onSavedInstance, activity tries to save the snapshot of activity by bundle
      * if commit is called after onSavedInstance, the transaction won’t be remembered because it was never recorded as part of the Activity’s state in the first place.
      * In order to protect the user experience, Android avoids state loss at all costs, and simply throws an IllegalStateException whenever it occurs.
      *
-     * commitAllowingStateloss
+     * commitAllowingStateLoss
      * You might lose the FragmentManager’s state and by extension the state of any Fragments added or removed since onSaveInstanceState().
      *
      * Here’s a practical example:

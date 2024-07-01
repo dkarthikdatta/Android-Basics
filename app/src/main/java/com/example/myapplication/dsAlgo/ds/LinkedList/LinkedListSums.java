@@ -27,17 +27,17 @@ public class LinkedListSums {
         LinkedListNode root = new LinkedListNode().getLinkedList();
 //        Utility.printNode(root);
 
-//        findMiddle(root);
-//        reverseLinkedList(root);
-//
-//        rotateLinkedList(nodeClas.getLinkedList(new int[]{12, 26}), 1);
-//        rotateRight(nodeClas.getLinkedList(new int[]{1,2,3,4,5}), 2);
+        findMiddle(root);
+        reverseLinkedList(root);
 
-//        int[] arr1 = {50, 114, 37, 66, 102, 11, 59, 92, 70, 84, 95, 106, 44, 57, 3, 38, 36, 23, 76, 112, 67, 17, 33, 22, 69, 74, 61, 53, 30, 9, 78, 86, 81, 12, 21, 100, 40, 98, 110};
-//        int[] arr2 = {11, 20, 10, 37, 2, 24, 39, 40, 1, 4, 21, 22, 44, 17, 33};
-//        LinkedListNode node1 = new LinkedListNode().getLinkedList(arr1);
-//        LinkedListNode node2 = new LinkedListNode().getLinkedList(arr2);
-//        findIntersection(node1, node2);
+        rotateLinkedList(nodeClas.getLinkedList(new int[]{12, 26}), 1);
+        rotateRight(nodeClas.getLinkedList(new int[]{1,2,3,4,5}), 2);
+
+        int[] arr1 = {50, 114, 37, 66, 102, 11, 59, 92, 70, 84, 95, 106, 44, 57, 3, 38, 36, 23, 76, 112, 67, 17, 33, 22, 69, 74, 61, 53, 30, 9, 78, 86, 81, 12, 21, 100, 40, 98, 110};
+        int[] arr2 = {11, 20, 10, 37, 2, 24, 39, 40, 1, 4, 21, 22, 44, 17, 33};
+        LinkedListNode node1 = new LinkedListNode().getLinkedList(arr1);
+        LinkedListNode node2 = new LinkedListNode().getLinkedList(arr2);
+        findIntersection(node1, node2);
 
 
 //        sortedMerge(nodeClas.getLinkedList(new int[]{5, 10, 15, 40}), nodeClas.getLinkedList(new int[]{2, 3, 20}));
@@ -110,7 +110,7 @@ public class LinkedListSums {
      * @param root
      */
 
-    private static void findMiddle(LinkedListNode root) {
+    private static void  findMiddle(LinkedListNode root) {
         LinkedListNode temp = root;
         int size = 0;
         while (temp != null) {

@@ -24,26 +24,26 @@ public class BoundaryViews {
     public static void main(String[] args) {
         TreeNode treeNode = new TreeNode();
         TreeNode root = new TreeNode().getRoot();
-        levelOrderTraversal(root);
-        levelOrderTraversalSpiral(root);
-        leftView(root);
-        rightView(root);
+//        levelOrderTraversal(root);
+//        levelOrderTraversalSpiral(root);
+//        leftView(root);
+//        rightView(root);
+////
+//        bottomView(new TreeNode().deSerialize(new ArrayList<>(Arrays.asList(20, 8, 22, 5, 3, null, 25, null, null, 10, 14, null, null, null, null, null, null))));
+//        System.out.println(checkForBST(root));
+//        System.out.println(checkForBST(new TreeNode().getBSTRoot()));
+//        System.out.println(checkForBST(new TreeNode().getBSTRoot2()));
 //
-        bottomView(new TreeNode().deSerialize(new ArrayList<>(Arrays.asList(20, 8, 22, 5, 3, null, 25, null, null, 10, 14, null, null, null, null, null, null))));
-        System.out.println(checkForBST(root));
-        System.out.println(checkForBST(new TreeNode().getBSTRoot()));
-        System.out.println(checkForBST(new TreeNode().getBSTRoot2()));
-
-        System.out.println(twoTreesAreIdentical(root, root)); // true
-        System.out.println(twoTreesAreIdentical(root, new TreeNode().getBSTRoot())); // false
-
-        System.out.println(symmetricTree(new TreeNode().getSymmetricTree())); // true
-        System.out.println(symmetricTree(root)); // false
-
-        ArrayList<Integer> treeNodeList = new ArrayList<>();
-        serialize(root, treeNodeList);
-        TreeNode root2 = deSerialize(treeNodeList);
-        System.out.println(twoTreesAreIdentical(root, root2));
+//        System.out.println(twoTreesAreIdentical(root, root)); // true
+//        System.out.println(twoTreesAreIdentical(root, new TreeNode().getBSTRoot())); // false
+//
+//        System.out.println(symmetricTree(new TreeNode().getSymmetricTree())); // true
+//        System.out.println(symmetricTree(root)); // false
+//
+//        ArrayList<Integer> treeNodeList = new ArrayList<>();
+//        serialize(root, treeNodeList);
+//        TreeNode root2 = deSerialize(treeNodeList);
+//        System.out.println(twoTreesAreIdentical(root, root2));
 
         System.out.println("In Order");
         inOrder(root);
@@ -56,12 +56,12 @@ public class BoundaryViews {
 
         Utility.printDLLFromTreeNode(bToDLL(root));
         countLeafNodes(root);
-
-
-        find2ndWinner(new TreeNode().getRatingTree());
-
+//
+//
+//        find2ndWinner(new TreeNode().getRatingTree());
+//
         System.out.println(findMaxHeightOfTree(treeNode.getRootBig()));
-
+//
         int diameter = findMaxDiameterOfTreeBrute(treeNode.getRootBig());
         System.out.println(diameter);
         int[] dia = new int[]{0};
@@ -69,10 +69,10 @@ public class BoundaryViews {
         System.out.println(dia[0]);
         int[] maxSum = new int[]{0};
         findMaxPathSum(treeNode.getRootBig(), maxSum);
-        System.out.println(maxSum[0]);
+//        System.out.println(maxSum[0]);
 
-//        pathToNode(root, 5); // 125
-//        pathToNode(root, 6); // 136
+        pathToNode(root, 5); // 125
+        pathToNode(root, 6); // 136
 //        pathBetweenTwoNodes(new TreeNode().getRootBig(), 10, 13);
 //
 //        int bruteLCA = bruteLCA(treeNode.getRootBig(), 7, 12);
@@ -82,9 +82,9 @@ public class BoundaryViews {
 //        System.out.println(optimizedLCA);
 
 //        binaryTreePaths(treeNode.getRootBig());
-        widthOfBinaryTree(treeNode.getRootBig());
+//        widthOfBinaryTree(treeNode.getRootBig());
 
-        widthOfBinaryTree(deSerialize((new ArrayList<>(Arrays.asList(1, 3, 2, 5, null, null, 9, 6, null, null, null, null, null, 7, null)))));
+//        widthOfBinaryTree(deSerialize((new ArrayList<>(Arrays.asList(1, 3, 2, 5, null, null, 9, 6, null, null, null, null, null, 7, null)))));
 //        ArrayList<Integer> treeNodeList = new ArrayList<>();
 //        serialize(deSerialize((new ArrayList<>(Arrays.asList(1, 3, 2, 5, null, null, 9, 6, null, null, null, null, null, 7, null)))), treeNodeList);
 
