@@ -20,7 +20,15 @@ class MyListAdapter : ListAdapter<MovieDataItem, MyListAdapter.MyViewHolder>(MyD
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bindView(getItem(position))
+        if(currentList.size == 0){
+            //
+        } else {
+            holder.bindView(getItem(position % currentList.size))
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return currentList.size * 100
     }
 
 

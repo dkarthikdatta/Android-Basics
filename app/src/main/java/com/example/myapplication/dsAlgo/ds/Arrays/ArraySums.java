@@ -5,6 +5,8 @@ import com.example.myapplication.dsAlgo.Utility;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +39,15 @@ public class ArraySums {
     }
     static ArrayList<Integer> subarraySum(int[] arr, int n, int s)
     {
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        Collections.sort(arrayList, (a, b) -> {
+            if(hm.get(a) == hm.get(b)){
+                return a-b;
+            }
+            return hm.get(b) - hm.get(a);
+        });
+
         if (n == 1) {
             if (arr[0] == s) {
                 return new ArrayList<>(Arrays.asList(1, 1));

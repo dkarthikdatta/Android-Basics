@@ -2,6 +2,8 @@ package com.example.myapplication.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.WindowInsets;
@@ -15,10 +17,12 @@ import java.util.List;
 public class CustomView extends View {
 
     String TAG = "MY_CUSTOM_VIEW ";
+    Paint paint = new Paint();
 
     public CustomView(Context context) {
         super(context);
         System.out.println(TAG + "in 1 constructor");
+        paint = new Paint();
     }
 
     public CustomView(Context context, @Nullable AttributeSet attrs) {
@@ -77,6 +81,8 @@ public class CustomView extends View {
     protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
         System.out.println(TAG + "in onDraw");
+        paint.setColor(Color.RED);
+        canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
     }
 
 

@@ -14,6 +14,11 @@ class MyViewModel(private val repository: MainRepository) : ViewModel() {
 
     private val movieList = MutableLiveData<List<MovieDataItem>>()
 
+    private val myMutableLiveData = MutableLiveData<Int>()
+
+    val myLiveData : LiveData<Int>
+        get() = myMutableLiveData
+
     val moviesLiveData: LiveData<List<MovieDataItem>>
         get() = movieList
 

@@ -1,11 +1,10 @@
 package com.example.myapplication
 
-import android.content.ContentProvider
-import android.content.ContentValues
-import android.database.Cursor
-import android.net.Uri
+import android.app.Application
 import com.example.myapplication.contentProviders.MyContentProvider
+import com.example.myapplication.coroutines.view.CoroutineActivity
 import com.example.myapplication.designpatterns.creational.factory.factory.VehicleFactory
+import com.example.myapplication.flow.FlowActivity
 import com.example.myapplication.fragments.ActivityMainFrag
 import com.example.myapplication.fragments.FirstFragment
 import com.example.myapplication.intent.ImplicitIntentActivity
@@ -13,9 +12,13 @@ import com.example.myapplication.intent.IntentActivity
 import com.example.myapplication.java.FinalClass
 import com.example.myapplication.java.PassByValue
 import com.example.myapplication.kotlin.KotlinLearn
+import com.example.myapplication.kotlin.MyResult
+import com.example.myapplication.kotlin.ScopeFunctions
 import com.example.myapplication.lazy.lazyClass
 import com.example.myapplication.mvvm.view.MainActivity
-import javax.annotation.Nullable
+import com.example.myapplication.mvvmlivedata.view.vm.CustomLiveData
+import com.example.myapplication.mvvmlivedata.view.vm.SingleLiveEvent
+import com.example.myapplication.view.CustomView
 
 fun main() {
 
@@ -114,11 +117,15 @@ fun main() {
      * 55. Internal working of viewModel
      * 56. Activity launch modes
      * 57. Android APK compilation process
+     * 57. b. iOS compilation process
      * 58. Compose vs Viewbinding
      * 59. Compose state
      * 60. Why are we not shipping machine code in android like we do in iOS and what is the advantage of this?
      * 61. Why cant we write entire code in cpp in android. why java is introduced
-     * 62. Compose lazy list vs Recycler view
+     * 62. Compose lazy column vs Recycler view
+     * 63. Android API list
+     * 64. minSDK vs targetSDK vs compileSDK
+     * 65. Android Performance
      *
      * Java
      * 1. Shallow copy vs Deep Copy
@@ -130,7 +137,7 @@ fun main() {
      * 7. volatile in java
      * 8. extension functions in java/kotlin
      * 9. String pool
-     * 10. Synchronization
+     * 10.Synchronization
      * 11.volatile vs atomic vs Synchronization
      *
      * Kotlin
@@ -155,7 +162,7 @@ fun main() {
     /**
      * 0. Context
      *
-     *                                      Object
+     *                                        Object
      *                                          |
      *           ----------------------------------------------------------------
      *           |                              |                               |
@@ -341,6 +348,30 @@ fun main() {
      */
 
     /**
+     * 8. Livedata -> SingleLiveEventData
+     *
+     */
+
+    //goto
+    val singleLiveEvent = SingleLiveEvent<Int>()
+
+    /**
+     * 9. Write Custom Live Data class
+     *
+     */
+
+    //goto
+    val customLiveData = CustomLiveData<Int>()
+
+    /**
+     * 10. Coroutines - Dispatchers, async and launch builders
+     *
+     */
+
+    //goto
+    val coroutines = CoroutineActivity()
+
+    /**
      * 11. Job vs Supervisor job
      * https://medium.com/@android-world/kotlin-coroutine-job-and-supervisorjob-1b284a44d202
      * https://medium.com/@android-world/kotlin-coroutine-job-and-supervisorjob-d235eaaefd4e
@@ -405,6 +436,33 @@ fun main() {
      *
      */
 
+    /**
+     * 13. If all IO dispatchers are full/ busy in doing tasks, and new IO dispatcher coroutine is launched, what will happen
+     * check above 12
+     */
+
+    /**
+     * 14. Will threads in IO and Default exchange? If one set is full, will other threads be used for other operation?
+     * No. check 12
+     *
+     */
+
+    /**
+     * 15. How to send data securely in API
+     * check 37
+     */
+
+    /**
+     * 16. Flows - Hot flow vs Cold flow.
+     *
+     */
+    //goto
+    val flow = FlowActivity()
+
+    /**
+     * 17. Practical applications of flow.
+     *
+     */
 
     /**
      * 18. Content providers in Android
@@ -503,6 +561,9 @@ fun main() {
      * requestLayout() ------ size change of the view - If something about your view changes that will affect the size, then you should call requestLayout(). This will trigger onMeasure and onLayout not only for this view but all the way up the line for the parent views.
      *
      */
+    //goto
+
+    val customView = CustomView(Application().applicationContext)
 
     /**
      * 21. Services in Android
@@ -662,6 +723,9 @@ fun main() {
      * 26. C++ in Java
      */
 
+    /**
+     * 27. How to secure secrets in app
+     */
 
     /**
      * 28. Parcelable vs Serializable
@@ -692,6 +756,21 @@ fun main() {
      * copy()
      *
      * com/example/myapplication/repo/MyMain.kt
+     */
+
+    /**
+     * 30. Images - Vectors - Bitmap - inflating images
+     *
+     */
+
+    /**
+     * 31. Working of image library
+     *
+     */
+
+    /**
+     * 32. View ViewGroup
+     *
      */
 
     /**
@@ -743,6 +822,16 @@ fun main() {
      *
      *
      * //todo: implement push notification service
+     */
+
+    /**
+     *  34. WebSockets in android
+     *
+     */
+
+    /**
+     * 35. Design whatsapp
+     *
      */
 
     /**
@@ -862,18 +951,30 @@ fun main() {
      */
 
     /**
+     * 38. Store data securely in app.
+     *
+     */
+
+    /**
      * 39. Broadcast receivers
      *
      * receiving
      * 1. Statically - declared in the manifest file and works even if the app is closed. Restricted. Only few like boot works
      * 2. Dynamically - receivers work only if the app is active or minimized.
      *
+     */
+
+    /**
+     * 40. Implicit vs Explicit intents
      *
      */
 
+    /**
+     * 41. How to avoid malicious broadcast receivers
+     */
 
     /**
-     * 42. Can we start activity of other app? (knows package name and activity name of other app)
+    * 42. Can we start activity of other app? (knows package name and activity name of other app)
      *
      * yes, we can start this by explicit intent as we know the target
      *
@@ -942,6 +1043,41 @@ fun main() {
      *
      */
 
+    /**
+     * 49. for loop 1000 events coming in sdk, how do you handle - scheduling events
+     *
+     */
+
+    /**
+     * 50. how are you reading the event count
+     *
+     */
+
+    /**
+     * 51. how to send events if app is closed and limit not reached
+     * work manager
+     */
+
+    /**
+     * 52. web view in android
+     * WebView is a view that displays web pages inside the application. It is used to turn the application into a web application.
+     */
+
+    /**
+     * 53. Intent flags
+     */
+
+    /**
+     * 54. AIDL
+     *  https://medium.com/@peternjuguna76/understanding-android-aidl-a-comprehensive-guide-b4d97253b169
+     *  AIDL stands for Android Interface Definition Language. It is a language used by Android to define
+     *  interfaces that can be used for inter-process communication (IPC). IPC is crucial for Android applications,
+     *  especially when components such as services, activities, and content providers need to communicate with each other.
+     */
+
+    /**
+     * 55. Internal working of viewModel
+     */
 
     /**
      * 56. Activity launch modes
@@ -1000,20 +1136,20 @@ fun main() {
     /**
      * 57. Android APK compilation process
      *
-     *      Java source code                Kotlin source code
+     *      Java source code                Kotlin source code      (.java/.kt)
      *              |                               |
-     *       Java Compiler                    Kotlin compiler
+     *       Java Compiler(javac)            Kotlin compiler
      *              |                               |
      *              |_______________________________|
      *                              |
      *                              |
-     *                        Java ByteCode
+     *                        Java ByteCode                         (.class)
      *                              |
      *                              |
      *                         DEX Compiler
      *                              |
      *                              |
-     *                         Davlik Byte Code (APK)
+     *                         Davlik Byte Code (APK)               (.dex) (apk contains .dex files, XML layouts, images)
      *                              |
      *                              |   runs on
      *                           DVM/ART (our mobile)
@@ -1025,6 +1161,139 @@ fun main() {
      * ART - Android Runtime - uses Ahead of Time compiler to compile into machine code - no need to compile everytime app opens
      *
      */
+
+    /**
+     *
+     * 57. b. iOS compilation process
+     *
+     *              Swift/obj-c
+     *                  |
+     *                  |
+     *              Swiftc/clang (compiler)
+     *                  |
+     *                  |
+     *                LLVMIR    (low level virtual machine intermediate representation)
+     *                  |
+     *                  |
+     *                LLVM Compiler
+     *                  |
+     *                  |
+     *               Machine code (ipa - iOS package appstore)
+     *
+     */
+
+    /**
+     * 58. Compose vs Viewbinding
+     *
+     * Compose advantages over traditional xml
+     * 1. Less code - no separate xml
+     * 2. Intuitive - that all you need to do is describe your UI. in Compose, state is explicit
+     *                  and passed to the composable. That way there’s one single source of truth for the state, making it encapsulated and decoupled. Then, as app state changes, your UI automatically updates.
+     * 3. Much easier to create custom components
+     * 4. Maintains state -easy to update/single source of truth
+     *
+     */
+
+    /**
+     * 59. Compose state
+     *
+     */
+
+    /**
+     * 60. Why are we not shipping machine code in android like we do in iOS and what is the advantage of this?
+     * Android runs on a wide variety of devices with different hardware architectures (ARM, ARM64, x86, x86_64, etc.). Shipping machine code would require providing multiple binaries for different architectures, increasing the complexity of app distribution.
+     * By using DEX bytecode, developers can distribute a single APK that can run on any Android device, regardless of its hardware architecture. The ART or Dalvik runtime on the device handles the conversion of this bytecode into machine code specific to the device's architecture.
+     * DEX bytecode is more compact than machine code, which helps in reducing the size of APK files. This is important for minimizing download times and storage usage on devices.
+     */
+
+    /**
+     * 61. Why cant we write entire code in cpp in android. why java is introduced
+     *
+     * CPU architectures -
+     * A CPU is like a translator between the software and the hardware of a device.
+     * It can take high-level software instructions and translate them into native machine
+     * language that a mobile phone can understand and use to perform specific operations.
+     *
+     * CPU architectures in Android
+     *
+     * 1. ARM - Advanced Risc machine
+     *      a. ARMv7 - 32 bit
+     *      b. ARMv8/AArch64- 64 bit
+     *
+     * 2. x86
+     *
+     * First Java is the language used in Android - hence all Apis/ SDKs are in Java
+     *
+     * Later cpp is introduced. Google later introduced the Android NDK to allow developers to
+     * write parts of their applications in C or C++. The NDK provides tools and libraries to
+     * integrate native code with the rest of the app.
+     *
+     * Advantages of using cpp
+     * 1.The NDK was mainly intended for performance-critical applications, such as games or computationally
+     * intensive tasks, where C or C++ could offer significant performance benefits over Java.
+     *
+     * 2. Cross-Platform Code: Apps that share code across multiple platforms (e.g., iOS, Android, Windows)
+     * might use C++ for the shared codebase to avoid duplicating logic in different languages.
+     *
+     * Disadvantages (Why cant we write entire code in cpp in android?)
+     * 1. Since Java first, major API/SDKs are in Java
+     * 2. Development efficiency / ease of use of Java
+     * 3. Automatic memory Management in Java, Manual in Cpp
+     * 4. C++: C++ code is compiled directly into machine code specific to the target CPU architecture
+     * (e.g., ARM, x86). This means that a binary compiled for one architecture (e.g., ARM) will not
+     * run on another (e.g., x86) without recompilation.
+     *
+     *
+     *
+     *
+     *
+     *
+     * why ios app size is bigger than android?
+     *
+     * iOS applications often include universal binaries, which contain executables for multiple CPU
+     * architectures (e.g., ARM64, ARMv7). This ensures that the app can run on various devices, from
+     * older iPhones to the latest models. The inclusion of multiple architectures increases the overall app size.
+     *
+     * Android applications can include multiple APKs (split APKs) for different architectures and
+     * device configurations. Google Play automatically delivers the appropriate APK for the user's device,
+     * reducing the size of the installed app.
+     *
+     *
+     * iOS architecture
+     *
+     * macOS/simulator - x86(intel)/ARM64(m chip)
+     * watchOS - ARM
+     * tvOS - ARM
+     */
+
+    /**
+     * 62. Compose lazy column vs Recycler view
+     *
+     */
+
+    /**
+     * 63. Android API list
+     *
+     * Android 15   35  (beta)
+     * Android 14   34  (stable, deadline August 31, 2024 -> all apps must keep targetSDK as 34)
+     * Android 13   33
+     */
+
+    /**
+     * 64. minSDK vs targetSDK vs compileSDK
+     * minSdkVersion <= targetSdkVersion <= compileSdkVersion
+     *
+     * The min sdk version is the minimum version of the Android operating system required to run your application.
+     * The target sdk version is the version of Android that your app was created to run on.
+     * The compile sdk version is the the version of Android that the build tools uses to compile and build the application in order to release, run, or debug.
+     *
+     *
+     */
+
+    /**
+     * 65. Android Performance
+     */
+
 
     /**
      * Java
@@ -1081,6 +1350,31 @@ fun main() {
      */
     //goto
     val finalClass: FinalClass
+
+    /**
+     * 6. can we modify final array content
+     * yes. content can be modified
+     */
+
+    /**
+     * 7. volatile in java
+     * see 11
+     */
+
+    /**
+     * 8. extension functions in java/kotlin
+     *
+     */
+
+    /**
+     * 9. String pool
+     *
+     */
+
+    /**
+     * 10.Synchronization
+     * see 11
+     */
 
     /**
      * 11.volatile vs atomic vs Synchronization
@@ -1147,6 +1441,29 @@ fun main() {
      *
      * https://umang91.medium.com/scope-functions-in-kotlin-f3c9f7c65749
      */
+    //goto
+    val scopeFunctions = ScopeFunctions()
+
+    /**
+     * 4. static in kotlin
+     *
+     */
+
+    /**
+     * 5. sealed class and enums
+     * sealed class ->
+     * defines a closed type hierarchy with a finite number of subclasses.
+     * Sealed classes provide a powerful mechanism for creating exhaustive class hierarchies where all possible subclasses are known.
+     */
+    //goto
+//    val result = MyResult()
+
+    /**
+     * 6. extension functions
+     *
+     */
+
+
     /**
      * 7. higher order functions
      *
@@ -1242,6 +1559,24 @@ fun main() {
      * lines, curves, and shapes. Vector assets are resolution-independent and can be scaled
      * to any size without losing quality. They are great for displaying icons, logos, and
      * other graphics that need to be displayed in multiple sizes and resolutions.
+     *
+     */
+
+
+    /**
+     *
+     * 1. It was kinda like low level system design, I was ask to create a list that wrap around, like if you scroll past last item you should see first item again, vice versa
+     * 2. They asked me how would I design the stopwatch app, I struggled in two parts, the circle animation and showing the counter in the notification
+     * 3. Few years back, they asked me what happens internally when you click an icon on the launcher. I was also asked to create a threading system. And then of course a bunch of their infamous algorithm riddle questions.
+     * 4. They asked me to write an app that creates a simple timer that counts down and has the ability to pause and be reset. Easy in principle, but it becomes more difficult when you have to think about what to include and what to omit given that you only have a short time to do this in a Google doc with no tools or autocomplete. I only included an XML file and an Activity to get the job done but the ask was very open ended so it's possible that the interviewer would have wanted me to include more about what the project should look like and how the code should be structured
+     * 5. I had two design questions. One was basically design Google analytics. The other was design the YouTube search API. Then there were two coding questions. One was substring matching. The expected answer was to use a trie. The other was write an android service that checks the user's connectivity every 15 minutes. And there was the usual behavioral interview: talk about a time you made a big difference on a team, talk about a time you screwed up, etc.
+     * 6. They asked me to design keyboard word suggestion function. With swipe to type function
+     * 7. Design google sheet(spreadsheet) app for mobile - half an hour. 15 minutes were given to Android basics. This round went good, I was able to answer most of questions and Interviewer was happy for design question also.
+     *
+     */
+
+    /**
+     * Recycler view
      *
      */
 }

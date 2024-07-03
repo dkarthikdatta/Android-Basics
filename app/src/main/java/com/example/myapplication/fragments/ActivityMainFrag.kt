@@ -104,7 +104,7 @@ class ActivityMainFrag: AppCompatActivity() {
      *
      * Here’s a practical example:
      * Your Activity is displayed and is currently showing FragmentA
-     * Your Activity is sent to the background (onStop() and onSaveInstanceState() are called)
+     * Your Activity is sent to the background (onSaveInstanceState() and onStop()  are called)
      * In response to some sort of event, you replace FragmentA with FragmentB and call commitAllowingStateLoss().
      *
      */

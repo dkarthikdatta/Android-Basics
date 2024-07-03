@@ -91,3 +91,7 @@ fun main() {
     println(alsoResult)
     println(myDataclass1) // all scope functions changes the data of the operating object
 }
+
+class ScopeFunctions(){
+
+}

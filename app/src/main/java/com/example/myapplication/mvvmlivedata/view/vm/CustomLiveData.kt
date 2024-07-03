@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.OnLifecycleEvent
 
 
-class SimpleCustomLiveData<T>{
+class SimpleCustomLiveData<T> {
     private var mValue: T? = null
 
 
@@ -19,27 +19,27 @@ class SimpleCustomLiveData<T>{
     // // code
     // })
     // so this is LifeCycleOwner of observer,
-    fun observe(owner: LifecycleOwner, observer: (T?) -> Unit){
+    fun observe(owner: LifecycleOwner, observer: (T?) -> Unit) {
         mObserver.put(observer, owner);
     }
 
 
-    fun setValue(value: T){
+    fun setValue(value: T) {
         mValue = value
 
         //iterating all key value pairs (all observers)
-        for((observer, owner) in mObserver){
-            if(owner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)){
+        for ((observer, owner) in mObserver) {
+            if (owner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
                 observer.invoke(mValue)
             }
         }
     }
 
-    fun getValue(): T?{
+    fun getValue(): T? {
         return mValue
     }
 
-    fun removeObserver(observer: (T?) -> Unit){
+    fun removeObserver(observer: (T?) -> Unit) {
         mObserver.remove(observer)
     }
 
@@ -62,12 +62,12 @@ class CustomLiveData<T> {
     //can have any number of observers, hence list
 //    private val mObservers = HashMap<(T?) -> Unit, LifecycleOwner>()
     private val mObservers = HashMap<(T?) -> Unit, LiveDataLifeCycleObserver>()
-    
+
     fun setValue(value: T) {
         mValue = value
 
-        for(lifecycleObservers in mObservers.values){
-            if(lifecycleObservers.owner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)){
+        for (lifecycleObservers in mObservers.values) {
+            if (lifecycleObservers.owner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
                 notifyChange(lifecycleObservers)
             }
         }
@@ -84,16 +84,18 @@ class CustomLiveData<T> {
     }
 
 
-    fun removeObserver(observer: (T?) -> Unit){
+    fun removeObserver(observer: (T?) -> Unit) {
         val lifecycleObserver = mObservers.remove(observer)
         lifecycleObserver?.owner?.lifecycle?.removeObserver(lifecycleObserver)
     }
-    fun notifyChange(lifecycleObserver: LiveDataLifeCycleObserver){
+
+    fun notifyChange(lifecycleObserver: LiveDataLifeCycleObserver) {
         lifecycleObserver.observer.invoke(mValue);
     }
 
     //to give callback on attaching a observer, to remove observer automatically if observer is destroyed
-    inner class LiveDataLifeCycleObserver(val owner: LifecycleOwner, val observer: (T?) -> Unit): LifecycleObserver{
+    inner class LiveDataLifeCycleObserver(val owner: LifecycleOwner, val observer: (T?) -> Unit) :
+        LifecycleObserver {
 
 
         @OnLifecycleEvent(Lifecycle.Event.ON_START)

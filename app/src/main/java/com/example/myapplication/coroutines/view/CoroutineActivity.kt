@@ -397,10 +397,6 @@ class CoroutineActivity : AppCompatActivity() {
          * try catch to child coroutine / multiple coroutines
          * this doesn't works and crashes as try catch is there for parent but not for child
          * the exception in the child propagates to parent (but not caught)
-         *
-         * solutions -
-         * 1. keep try catch in that particular coroutine (child) where exception may occur
-         * 2. use exception handler -> Correct solution
          */
 //        CoroutineScope(Dispatchers.IO).launch {
 //            try {
@@ -414,6 +410,12 @@ class CoroutineActivity : AppCompatActivity() {
 //                println(TAG + "in finally block")
 //            }
 //        }
+
+        /**
+         * solutions -
+         * 1. keep try catch in that particular coroutine (child) where exception may occur
+         * 2. use exception handler -> Correct solution
+         */
 
         // solution 1
 //        CoroutineScope(Dispatchers.IO).launch {

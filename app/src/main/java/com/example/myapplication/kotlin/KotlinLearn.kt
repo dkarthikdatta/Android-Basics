@@ -69,17 +69,17 @@ class KotlinLearn {
 //    processCall(Result.Success("response data"))
 //}
 
-fun processCall(result: Result) {
-    when (result) {
-        is Result.Success -> {
-            println(result.data)
+fun processCall(myResult: MyResult) {
+    when (myResult) {
+        is MyResult.Success -> {
+            println(myResult.data)
         }
 
-        is Result.Error -> {
-            println(result.message)
+        is MyResult.Error -> {
+            println(myResult.message)
         }
 
-        is Result.Loading -> {
+        is MyResult.Loading -> {
             println("in loading state")
         }
     }
@@ -101,10 +101,10 @@ enum class ColorHex(val hex: String) {
     }
 }
 
-sealed class Result {
-    class Success(val data: Any) : Result()
-    class Error(val message: String) : Result()
-    class Loading() : Result()
+sealed class MyResult {
+    class Success(val data: Any) : MyResult()
+    class Error(val message: String) : MyResult()
+    class Loading() : MyResult()
 }
 
 // higher order function
