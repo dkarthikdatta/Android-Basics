@@ -22,6 +22,18 @@ class Pair {
 
 public class Rough {
     public static void main(String[] args) {
+
+        String s1 = new String("kar");
+        String s2 = new String("kar");
+        String s3 = "kar";
+        String s4 = "kar";
+        System.out.println(s1 == s2);
+        System.out.println(s1.equals(s2));
+        System.out.println(s3 == s4);
+        s4 = "kart";
+        System.out.println(s3);
+        System.out.println(s4);
+
 //        Solution solution = new Solution();
 //        List<Integer> ans = solution.survivedRobotsHealths(new int[]{3, 5, 2, 6}, new int[]{10, 10, 15, 12}, "RLRL");
 //        List<Integer> ans2 = solution.survivedRobotsHealths(new int[]{1,2,5,6}, new int[]{10,10,11,11}, "RLRL");
@@ -29,52 +41,52 @@ public class Rough {
 //        Utility.printArrayList((ArrayList<Integer>) ans2, "");
 
 //        System.out.println(backspaceCompare("xywrrmp", "xywrrmu#p"));
-        System.out.println(consecutiveNumbersSum(9548114));
+//        System.out.println(consecutiveNumbersSum(9548114));
     }
 
     public static boolean backspaceCompare(String s, String t) {
-        int b1=0;
-        int b2=0;
-        int index1 = s.length()-1;
-        int index2 = t.length()-1;
+        int b1 = 0;
+        int b2 = 0;
+        int index1 = s.length() - 1;
+        int index2 = t.length() - 1;
 
-        while(index1>=0 && index2>=0){
+        while (index1 >= 0 && index2 >= 0) {
             char c1 = s.charAt(index1);
             char c2 = t.charAt(index2);
-            if(c1 == '#' && c1==c2){
+            if (c1 == '#' && c1 == c2) {
                 b1++;
                 b2++;
                 index1--;
                 index2--;
                 continue;
             }
-            if(c1==c2){
+            if (c1 == c2) {
                 index1--;
                 index2--;
                 continue;
             }
-            if(c1=='#'){
+            if (c1 == '#') {
                 b1++;
                 index1--;
-                if(b2>0){
+                if (b2 > 0) {
                     b2--;
                     index2--;
                 } else {
                     return false;
                 }
             }
-            if(c2=='#'){
+            if (c2 == '#') {
                 b2++;
                 index2--;
-                if(b1>0){
+                if (b1 > 0) {
                     b1--;
                     index1--;
                 } else {
                     return false;
                 }
             }
-            if(c1!=c2){
-                if(b1>0 && b2>0){
+            if (c1 != c2) {
+                if (b1 > 0 && b2 > 0) {
                     b1--;
                     b2--;
                     index1--;
@@ -87,22 +99,23 @@ public class Rough {
         }
         return true;
     }
+
     public static int consecutiveNumbersSum(int n) {
-        if(n==1 || n==2){
+        if (n == 1 || n == 2) {
             return 1;
         }
 
-        int head = (n/2)+1;
+        int head = (n / 2) + 1;
         int ans = 1;
 
-        while(head>=1){
+        while (head >= 1) {
             int curr = head;
             int sum = 0;
-            while(sum<n){
+            while (sum < n) {
                 sum = sum + curr;
                 curr--;
             }
-            if(sum == n){
+            if (sum == n) {
                 ans++;
             }
             head--;
@@ -112,32 +125,32 @@ public class Rough {
 }
 
 
-
 class Solution {
 
     public int consecutiveNumbersSum(int n) {
-        if(n==1 || n==2){
+        if (n == 1 || n == 2) {
             return 1;
         }
 
-        int half = (n/2)+1;
+        int half = (n / 2) + 1;
         int head = half;
         int ans = 1;
 
-        while(head>=1){
+        while (head >= 1) {
             int curr = head;
             int sum = 0;
-            while(sum<n){
+            while (sum < n) {
                 sum = sum + curr;
                 curr--;
             }
-            if(sum == n){
+            if (sum == n) {
                 ans++;
             }
             head--;
         }
         return ans;
     }
+
     public List<Integer> survivedRobotsHealths(int[] positions, int[] healths, String directions) {
 
         boolean move = true;
@@ -164,7 +177,7 @@ class Solution {
                     positions[i] = positions[i] + 1;
                     checkHashMapAndRemove(hm, positions, i, healths);
                 } else if (directions.charAt(i) == 'L' && positions[i] != -1) {
- //                   checkHashMapAndRemove(hm, positions, i, healths);
+                    //                   checkHashMapAndRemove(hm, positions, i, healths);
                     positions[i] = positions[i] - 1;
                     checkHashMapAndRemove(hm, positions, i, healths);
                 }

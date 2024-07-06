@@ -1579,4 +1579,198 @@ fun main() {
      * Recycler view
      *
      */
+
+
+    /**
+     * how much you value working as a team, and how well do you communicate
+     *
+     * Basic Project questions
+
+     * Tell me about a time you faced ambiguity in the requirements of a project.
+     * - Search widget - today/tomorrow or dates. scroll the calendar to check-in date or check-out date
+     * - Conflict answer - cache in homepage - unsure about cache interval
+     *
+     * Tell me about a time where you had to get people on the same page about a decision.
+     * - Regrading a task of collecting user phone numbers in sdk- e164 format - unsure about what exact formats to be collected
+     * - need to collect hashed value from the client itself - hence cant process at backend
+     * - web team suggested to roll out the feature with whatever requirements we have as of now (even though there is no end clarity from PM/legal team regarding format)
+     * - since we need to maintain parity among all sources - web, mobile sdks (documentation) - I said we cant do this
+     * - Explained how easy it is for web to roll out an update and getting adopted by clients
+     * - But how difficult in mobile ecosystem to roll out update and reach end users
+     * - made then understand and we deferred task until we got clear requirements from PM and legal team.
+     *
+     *
+     * How would you deal with people who don't agree with the majority decision on a non-work related matter?
+     *
+     * Tell me about a time you had to deal with last minute changes in a project.
+     * Design 2.0 answer - last minute changes of deadline and AB handling - extra resources - planned - lead the project
+     *
+     * How will you prioritize tasks when facing multiple critical deadline items?
+     *
+     *
+     * How did your behavior positively impact team?
+     *
+     * A hypothetical question about large scale thinking.
+     *
+     * How would you deal with difficult co worker?
+     * backend from customer service team - project ratings and review - missing deadlines
+     * - development effect - delivery effect
+     * - Made a plan with deadlines - submitted with both EMs
+     * - Now accountable
+     * - Delivered the feature
+     *
+     * 2 more customer centric questions
+     *
+     */
+
+    /**
+     * Oyo Projects
+     * 1. Design 2.0
+     * 2. Tech Stack Migration project - China
+     * 3. UI related - Search Widget - Animation - difficult - not proud
+     * 4. Regular features
+     * 5. Engineering excellence tasks - increasing code coverage
+     * 6. SDK integrations. 3ds2.0, Moengage,
+     * 7. Rating and review - difficult coworker
+     */
+
+    /**
+     * Zeotap Projects
+     * 1. Created Architecture of SDK by collaborating with team members, seniors
+     * 1. A. Used only native libraries
+     * 2. Documentation by working with technical writers - for clients integration
+     * 2. A. Written many tech docs as the product is new
+     * 3. Worked with QA team by creating sample application and helping them out with the flow, test cases
+     * 4. SDKs uploaded in GCP, Cocoapods, React Native
+     * 5. SDK - Singleton, Builder, Facade
+     * 6. Team work - Web, Mobile, GTM, Abode analytics tasks -
+     *  exploring other stack like web js, GTM
+     *  would be shared between two persons in optimized way to produce faster results and learning things
+     */
+
+    /**
+     * Explain any one project -
+     *
+     * 1. Design 2.0 - initially normal project - big project - whole app - theme
+     *                 change and new widgets/flows/ bottom sheets.
+     *                 Deadline - IPO, Resource constrain - only 2 resources, Maintain both old and new design - AB flow
+     *                 Escalated - Effort calculations - got new resources - QA , Integration testing
+     *                 Completed in time
+     *
+     * 2. Migration project - China tech stack to global - due to cost constrains
+     *                        Google sdks are not supported in Chinese app stores.
+     *                        Detect all google related sdks, find alternatives for them which are supported in Chine
+     *                        Make a new product flavor and write separate logic for this
+     *                        24/7 support during launch and initial few weeks and rolled out app in major 8-10 app stores
+     *
+     */
+
+    /**
+     * Most challenging - say Design 2.0, Creating search widget,
+     *
+     *                    Engineering excellence tasks - effort estimation -
+     *                    meetings with page/product owners (devs) understanding the flow.
+     *                    assigned few tasks to them if they have more idea/recently worked
+     *                    refactored multiple classes to increase code coverage
+     *
+     *                    Creating architecture of Zeotap SDK
+     */
+
+    /**
+     * Bad feature - Search widget on home page - important as its in homepage
+     *               Needed accurate Animation - calendar part is also included - had only <1 year of exp
+     *               Pinged seniors quite a few times, crossed a dead line. but project is delivered.
+     *               Learned how to give realistic ETAs. Learned more about animations. Bond between seniors increased
+     */
+
+    /**
+     * Conflict with team member - Fortunately no major conflict - but one instance
+     *                           - I wanted to keep cache interval for home page minimal as its P0 page and user need to see all updated widgets all time
+     *                           - Wanted to keep cache interval max for other pages (unimportant)
+     *                           - Manager said home page should have considerably max cache - as api load will be max and hence we can save a lot
+     *                           - I raised updating homepage after post-booking if its done quickly - no update
+     *                           - Had identifier if the flow of home page coming from post booking - override cache
+     *                           - learnt about api loading, cost associated with that, rate limiters
+     */
+
+    /**
+     * What are your positives?
+     * Have positive opinion/ positive attitude. Eager to learn things. Collaborative towards team/team player.
+     *
+     * What are your negative?
+     * Introvert person. Kind of sensitive. Public speaking
+     */
+
+    /**
+     * Positivity - Problem - opportunity to learn
+     *
+     *
+     * Interesting Path unique story - Civil to coding/software
+     * helped interns to setup things - work flow - made them full time
+     * fun part - had games like scribble, movie discussion north / south Indian - cultural exchange , knowledge
+     */
+
+    /**
+     * Tell me an area where you think you can improve.
+     *
+     *
+     * Tell me about a time when you received critical feedback from someone.
+     *
+     *
+     * Walk us through a time when you helped a customer through a difficult process and what that looked like.
+     *
+     *
+     * Give me an example of when you took a risk and it failed.
+     *
+     *
+     * Tell me a time when you created an innovative product.
+     *
+     *
+     * Tell me about a time when you observed two business opportunities to improve ROI, and how did you determine that they were connected.
+     *
+     *
+     * How do you find the time to stay inspired, acquire new knowledge, innovate in your work?
+     *
+     *
+     * Tell me about a time when you had to deal with a poor performer on your team.
+     *
+     *
+     * Tell me about a time when you could have stopped working but persisted.
+     *
+     *
+     * Tell me about a time when you proposed a new business.
+     *
+     *
+     * Describe how you would handle a busy situation where three people are waiting for help from you.
+     *
+     *
+     * Tell me about a time where you thought of a clever new way to save money for the company.
+     *
+     *
+     * Tell me a time when you earned trust of a group.
+     *
+     *
+     * Tell me about a time when you had to dive deep into the data and the results you achieved.
+     *
+     *
+     * Tell me about the most difficult interaction you had at work.
+     *
+     *
+     * Tell me about a time where you overcame an obstacle and delivered results.
+     *
+     *
+     */
+
+    /**
+     * 1. How you work individually and on a team - Team people who helped my success
+     * 2. How you help others - Helping interns, new joinees understanding them flow, giving KTs
+     * 3. How you navigate ambiguity -
+     * 4. How you push yourself to grow outside of your comfort zone
+     * - Doing tasks in other tech stacks. Collaborating with team members to understand their work and contribute in them
+     */
+
+    /**
+     * 1. Are there any sub goals for UC? i noticed native is another feature, anything like that more? like Zomato food ordering, grocery ordering, dining etc, any other sub goals/verticals
+     * 2. Hierarchy level
+     */
 }
