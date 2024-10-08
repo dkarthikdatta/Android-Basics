@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.app.Application
+import com.example.myapplication.broadcastReceivers.BroadCastReceiverActivity
 import com.example.myapplication.contentProviders.MyContentProvider
 import com.example.myapplication.coroutines.view.CoroutineActivity
 import com.example.myapplication.designpatterns.creational.factory.factory.VehicleFactory
@@ -9,15 +10,18 @@ import com.example.myapplication.fragments.ActivityMainFrag
 import com.example.myapplication.fragments.FirstFragment
 import com.example.myapplication.intent.ImplicitIntentActivity
 import com.example.myapplication.intent.IntentActivity
+import com.example.myapplication.java.Equals
 import com.example.myapplication.java.FinalClass
 import com.example.myapplication.java.PassByValue
 import com.example.myapplication.kotlin.KotlinLearn
 import com.example.myapplication.kotlin.MyResult
 import com.example.myapplication.kotlin.ScopeFunctions
+import com.example.myapplication.kotlin.SolidPrinciples
 import com.example.myapplication.lazy.lazyClass
 import com.example.myapplication.mvvm.view.MainActivity
 import com.example.myapplication.mvvmlivedata.view.vm.CustomLiveData
 import com.example.myapplication.mvvmlivedata.view.vm.SingleLiveEvent
+import com.example.myapplication.threading.Exceutors
 import com.example.myapplication.view.CustomView
 
 fun main() {
@@ -126,6 +130,7 @@ fun main() {
      * 63. Android API list
      * 64. minSDK vs targetSDK vs compileSDK
      * 65. Android Performance
+     * 66. Location Mechanisms
      *
      * Java
      * 1. Shallow copy vs Deep Copy
@@ -137,8 +142,11 @@ fun main() {
      * 7. volatile in java
      * 8. extension functions in java/kotlin
      * 9. String pool
-     * 10.Synchronization
-     * 11.volatile vs atomic vs Synchronization
+     * 10. Synchronization
+     * 11. volatile vs atomic vs Synchronization
+     * 12. Executors
+     * 13. equals vs ==
+     * 14. SOLID Principles
      *
      * Kotlin
      * 1. val vs const
@@ -153,11 +161,24 @@ fun main() {
      * 10. lazy vs lateinit
      * 11. lazy threadSafe
      * 12. inline function
+     * 13. setValue vs postValue in liveData - https://stackoverflow.com/questions/51299641/difference-of-setvalue-postvalue-in-mutablelivedata
+     * 14. Class vs object vs companion object vs data class
      *
      * Design Patterns
      * 1. What I know
      */
 
+
+    /**
+     *
+     * 1. inline functions / cross line / reified
+     * 2. Room Database
+     * 3. How to store keys securely in android
+     * 4. Flow - state vs shared
+     * Recycler view, object vs class, adyen formula - how they set to my work exp, example for each formula
+     * Room Database
+     *
+     */
 
     /**
      * 0. Context
@@ -420,7 +441,7 @@ fun main() {
      *
      * either of 3 will happen
      * 1. Queue the Coroutine - queue the newly dispatched coroutine until a thread becomes available to execute it
-     * 2. Create a New Thread - epending on the configuration and settings, the coroutine dispatcher may dynamically create a new thread to handle the new coroutine. Depending on max limit
+     * 2. Create a New Thread - depending on the configuration and settings, the coroutine dispatcher may dynamically create a new thread to handle the new coroutine. Depending on max limit
      * 3. Reject the Coroutine - In some cases, if the dispatcher's configuration does not allow for dynamically creating new threads or if a maximum limit on the number of threads has been reached, the dispatcher may reject the new coroutine dispatch request
      *
      *
@@ -725,6 +746,28 @@ fun main() {
 
     /**
      * 27. How to secure secrets in app
+     * Android KeyStore
+     *
+     *
+     * //  user data. API keys?
+     * If attacker has root access, he can read anything in Android OS
+     *
+     * Keystore system -> prevents attacker to extract keys outside our device. they can still use within device
+     * Solved by specific hardware -> TEE -> Trusted Execution Environment - Separate hardware part from Android OS
+     * App requests, decrypt/encrypt using Android OS calling Keystore to save key
+     *
+     * TEE - hardware component - just generates and stores a key at our request.
+     * This key is used for symmetric encryption.
+     *
+     * We request Keystore to provide this key and this key is used for symmetric encryption of our data
+     * and stored in database at OS level. Even though attacker can see this data, he cant decrypt it.
+     *
+     * Static API keys may not be possible to secure using keystore as keystore key generation happens runtime
+     *
+     * Static API keys - to secure from remote repos -> local.properties file and gitignore
+     * Obfuscate the code using proguard/R8 - hard to read
+     * Use NDK - store in cpp and access them using JNI -> hard to decode
+     *
      */
 
     /**
@@ -901,7 +944,7 @@ fun main() {
      * one key for encryption and other for decryption (either public and private - vice versa)
      *
      * simple analysis - simple security -
-     * 1. Send a public key from browser to client - readable by anyone
+     * 1. Send a public key from server to client - readable by anyone
      * 2. Encrypt the data at client end using this public key
      * 3. While transferring data even though its read by attacker - they cant decrypt as private key is mandatory to decrypt which is not available to anyone except server
      * 4. On receiving this data at server, server can easily decrypt as it has private key
@@ -963,6 +1006,8 @@ fun main() {
      * 2. Dynamically - receivers work only if the app is active or minimized.
      *
      */
+    //goto
+    val broadCastReceiverActivity = BroadCastReceiverActivity()
 
     /**
      * 40. Implicit vs Explicit intents
@@ -1294,6 +1339,55 @@ fun main() {
      * 65. Android Performance
      */
 
+    /**
+     * 66. Location Mechanisms
+     *
+     * ACCESS_FINE_LOCATION vs ACCESS_COARSE_LOCATION
+     * FusedLocationProviderClient vs LocationManager api
+     * Battery methods (doze mode, App Standby Buckets)
+     *
+     * Background location vs Foreground location (dont confuse with background service and foreground service)
+     *
+     * Background Location refers to an app's ability to access a user's location when the app is
+     * not actively in use (when in recent apps). This capability can significantly impact user privacy,
+     * which is why its use is heavily regulated.
+     *
+     * Foreground Location -> When the app is active
+     *
+     *
+     * Before Android 10 (API level 29):
+     * Apps could access location in the background relatively easily as long as they had the necessary
+     * permissions (ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION).
+     *
+     * From Android 11 (API level 30):
+     *
+     * The process became stricter:
+     * Apps must request foreground location permission (ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION) first.
+     * After that, they can request background location permission (ACCESS_BACKGROUND_LOCATION), but the
+     * request must be clearly explained and justified to the user.
+     * Apps need to follow a specific process to request background location access, often requiring the user
+     * to navigate through system settings.
+     *
+     *
+     * to get background location, use foreground service (can also use work manager) for transparency, battery efficiency
+     *
+     *
+     * App in Foreground: Location can be accessed using the usual location APIs. (foreground location)
+     * App in Background: Location can be accessed by using a foreground service with a visible notification. (background location)
+     * App Killed: When the app is forcefully terminated by the user or the system, location access is not possible.
+     * The foreground service will also be stopped.
+     *
+     *
+     * Foreground location - No service required
+     * Background location - use Foreground service/work manager. WorkManager is not suitable for real-time location tracking and is subject to execution delays and constraints.
+     *
+     *
+     *
+     *  ACCESS_FINE_LOCATION vs ACCESS_COARSE_LOCATION
+     *
+     *  ACCESS_COARSE_LOCATION - uses only Wi-Fi and cellular networks. - low accuracy - low battery consumption
+     *  ACCESS_FINE_LOCATION - uses GPS, Wi-Fi, and cellular networks. - high accuracy - high battery consumption
+     */
 
     /**
      * Java
@@ -1309,6 +1403,7 @@ fun main() {
      * 2. Implement Hashmap
      * https://www.youtube.com/watch?v=CojCE-ojdGY
      */
+
     /**
      * 3. Pass by value vs Pass by reference
      *
@@ -1331,7 +1426,6 @@ fun main() {
      * static variables and static methods - class loader memory
      *
      */
-
 
     /**
      * 5. final keyword in java
@@ -1372,12 +1466,12 @@ fun main() {
      */
 
     /**
-     * 10.Synchronization
+     * 10. Synchronization
      * see 11
      */
 
     /**
-     * 11.volatile vs atomic vs Synchronization
+     * 11. volatile vs atomic vs Synchronization
      *
      * It's important to understand that there are two aspects to thread safety.
      * 1. execution control, and
@@ -1402,6 +1496,26 @@ fun main() {
      * Synchronization - locking the method. only one thread execution at one point
      *
      */
+
+
+    /**
+     * 12. Executors
+     */
+    //goto
+    val executors: Exceutors
+
+    /**
+     *  13. equals vs ==
+     */
+    //goto
+    val equals = Equals()
+
+
+    /**
+     * 14. SOLID Principles
+     */
+    // goto
+    val solidPrinciples = SolidPrinciples()
 
     KotlinLearn()
     /**
@@ -1470,6 +1584,16 @@ fun main() {
      * A higher-order function is a function that takes functions as parameters, or returns a function.
      */
 
+    /**
+     * 8. list vs arraylist
+     * list is like read-only arraylist in kotlin
+     * mutableList is like arraylist which can do adding, modification
+     */
+
+    /**
+     * 9. array in kotlin
+     *
+     */
 
     /**
      * 10. lazy vs lateinit

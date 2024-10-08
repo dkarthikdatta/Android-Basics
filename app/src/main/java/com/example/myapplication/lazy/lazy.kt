@@ -2,7 +2,7 @@ package com.example.myapplication.lazy
 
 
 // initilaizes only once - value is computed only once
-val synchronizedNumber by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+val synchronizedNumber by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { // by default normal lazy also synchronized
     println("Initialized")
     1.rangeTo(100).random()
 }
@@ -19,6 +19,11 @@ val noneNumber by lazy(LazyThreadSafetyMode.NONE) {
     1.rangeTo(100).random()
 }
 
+val defaultNumber by lazy {
+    println("Initialized")
+    1.rangeTo(100).random()
+}
+
 
 fun main() {
 //    Thread { println(synchronizedNumber) }.start()
@@ -27,8 +32,11 @@ fun main() {
 //    Thread { println(publicationNumber) }.start()
 //    Thread { println(publicationNumber) }.start()
 
-    Thread { println(noneNumber) }.start()
-    Thread { println(noneNumber) }.start()
+//    Thread { println(noneNumber) }.start()
+//    Thread { println(noneNumber) }.start()
+
+    Thread { println(defaultNumber) }.start()
+    Thread { println(defaultNumber) }.start()
 
 }
 

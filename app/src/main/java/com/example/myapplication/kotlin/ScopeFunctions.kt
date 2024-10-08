@@ -45,7 +45,7 @@ fun main() {
     /**
      * let, run -> returns Lambda result (meaning last line)
      * apply, also -> returns object itself
-     * with -> not a extension function -> doesn't returns anything
+     * with -> not a extension function -> returns last line
      */
 
     /**
@@ -90,6 +90,12 @@ fun main() {
     }
     println(alsoResult)
     println(myDataclass1) // all scope functions changes the data of the operating object
+
+    val withResult = with(myDataclass1){
+        id = 1
+        "last statement"
+    }
+    println(withResult)
 }
 
 class ScopeFunctions(){

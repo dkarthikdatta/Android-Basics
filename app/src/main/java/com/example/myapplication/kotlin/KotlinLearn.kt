@@ -91,7 +91,7 @@ enum class Color {
     YELLOW
 }
 
-enum class ColorHex(val hex: String) {
+enum class ColorHex(private val hex: String) {
     RED("red"), // having property, just like RED = "red"
     BLUE("blue"),
     YELLOW("yellow");
@@ -99,6 +99,12 @@ enum class ColorHex(val hex: String) {
     fun printHex() {
         println("Hex code of $name is $hex")    // having function
     }
+}
+
+enum class TestEnums(val value: String) {
+    ONE("1"),
+    TWO("2"),
+    THREE("3")
 }
 
 sealed class MyResult {

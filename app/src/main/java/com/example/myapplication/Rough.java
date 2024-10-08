@@ -1,13 +1,21 @@
 package com.example.myapplication;
 
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+
 import com.example.myapplication.dsAlgo.Utility;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 
 class Pair {
@@ -20,19 +28,20 @@ class Pair {
     }
 }
 
+
 public class Rough {
     public static void main(String[] args) {
 
-        String s1 = new String("kar");
-        String s2 = new String("kar");
-        String s3 = "kar";
-        String s4 = "kar";
-        System.out.println(s1 == s2);
-        System.out.println(s1.equals(s2));
-        System.out.println(s3 == s4);
-        s4 = "kart";
-        System.out.println(s3);
-        System.out.println(s4);
+//        String s1 = new String("kar");
+//        String s2 = new String("kar");
+//        String s3 = "kar";
+//        String s4 = "kar";
+//        System.out.println(s1 == s2);
+//        System.out.println(s1.equals(s2));
+//        System.out.println(s3 == s4);
+//        s4 = "kart";
+//        System.out.println(s3);
+//        System.out.println(s4);
 
 //        Solution solution = new Solution();
 //        List<Integer> ans = solution.survivedRobotsHealths(new int[]{3, 5, 2, 6}, new int[]{10, 10, 15, 12}, "RLRL");
@@ -42,6 +51,54 @@ public class Rough {
 
 //        System.out.println(backspaceCompare("xywrrmp", "xywrrmu#p"));
 //        System.out.println(consecutiveNumbersSum(9548114));
+
+        boolean has = haveConflict(new String[]{"01:00", "02:00"}, new String[]{"01:20", "03:00"});
+        System.out.println(has);
+    }
+
+
+    public static boolean haveConflict(String[] event1, String[] event2) {
+        List<Event> events = new ArrayList<>();
+        events.add(new Event(Integer.parseInt(event1[0].replace(":", "")), 0));
+        events.add(new Event((Integer.parseInt(event1[1].replace(":", "")) + 1), 1));
+        events.add(new Event(Integer.parseInt(event2[0].replace(":", "")), 0));
+        events.add(new Event((Integer.parseInt(event2[1].replace(":", "")) + 1), 1));
+
+        Collections.sort(events, (Event a, Event b) -> a.time == b.time ? a.type - b.type : a.time - b.time);
+        int overLap = 0;
+        int maxOverLap = Integer.MIN_VALUE;
+        for (Event event : events) {
+            System.out.println(event.toString());
+            if (event.type == 0) {
+                overLap++;
+                maxOverLap = Math.max(maxOverLap, overLap);
+            } else {
+                overLap--;
+            }
+        }
+
+        return maxOverLap > 1;
+    }
+
+    public void printAllViews(View view) {
+        Queue<View> queue = new LinkedList<>();
+
+        System.out.println(view.getClass().getSimpleName());
+
+        if (view instanceof ViewGroup) {
+            queue.add(view);
+            while (queue.size() != 0) {
+                View v = queue.poll();
+                int count = ((ViewGroup) v).getChildCount();
+                for(int i=0; i<count; i++){
+                    View child = ((ViewGroup) v).getChildAt(i);
+                    System.out.println(child.getClass().getSimpleName());
+                    if(child instanceof ViewGroup){
+                        queue.add(child);
+                    }
+                }
+            }
+        }
     }
 
     public static boolean backspaceCompare(String s, String t) {
@@ -121,6 +178,22 @@ public class Rough {
             head--;
         }
         return ans;
+    }
+}
+
+class Event {
+    int time;
+    int type;
+
+    public Event(int time, int type) {
+        this.time = time;
+        this.type = type;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "time" + time + " type = " + type;
     }
 }
 

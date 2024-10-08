@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -13,6 +14,8 @@ import com.example.myapplication.coroutines.view.CoroutineActivity
 import com.example.myapplication.databinding.ActivitySecondBinding
 import com.example.myapplication.mvvm.view.MainActivity
 import com.example.myapplication.mvvmlivedata.view.vm.MyViewModelLiveData
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 class SecondActivity: AppCompatActivity() {
 
@@ -39,6 +42,33 @@ class SecondActivity: AppCompatActivity() {
         binding.toast.setOnClickListener {
             myViewModelLiveData.onToastClicked()
         }
+
+
+        val countDownTimer = object : CountDownTimer(10000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val f: NumberFormat = DecimalFormat("00")
+                val hour = millisUntilFinished / 3600000 % 24
+                val min = millisUntilFinished / 60000 % 60
+                val sec = millisUntilFinished / 1000 % 60
+                binding.coutdown.text = f.format(hour) + ":" + f.format(min) + ":" + f.format(sec)
+            }
+
+            override fun onFinish() {
+                TODO("Not yet implemented")
+            }
+
+        }
+
+        binding.start.setOnClickListener {
+            countDownTimer.start()
+        }
+        binding.stop.setOnClickListener {
+            countDownTimer
+            countDownTimer.cancel()
+        }
+
+
+
 
         /**
          * yes, without singleLiveEvent, by just using livedata and mutablelivedata,

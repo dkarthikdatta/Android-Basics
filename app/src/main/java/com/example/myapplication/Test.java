@@ -32,6 +32,16 @@ public class Test {
             }
         };
         r.run();
+        int[] integerArray = new int[2];
+        int normalInt = 2;
+        String[] stringArray = new String[2];
+        Notepad[] customObjectArray = new Notepad[2];
+
+        int[] intArrayInitialization = new int[]{1,2};
+        String[] stringArrayInit = new String[]{"a", "b"};
+
+        Notepad[] customObjectArrayInitialization = new Notepad[]{new Notepad(), new Notepad()};
+        int[][] twoDArray = new int[5][2];
 
         int [][] arr = new int[][] {
                 {1,2},

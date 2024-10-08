@@ -1,4 +1,4 @@
-//package com.example.myapplication.kotlin
+package com.example.myapplication.kotlin
 //
 //import androidx.navigation.Navigator
 //import androidx.resourceinspection.annotation.Attribute.IntMap
@@ -21,6 +21,11 @@
 //import java.util.concurrent.Flow
 //import javax.inject.Named
 //import javax.inject.Singleton
+
+// constructor val var, inline, equals and ==
+
+
+
 //
 //val TAG = "KOTLIN_LEARN "
 ////fun main(){

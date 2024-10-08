@@ -1,6 +1,5 @@
 package com.example.myapplication.machinecoding.parkinglot.models.vm
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 

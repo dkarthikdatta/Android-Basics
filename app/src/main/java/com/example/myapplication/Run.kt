@@ -3,6 +3,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -12,7 +13,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.coroutines.cancellation.CancellationException
 
-suspend fun main() {
+ suspend fun main() {
 //    startNormalJob()
 //    startSupervisorJob()
 //    val flow = getFlow()
@@ -20,11 +21,39 @@ suspend fun main() {
 //        println(it)
 //    }
 
-    val myString = "Datta"
-    val ans = myString.modifiedExtensionString()
-    println(ans)
-    getUsers().collect {
-        println(it?.body()?.get(0))
+//    val myString = "Datta"
+//    val ans = myString.modifiedExtensionString()
+//    println(ans)
+//    getUsers().collect {
+//        println(it?.body()?.get(0))
+//    }
+
+//    latestTest()
+
+     val job2 = CoroutineScope(Dispatchers.IO).async {
+         getFollowers()
+     }
+     println("i am a normal line before") // waiting till job2 response is available
+     println("Number of followers = " + job2.await()) // waiting till job2 response is available
+     println("i am a normal line after") // waiting till job2 response is available
+ }
+
+private suspend fun getFollowers(): Int {
+    delay(5000)
+    return 99
+}
+
+suspend fun latestTest() {
+    CoroutineScope(Dispatchers.IO).launch {
+        println("1st, CoroutineScope, IO Dispatcher ${Thread.currentThread().name}")
+        shiftAnotherCoroutine()
+    }
+    delay(1)
+}
+
+fun shiftAnotherCoroutine() {
+    CoroutineScope(Dispatchers.Default).launch {
+        println("2nd, CoroutineScope, Default Dispatcher ${Thread.currentThread().name}")
     }
 }
 

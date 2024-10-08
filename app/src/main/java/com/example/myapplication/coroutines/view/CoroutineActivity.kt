@@ -13,7 +13,10 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -77,16 +80,16 @@ class CoroutineActivity : AppCompatActivity() {
 //            viewModel.makeApiCall()
 
             //imp
-//            CoroutineScope(Dispatchers.IO).launch {
-//                System.out.println("CoroutineScope, IO Dispatcher " + Thread.currentThread().name)
-//            }
-//
-//            GlobalScope.launch {
-//                System.out.println("GlobalScope, No Dispatcher " + Thread.currentThread().name)
-//            }
-//            MainScope().launch {
-//                System.out.println("MainScope, No Dispatcher " + Thread.currentThread().name)
-//            }
+            CoroutineScope(Dispatchers.IO).launch {
+                System.out.println("CoroutineScope, IO Dispatcher " + Thread.currentThread().name)
+            }
+
+            GlobalScope.launch {
+                System.out.println("GlobalScope, No Dispatcher " + Thread.currentThread().name)
+            }
+            MainScope().launch {
+                System.out.println("MainScope, No Dispatcher " + Thread.currentThread().name)
+            }
 
 
             // suspend -> suspends func/coro to diff thread
@@ -102,12 +105,12 @@ class CoroutineActivity : AppCompatActivity() {
              *  COROUTINES_LEARN Ending Task 2 - no delay (as same 10 seconds time taken)
              */
 
-//            CoroutineScope(Dispatchers.IO).launch {
-//                task1()
-//            }
-//            CoroutineScope(Dispatchers.IO).launch {
-//                task2()
-//            }
+            CoroutineScope(Dispatchers.IO).launch {
+                task1()
+            }
+            CoroutineScope(Dispatchers.IO).launch {
+                task2()
+            }
 
             /**
              * 2.
@@ -118,6 +121,9 @@ class CoroutineActivity : AppCompatActivity() {
              *  COROUTINES_LEARN Ending Task 2 - 10 seconds
              *
              *  tasks inside one coroutine runs in sequence, regardless of whether they are suspend or not and  suspension points are available or not
+             *
+             *  suspend functions/normal functions/lines of code inside coroutines execute in sequence
+             *  coroutines inside coroutines execute concurrently
              */
 //
 //            CoroutineScope(Dispatchers.IO).launch {
@@ -187,10 +193,10 @@ class CoroutineActivity : AppCompatActivity() {
          * in below coroutine, followers variable in println will be 0 as getFollowers() takes time and its built with launch builder
          * launch -> fire and forget
          */
-//        CoroutineScope(Dispatchers.IO).launch {
-//            followers = getFollowers()
-//        }
-//        println(TAG+ "4. Number of followers = "+ followers)
+        CoroutineScope(Dispatchers.IO).launch {
+            followers = getFollowers()
+        }
+        println(TAG+ "4. Number of followers = "+ followers)
 
         /**
          * 5.
@@ -218,25 +224,28 @@ class CoroutineActivity : AppCompatActivity() {
          * 7.
          * async builder -> waits until result is returned -> returns a deferred object
          * returns whats there in the last line
+         *
+         * next lines of job.await() are not runned until the result of deffered object is available
          */
 
-//        val job2 = CoroutineScope(Dispatchers.IO).async {
-//            getFollowers()
-//        }
-//        println(TAG+ "7. Number of followers = "+ job2.await()) // waiting till job2 response is available
-
+        val job2 = CoroutineScope(Dispatchers.IO).async {
+            getFollowers()
+        }
+        println(TAG+ "I run immediate")
+        println(TAG+ "7. Number of followers = "+ job2.await()) // waiting till job2 response is available
+        println(TAG+ "I run only after above line")
         /**
          * 8.
          * more example of above using 2 coroutines
          * fb, insta parallel, but waits until both results are available
          */
-//        val fb = CoroutineScope(Dispatchers.IO).async {
-//            getFBFollowers()
-//        }
-//        val insta = CoroutineScope(Dispatchers.IO).async {
-//            getInstaFollowers()
-//        }
-//        println(TAG+ "8. Number of FB followers = "+ fb.await() + " Number of Insta followers = " + insta.await())
+        val fb = CoroutineScope(Dispatchers.IO).async {
+            getFBFollowers()
+        }
+        val insta = CoroutineScope(Dispatchers.IO).async {
+            getInstaFollowers()
+        }
+        println(TAG+ "8. Number of FB followers = "+ fb.await() + " Number of Insta followers = " + insta.await())
 
         /**
          * 9.

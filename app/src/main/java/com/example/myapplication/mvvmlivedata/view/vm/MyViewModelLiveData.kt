@@ -23,7 +23,7 @@ class MyViewModelLiveData: ViewModel() {
         factsLiveData.value = "Data Changed / Update"
     }
      */
-    private val factsLiveDataObject = MutableLiveData<String>("This is a fact")
+    private val factsLiveDataObject = SingleLiveEvent<String>()
 
     // here, instead of observing directly on MutableLiveData object,
     // we are accessing/ observing on LiveData (non mutable), which again observes MutableLiveData by getter property
@@ -40,7 +40,7 @@ class MyViewModelLiveData: ViewModel() {
         get() = toastMsg
 
     fun updateFactsData(){
-         factsLiveDataObject.value = "Data Changed / Update"
+         factsLiveDataObject.setValue("Data Changed / Update")
     }
 
     fun onToastClicked() {
