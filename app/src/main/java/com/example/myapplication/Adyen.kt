@@ -30,12 +30,34 @@ package com.example.myapplication
  *  4. Plugins
  *
  * Questions -
+ * My question
  * 1. Which of the above 4 has high number of clients.
  * 2. Will the role which i am giving, involves in all above 4 products or specific product
- * 3. Not a question but NYC1 card reader looks cute
+ * 3. Not a question but NYC1 card reader looks cute. SFO1is new multimedia countertop terminal
+ *
+ * // say -> i have 11 credit cards and interested in this space
+ *
+ * Their question
+ * 1. Why do you want to join Adyen
+ * - I like the different kind of people here in Adyen from all over the over the world. When I searched for
+ * Android in Adyen linkedin page, colleagues are there from all over the globe
+ * - With the clients like Uber, McDonald, Booking.com, Linkedin, Microsoft,
+ * I can understand how fast and at what standard the products are building. That's an inspiring element for me
+ * - The role, Kotlin developer, glad that you took the step to utilize latest technologies.
+ * I see kotlin as future of all platforms
+ *
+ * All customers
+ * Long term decisions
+ * Fast and iterate
+ * Team - Work as Team
+ * Own path
+ * Pick the phone
+ * Talk straight
+ * Different Perspective
  *
  *
  * 2.Adyen Formula
+ *
  *  1. We build to benefit all customers (not just one)
  *  2. We make good decisions and consider the long-term benefits for our customers, Adyen and the world at large
  *  3. We launch fast and iterate

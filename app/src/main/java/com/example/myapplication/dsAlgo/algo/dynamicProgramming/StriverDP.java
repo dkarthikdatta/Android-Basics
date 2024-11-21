@@ -28,129 +28,132 @@ import java.util.List;
 public class StriverDP {
 
     public static void main(String[] args) {
-        nonDPfibonacci(40);
-        memorizationFibonacci(40);
-        tabulationFibonacci(40);
-
-//         noExtraSpaceDP(40) // using prev and prev2
-
-//        https://www.naukri.com/code360/problems/count-ways-to-reach-nth-stairs_798650?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
-        climbStairs(); // count distinct ways // same as fibonacci
-
-//      https://www.naukri.com/code360/problems/frog-jump_3621012?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
-        // frog can jump one step or two step. find min energy required to reach end step such that it consumes min energy by jumping either one or two steps.
-        frogJumpRecursion();
-        memorizationFrogJump(new int[]{20, 30, 40, 20});
-        tabulationFrogJump(new int[]{20, 30, 40, 20});
-
-//      https://atcoder.jp/contests/dp/tasks/dp_b
-        // same sum, solve when frog can jump k steps
-        tabulationFrogJumpKSteps(new int[]{20, 30, 40, 20, 40, 40, 50, 60}, 4);
-
-//      https://www.naukri.com/code360/problems/maximum-sum-of-non-adjacent-elements_843261?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
-        // max sum of subsequence where you should pick non adjacent numbers
-        tabulationNonAdjSubsequnceMaxSum(new int[]{-3, -5, 9});
-        memorizationNonAdjSubsequnceMaxSum(new int[]{-3, -5, 9});
-
-//      https://www.youtube.com/watch?v=AE39gJYuRog&list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY&index=8
-//      https://www.naukri.com/code360/problems/ninja-s-training_3621003?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
-        ninjaTraining(3, new int[][]{
-                {1, 2, 5},
-                {3, 1, 1},
-                {3, 3, 3}
-        });
-//        tabulationNinjaTraining(3, new int[][]{
+        uniquePathIn2DArray(3, 3);
+    }
+//    public static void main(String[] args) {
+//        nonDPfibonacci(40);
+//        memorizationFibonacci(40);
+//        tabulationFibonacci(40);
+//
+////         noExtraSpaceDP(40) // using prev and prev2
+//
+////        https://www.naukri.com/code360/problems/count-ways-to-reach-nth-stairs_798650?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
+//        climbStairs(); // count distinct ways // same as fibonacci
+//
+////      https://www.naukri.com/code360/problems/frog-jump_3621012?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
+//        // frog can jump one step or two step. find min energy required to reach end step such that it consumes min energy by jumping either one or two steps.
+//        frogJumpRecursion();
+//        memorizationFrogJump(new int[]{20, 30, 40, 20});
+//        tabulationFrogJump(new int[]{20, 30, 40, 20});
+//
+////      https://atcoder.jp/contests/dp/tasks/dp_b
+//        // same sum, solve when frog can jump k steps
+//        tabulationFrogJumpKSteps(new int[]{20, 30, 40, 20, 40, 40, 50, 60}, 4);
+//
+////      https://www.naukri.com/code360/problems/maximum-sum-of-non-adjacent-elements_843261?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
+//        // max sum of subsequence where you should pick non adjacent numbers
+//        tabulationNonAdjSubsequnceMaxSum(new int[]{-3, -5, 9});
+//        memorizationNonAdjSubsequnceMaxSum(new int[]{-3, -5, 9});
+//
+////      https://www.youtube.com/watch?v=AE39gJYuRog&list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY&index=8
+////      https://www.naukri.com/code360/problems/ninja-s-training_3621003?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
+//        ninjaTraining(3, new int[][]{
 //                {1, 2, 5},
 //                {3, 1, 1},
 //                {3, 3, 3}
 //        });
-
-//          https://www.naukri.com/code360/problems/total-unique-paths_1081470?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
-//        uniquePathIn2DArray(3, 3);
-//        uniquePathIn2DArrayMaze(new int[][]{
-//                {0, 0, 0},
-//                {0, 0, 0},
-//                {0, 0, 0}
-//        });
-
-        ArrayList<Integer> one = new ArrayList<>(Arrays.asList(0, 0, 0));
-        ArrayList<Integer> two = new ArrayList<>(Arrays.asList(0, -1, 0));
-        ArrayList<Integer> three = new ArrayList<>(Arrays.asList(0, 0, 0));
+////        tabulationninjaTraining(3, new int[][]{
+////                {1, 2, 5},
+////                {3, 1, 1},
+////                {3, 3, 3}
+////        });
 //
-        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
-        ans.add(one);
-        ans.add(two);
-        ans.add(three);
+////          https://www.naukri.com/code360/problems/total-unique-paths_1081470?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
+////        uniquePathIn2DArray(3, 3);
+////        uniquePathIn2DArrayMaze(new int[][]{
+////                {0, 0, 0},
+////                {0, 0, 0},
+////                {0, 0, 0}
+////        });
 //
-//          https://www.naukri.com/code360/problems/maze-obstacles_977241?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
-        mazeObstacles(ans);
-
-//      https://www.naukri.com/code360/problems/minimum-path-sum_985349?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
-//        minimumSumPath(new int[][]{
-//                {8, 1, 6},
-//                {4, 4, 16},
-//                {2, 7, 20},
-//                {20, 7, 20}
-//        });
-
-//        minimumSumPathTabulation(new int[][]{
-//                {8, 1, 6},
-//                {4, 4, 16},
-//                {2, 7, 20},
-//                {20, 7, 20}
-//        });
-
-//        int ans = getMaxPathSumVariableStart(new int[][]{
-//                {1, 2, 10, 4},
-//                {100, 3, 2, 1},
-//                {1, 1, 20, 2}
-//        });
-//        System.out.println(ans);
-
-//      https://www.naukri.com/code360/problems/maximum-path-sum-in-the-matrix_797998?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
-//        int ans1 = getMaxPathSumVariableStart(new int[][]{
-//                {10, 10, 2, -13, 20, 4},
-//                {1, -9, -81, 30, 2, 5},
-//                {0, 10, 4, -79, 2, -10},
-//                {1, -5, 2, 20, -11, 4}
-//        });
-//        System.out.println(ans1);
+//        ArrayList<Integer> one = new ArrayList<>(Arrays.asList(0, 0, 0));
+//        ArrayList<Integer> two = new ArrayList<>(Arrays.asList(0, -1, 0));
+//        ArrayList<Integer> three = new ArrayList<>(Arrays.asList(0, 0, 0));
+////
+//        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+//        ans.add(one);
+//        ans.add(two);
+//        ans.add(three);
+////
+////          https://www.naukri.com/code360/problems/maze-obstacles_977241?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
+//        mazeObstacles(ans);
 //
-//        int ans2 = getMaxPathSumVariableStartTabulation(new int[][]{
-//                {10, 10, 2, -13, 20, 4},
-//                {1, -9, -81, 30, 2, 5},
-//                {0, 10, 4, -79, 2, -10},
-//                {1, -5, 2, 20, -11, 4}
-//        });
-//        System.out.println(ans2);
-
-//      https://www.naukri.com/code360/problems/subset-sum-equal-to-k_1550954?leftPanelTab=1%3Fsource%3Dyoutube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
-//        subsetSumToK(4, 4, new int[]{6, 1, 2, 1});
-//        subsetSumToKTabulation(4, 4, new int[]{6, 1, 2, 1});
-
-        int[] weights = {1, 2, 4, 5};
-        int[] values = {5, 4, 8, 6};
-        int maxWeight = 5;
-
-//        zeroOneKnapSackRecursion(weights, values, maxWeight);
-//        zeroOneKnapSackMemorization(weights, values, maxWeight);
-//        zeroOneKnapSackTabulation(weights, values, maxWeight);
-
-//        int[] coins = {12, 1, 3};
-//        minimumCoinsRecursion(coins, 4);
-//        minimumCoinsDp(coins, 4);
-
-//        int[] denominations = {1, 2, 3};
-//        countWaysToMakeChangeRecursion(denominations, 4);
-//        countWaysToMakeChangeDp(denominations, 4);
+////      https://www.naukri.com/code360/problems/minimum-path-sum_985349?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
+////        minimumSumPath(new int[][]{
+////                {8, 1, 6},
+////                {4, 4, 16},
+////                {2, 7, 20},
+////                {20, 7, 20}
+////        });
 //
-//        String s1 = "adebc";
-//        String s2 = "dcadb";
+////        minimumSumPathTabulation(new int[][]{
+////                {8, 1, 6},
+////                {4, 4, 16},
+////                {2, 7, 20},
+////                {20, 7, 20}
+////        });
 //
-//        longestCommonSubsequenceDp(s1, s2);
-//        longestCommonSubsequenceDpTabulation(s1, s2);
-//        letterCombinations("23");
-    }
+////        int ans = getMaxPathSumVariableStart(new int[][]{
+////                {1, 2, 10, 4},
+////                {100, 3, 2, 1},
+////                {1, 1, 20, 2}
+////        });
+////        System.out.println(ans);
+//
+////      https://www.naukri.com/code360/problems/maximum-path-sum-in-the-matrix_797998?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
+////        int ans1 = getMaxPathSumVariableStart(new int[][]{
+////                {10, 10, 2, -13, 20, 4},
+////                {1, -9, -81, 30, 2, 5},
+////                {0, 10, 4, -79, 2, -10},
+////                {1, -5, 2, 20, -11, 4}
+////        });
+////        System.out.println(ans1);
+////
+////        int ans2 = getMaxPathSumVariableStartTabulation(new int[][]{
+////                {10, 10, 2, -13, 20, 4},
+////                {1, -9, -81, 30, 2, 5},
+////                {0, 10, 4, -79, 2, -10},
+////                {1, -5, 2, 20, -11, 4}
+////        });
+////        System.out.println(ans2);
+//
+////      https://www.naukri.com/code360/problems/subset-sum-equal-to-k_1550954?leftPanelTab=1%3Fsource%3Dyoutube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
+////        subsetSumToK(4, 4, new int[]{6, 1, 2, 1});
+////        subsetSumToKTabulation(4, 4, new int[]{6, 1, 2, 1});
+//
+//        int[] weights = {1, 2, 4, 5};
+//        int[] values = {5, 4, 8, 6};
+//        int maxWeight = 5;
+//
+////        zeroOneKnapSackRecursion(weights, values, maxWeight);
+////        zeroOneKnapSackMemorization(weights, values, maxWeight);
+////        zeroOneKnapSackTabulation(weights, values, maxWeight);
+//
+////        int[] coins = {12, 1, 3};
+////        minimumCoinsRecursion(coins, 4);
+////        minimumCoinsDp(coins, 4);
+//
+////        int[] denominations = {1, 2, 3};
+////        countWaysToMakeChangeRecursion(denominations, 4);
+////        countWaysToMakeChangeDp(denominations, 4);
+////
+////        String s1 = "adebc";
+////        String s2 = "dcadb";
+////
+////        longestCommonSubsequenceDp(s1, s2);
+////        longestCommonSubsequenceDpTabulation(s1, s2);
+////        letterCombinations("23");
+//    }
 
     public static List<String> letterCombinations(String digits) {
         HashMap<Character, ArrayList<Character>> hm = new HashMap<>();
@@ -668,10 +671,13 @@ public class StriverDP {
         for (int[] row : dp) {
             Arrays.fill(row, -1);
         }
-        System.out.println(uniquePathIn2DArrayUtil(M, N, dp, M - 1, N - 1));
+        System.out.println(uniquePathIn2DArrayUtil(M, N, dp, M - 1, N - 1, "init"));
+        Utility.print2DArray(dp);
     }
 
-    private static int uniquePathIn2DArrayUtil(int M, int N, int[][] dp, int i, int j) {
+    private static int uniquePathIn2DArrayUtil(int M, int N, int[][] dp, int i, int j, String source) {
+        System.out.println("i = " + i + ", j= " + j + " source = " + source );
+        Utility.print2DArray(dp);
         if (i == 0 && j == 0) {
             return 1;
         }
@@ -682,8 +688,8 @@ public class StriverDP {
         if (dp[i][j] != -1) {
             return dp[i][j];
         }
-        int up = uniquePathIn2DArrayUtil(M, N, dp, i - 1, j);
-        int left = uniquePathIn2DArrayUtil(M, N, dp, i, j - 1);
+        int up = uniquePathIn2DArrayUtil(M, N, dp, i - 1, j, "up");
+        int left = uniquePathIn2DArrayUtil(M, N, dp, i, j - 1, "left");
         return dp[i][j] = up + left;
     }
 

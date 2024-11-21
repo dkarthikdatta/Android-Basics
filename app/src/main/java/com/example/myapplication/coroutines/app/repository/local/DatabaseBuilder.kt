@@ -1,15 +1,15 @@
-package com.example.myapplication.flow.mvvm.db.dbRelated
+package com.example.myapplication.coroutines.app.repository.local
 
 import android.content.Context
 import androidx.room.Room
 
-object DatabaseBuilder {
+class DatabaseBuilder {
 
-    private var INSTANCE: AppDatabase? = null
+    private var INSTANCE: MyDatabase? = null
 
-    fun getInstance(context: Context): AppDatabase {
+    fun getInstance(context: Context): MyDatabase {
         if (INSTANCE == null) {
-            synchronized(AppDatabase::class) {
+            synchronized(MyDatabase::class) {
                 if (INSTANCE == null) {
                     INSTANCE = buildRoomDB(context)
                 }
@@ -21,7 +21,8 @@ object DatabaseBuilder {
     private fun buildRoomDB(context: Context) =
         Room.databaseBuilder(
             context.applicationContext,
-            AppDatabase::class.java,
+            MyDatabase::class.java,
             "learn-kotlin-flow"
         ).build()
+
 }

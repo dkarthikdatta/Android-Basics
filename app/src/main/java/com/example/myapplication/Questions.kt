@@ -166,6 +166,9 @@ fun main() {
      *
      * Design Patterns
      * 1. What I know
+     *
+     * SQL Joins
+     * Inner Join, Left Join, Right Join, Full Outer Join, Self Join
      */
 
 
@@ -178,6 +181,14 @@ fun main() {
      * Recycler view, object vs class, adyen formula - how they set to my work exp, example for each formula
      * Room Database
      *
+     * Room Database
+     * Dynamic Programming solution
+     * Coroutines
+     * Flows - Shared vs State
+     * Projects - Zeotap SDK
+     * Adyen file
+     * This file
+     * Kotlin Multiplatform
      */
 
     /**
@@ -1610,7 +1621,46 @@ fun main() {
     val lazy = lazyClass()
 
     /**
+     * System design
+     *
+     * 1. Purpose - Business requirements
+     *
+     * 2. Input -
+     *      1. get idea of feature
+     *      2. sketches/screens if possible
+     *      3. extra requirements and limitations
+     *
+     *      4.Maintainability — are we designing MVP or PoC or full scale system? How big is the team which will implement my design?
+     *      5. Testability - how are we testing
+     *      6. Scalability -  ability to reuse their code in different platforms - KMM?
+     *      7. Performance - in house sdk/ third party
+     *      8. Security - PII? Keystore
+     *      9. Availability - Which OS, able to work offline, which languages
+     *
+     *
+     * 3. API design
+     *      1. /get
+     *      2. /POST
+     *      3. /PUT
+     *      4. /DELETE
+     *
+     *
+     *
+     *
+     */
+
+    /**
      * Design Patterns
+     *
+     *
+     * Creational design patterns provide various object creation mechanisms, which increase flexibility
+     * and reuse of existing code.
+     *
+     * Structural design patterns explain how to assemble objects and classes into larger structures,
+     * while keeping these structures flexible and efficient.
+     *
+     * Behavioral design patterns are concerned with algorithms and the assignment of responsibilities between objects.
+     * how they interact
      */
     //goto
     val vehicleFactory: VehicleFactory
@@ -1637,6 +1687,112 @@ fun main() {
      *
      */
 
+    /**
+     * SQL Joins
+     */
+
+    /**
+     * Customers Table                          Orders Table
+     * id   cust_name   designation |           or_id   amount  cust_id
+     * 1    abc         A           |           601     1000    1
+     * 2    pqr         B           |           602     2000    4
+     * 3    mno         C           |           603     2500    2
+     *
+     */
+
+    /**
+     * Inner Join
+     * The common part between two tables
+     *
+     * SELECT Orders.or_id, Customers.cust_name
+     * FROM ORDERS INNER JOIN CUSTOMERS ON Orders.cust_id == Customers.cust_name
+     *
+     * 1st circle -> ORDERS
+     * 2nd circle -> CUSTOMERS
+     *
+     * Output
+     * or_id    cust_name
+     * 601      abc
+     * 603      pqr
+     */
+
+    /**
+     * Left Join
+     *
+     * When two tables are joined, the common Part and the remaining left table rows
+     *
+     *
+     * SELECT Orders.or_id, Customers.cust_name
+     * FROM ORDERS LEFT JOIN CUSTOMERS ON Orders.cust_id == Customers.cust_name
+     *
+     * Left circle -> ORDERS (1st mentioned)
+     * Right circle -> CUSTOMERS
+     *
+     * Output
+     * or_id    cust_name
+     * 601      abc
+     * 602      null
+     * 603      pqr
+     *
+     */
+
+    /**
+     * Right Join
+     *
+     * When two tables are joined, the common Part and the remaining right table rows
+     *
+     *
+     * SELECT Orders.or_id, Customers.cust_name
+     * FROM ORDERS RIGHT JOIN CUSTOMERS ON Orders.cust_id == Customers.cust_name
+     *
+     * Left circle -> ORDERS (1st mentioned)
+     * Right circle -> CUSTOMERS
+     *
+     * Output
+     * or_id    cust_name
+     * 601      abc
+     * 603      pqr
+     * null      mno
+     *
+     */
+
+    /**
+     * Full Outer Join
+     *
+     * When two tables are joined, Rows from both the table
+     *
+     * SELECT Orders.or_id, Customers.cust_name
+     * FROM ORDERS FULL OUTER JOIN CUSTOMERS ON Orders.cust_id == Customers.cust_name
+     *
+     * Left circle -> ORDERS (1st mentioned)
+     * Right circle -> CUSTOMERS
+     *
+     * Output
+     * or_id    cust_name
+     * 601      abc
+     * 602      null
+     * 603      pqr
+     * null     mno
+     */
+
+    /**
+     * SELF JOIN
+     *
+     * 1 table joining itself (Considered as 2)
+     *
+     * Example to find the employees who are managers
+     * since managers are also employees, their ids are also in emp_id column
+     *
+     * Table
+     * emp_id   name    manager_id      doj
+     * 121      abc     321
+     * 321      pqr     986
+     * 421      mnp`    876
+     *
+     * SELECT DISTINCT E.name
+     * FROM EMPLOYEE E INNER JOIN EMPLOYEE M ON E.emp_id == M.manager_id
+     *
+     */
 
     /**
      * PNG -> Portable Network Graphics
@@ -1896,5 +2052,27 @@ fun main() {
     /**
      * 1. Are there any sub goals for UC? i noticed native is another feature, anything like that more? like Zomato food ordering, grocery ordering, dining etc, any other sub goals/verticals
      * 2. Hierarchy level
+     */
+
+
+    /**
+     * 1. Trees -> B-Tree
+     * 2. Design Garbage Collector
+     * 3. https://www.javatpoint.com/producer-consumer-problem-in-os
+     * 4. Design a Filesystem File/Folder terminal design
+     * 5. Aggressive cows DSA
+     * 6. Binary search
+     * 7. Snake and ladder lld
+     *
+     * 8. Topological Sort using DFS.
+     * 9. https://leetcode.com/problems/course-schedule-ii/
+     * 10. https://leetcode.com/problems/meeting-rooms-ii/ -> done
+     * 11. https://leetcode.com/problems/insert-delete-getrandom-o1/description/
+     * 12. https://leetcode.com/problems/longest-substring-without-repeating-characters/description/ -> done
+     * 13. https://leetcode.com/problems/lru-cache/ -> done
+     *
+     *
+     * 14. Prefix sum - https://leetcode.com/problems/subarray-sum-equals-k/solutions/102106/java-solution-presum-hashmap/
+     *
      */
 }

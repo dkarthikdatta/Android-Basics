@@ -1,12 +1,16 @@
 package com.example.myapplication.dsAlgo.algo.binarySearch;
 
+import java.util.Arrays;
+
 public class BinarySearchSums {
 
     public static void main(String[] args) {
 //        int[] binarySearchArray = {4, 5, 6, 7, 8};
 //        binarySearch(binarySearchArray, 7);
-        int[] weights = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        shipWithinDays(weights, 5);
+//        int[] weights = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//        shipWithinDays(weights, 5);
+
+        System.out.println(aggressiveCows(new int[]{10, 1, 2, 7, 5}, 3));
     }
 
     private static void binarySearch(int[] arr, int target) {
@@ -84,5 +88,54 @@ public class BinarySearchSums {
         return days;
     }
 
+    static class  Pair {
+        boolean placed;
+        int position;
+
+         Pair(boolean placed, int position){
+            this.placed = placed;
+            this.position = position;
+        }
+    }
+
+    /**
+     * stalls -> places where we can keep cows in
+     * place k cows in n stalls such that min distance bw any 2 cows is maximum
+     * @return
+     */
+    public static int aggressiveCows(int[] stalls, int k) {
+
+        int ans = Integer.MIN_VALUE;
+
+        Arrays.sort(stalls);
+        int possibleMax = stalls[stalls.length-1]-stalls[0];
+
+        // add binary search here on minDist
+        for(int minDist=1; minDist<=possibleMax; minDist++){
+            int rem = k-1;
+            int placedAt = 0;
+            for(int i=1; i<k; i++){
+                Pair canPlace = canPlace(stalls, minDist, placedAt);
+                if(canPlace.placed){
+                    rem--;
+                    placedAt = canPlace.position;
+                }
+            }
+            if(rem == 0){
+                ans = Math.max(ans, minDist);
+            }
+        }
+
+        return ans;
+    }
+
+    private static Pair canPlace(int[] stalls, int minDist, int placedAt){
+        for(int j=placedAt+1; j<stalls.length; j++){
+            if(stalls[j]-stalls[placedAt] >= minDist){
+                return new Pair(true, j);
+            }
+        }
+        return new Pair(false, -1);
+    }
 
 }

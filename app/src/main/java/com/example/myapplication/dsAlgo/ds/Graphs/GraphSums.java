@@ -57,13 +57,13 @@ public class GraphSums {
     //BFS - Breadth for search
 
     /**
-     * 1
-     * /   \
+     *      1
+     *   /   \
      * 2     6
      * /\    / \
      * 3  4  7   8
-     * \/
-     * 5
+     *     \/
+     *      5
      * <p>
      * BFS from 1 -> 1,2,6,3,4,7,8,5
      * BFS from 6 -> 6,1,7,8,2,5,3,4
@@ -80,19 +80,19 @@ public class GraphSums {
     public static void main(String[] args) {
         GraphAdjList graphAdjList = new GraphAdjList();
         ArrayList<ArrayList<Integer>> adjList = graphAdjList.undirectedAdjList();
-//        bfs(adjList, 6);
-//        dfs(adjList, 6);
+        bfs(adjList, 6);
+        dfs(adjList, 6);
 //
 //
-//        char[][] grid = {
-//                {'1', '1', '0', '0', '0'},
-//                {'1', '1', '0', '0', '0'},
-//                {'0', '0', '1', '0', '0'},
-//                {'0', '0', '0', '1', '1'},
-//        };
-//        numIslands(grid);
+        char[][] grid = {
+                {'1', '1', '0', '0', '0'},
+                {'1', '1', '0', '0', '0'},
+                {'0', '0', '1', '0', '0'},
+                {'0', '0', '0', '1', '1'},
+        };
+        numIslands(grid);
 
-//        topologicalSort(graphAdjList.directedAcyclicGraph());
+        topologicalSort(graphAdjList.directedAcyclicGraph());
 //        topologicalSort(graphAdjList.directedAcyclicGraph2());
 //        cycleInUndirectedGraph(graphAdjList.unDirectedCyclicGraph());
         cycleInUndirectedGraph(graphAdjList.undirectedAdjList());

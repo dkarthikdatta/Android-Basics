@@ -12,30 +12,31 @@ import java.util.stream.Collectors;
 
 public class ArraySums {
     public static void main(String[] args) {
-        int[] sort012Array = {0, 2, 2, 1, 1, 0, 1, 0, 2};
-        sort012(sort012Array, 9);
-
-        int[] binaryEven = {10, 11, 12, 14, 16, 17, 18, 22, 25, 26}; //even
-        int[] binaryOdd = {10, 11, 12, 14, 16, 17, 18, 22, 25, 26, 28}; //odd
-
-        binarySearch(binaryEven, 14);
-        binarySearch(binaryOdd, 17);
-
-        int[] maxSubArray = {1, 2, 3, -2, 5};
-        maxSubArraySum(maxSubArray);
-
-        long[] mergeSortedArr1 = {13, 17, 18, 19, 20, 22, 22, 27, 36, 39, 46, 48, 50};
-        long[] mergeSortedArr2 = {4, 12, 45};
-        mergeWithoutExtraSpace(mergeSortedArr1, mergeSortedArr2);
-
-//        int[] subArraySum = {1,2,3,7,5};
-        int[] subArraySum = {0};
-        Utility.printArrayList(subarraySum(subArraySum, 1, 0), "");
-//        System.out.println(subarraySum(subArraySum, 1, 0));
-
-        System.out.println(maximumEnergy(new int[]{5, 2, -10, -5, 1}, 3));
-        System.out.println(maximumEnergy(new int[]{-9,-2,-6,-5,-8,3,0}, 1));
-        System.out.println(findKthSmallest(new int[]{6, 5}, 1435065516));
+//        int[] sort012Array = {0, 2, 2, 1, 1, 0, 1, 0, 2};
+//        sort012(sort012Array, 9);
+//
+//        int[] binaryEven = {10, 11, 12, 14, 16, 17, 18, 22, 25, 26}; //even
+//        int[] binaryOdd = {10, 11, 12, 14, 16, 17, 18, 22, 25, 26, 28}; //odd
+//
+//        binarySearch(binaryEven, 14);
+//        binarySearch(binaryOdd, 17);
+//
+//        int[] maxSubArray = {1, 2, 3, -2, 5};
+//        maxSubArraySum(maxSubArray);
+//
+//        long[] mergeSortedArr1 = {13, 17, 18, 19, 20, 22, 22, 27, 36, 39, 46, 48, 50};
+//        long[] mergeSortedArr2 = {4, 12, 45};
+//        mergeWithoutExtraSpace(mergeSortedArr1, mergeSortedArr2);
+//
+////        int[] subArraySum = {1,2,3,7,5};
+//        int[] subArraySum = {0};
+//        Utility.printArrayList(subarraySum(subArraySum, 1, 0), "");
+////        System.out.println(subarraySum(subArraySum, 1, 0));
+//
+//        System.out.println(maximumEnergy(new int[]{5, 2, -10, -5, 1}, 3));
+//        System.out.println(maximumEnergy(new int[]{-9,-2,-6,-5,-8,3,0}, 1));
+//        System.out.println(findKthSmallest(new int[]{6, 5}, 1435065516));
+        System.out.println(minMeetingRooms(new int[]{1,10,7}, new int[]{4,15,10}));
     }
     static ArrayList<Integer> subarraySum(int[] arr, int n, int s)
     {
@@ -256,5 +257,51 @@ public class ArraySums {
 
         Utility.printLongArray(arr1);
         Utility.printLongArray(arr2);
+    }
+
+    static class Pair {
+        int time;
+        char type;
+
+        Pair(int time, char type){
+            this.time = time;
+            this.type = type;
+        }
+    }
+
+    public static int minMeetingRooms(int[] start, int[] end) {
+        Pair[] meets = new Pair[start.length*2];
+
+        for(int i=0; i<start.length; i++){
+            meets[i] = new Pair(start[i], 's');
+        }
+
+        for(int i=0; i<start.length; i++){
+            meets[i+start.length] = new Pair(end[i], 'e');
+        }
+
+        int rooms = 0;
+        Arrays.sort(meets, new Comparator<Pair>(){
+            @Override
+            public int compare(Pair o1, Pair o2) {
+                if(o1.time == o2.time){
+                    return o1.type - o2.type;
+                }
+                return o1.time-o2.time;
+            }
+        });
+
+        int max = Integer.MIN_VALUE;
+        for(int i=0; i<meets.length; i++){
+            if(meets[i].type == 's'){
+                rooms++;
+            } else {
+                rooms--;
+            }
+            max = Math.max(max, rooms);
+        }
+
+        return max;
+
     }
 }
