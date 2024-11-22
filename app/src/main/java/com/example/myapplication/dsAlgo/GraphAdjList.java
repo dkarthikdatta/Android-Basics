@@ -48,9 +48,9 @@ public class GraphAdjList {
      * Directed Acyclic Graph
      * <p>
      * 3->6->1->7->8
-     * |  |^ |
-     * v  |  V
-     * 2  5  4
+     * |  |^    |
+     * v  |     V
+     * 2  5     4
      * <p>
      * Topological sort for this -> 5,3,6,2,1,7,4,8
      */

@@ -88,6 +88,52 @@ public class StackSums {
         }
         System.out.println("Next greater element = " + Arrays.toString(ans));
     }
+
+    static class Node {
+        int value;
+        int min;
+        Node next;
+
+        public Node(int value, int min, Node next){
+            this.value = value;
+            this.min = min;
+            this.next = next;
+        }
+    }
+    Node head;
+    int min = Integer.MAX_VALUE;
+    private static void minStack(){
+
+    }
+
+    public void push(int val) {
+        if(head == null){
+            min = val;
+            head = new Node(val, min, null);
+        } else {
+            min = Math.min(head.min, val);
+            head = new Node(val, min, head);
+        }
+    }
+
+    public void pop() {
+        head = head.next;
+    }
+
+    public int top() {
+        if(head == null){
+            return -1;
+        }
+        return head.value;
+    }
+
+    public int getMin() {
+        if(head == null){
+            return -1;
+        }
+        return head.min;
+    }
+
 }
 
 

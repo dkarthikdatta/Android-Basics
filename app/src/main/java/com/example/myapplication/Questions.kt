@@ -2074,5 +2074,10 @@ fun main() {
      *
      * 14. Prefix sum - https://leetcode.com/problems/subarray-sum-equals-k/solutions/102106/java-solution-presum-hashmap/
      *
+     *
+     * 15. https://leetcode.com/problems/minimum-time-to-collect-all-apples-in-a-tree/
+     * 16.https://leetcode.com/problems/subarray-sum-equals-k
+     * 17. https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list
+     *
      */
 }
